@@ -1,3 +1,4 @@
+################### The Player class ###############
 
 import copy, random,Game
 
