@@ -1,4 +1,4 @@
-
+################# The game class #############
 from Player import *
 
 class Game(object):
