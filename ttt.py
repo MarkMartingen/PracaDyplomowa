@@ -11,7 +11,6 @@ class player(object):
     def setSymbol(self,newSymbol):
         self.symbol=newSymbol
 
-
 class playerRandom(player):
     def move(self,textObj,win, points, Game, whichPlayer=1):
         '''
@@ -51,7 +50,7 @@ class playerHuman(player):
 class playerMinimax(player):
     def move(self,textObj,win, points, Game, whichPlayer):
         '''
-            Game is the board game that whichPlayer is confronted with and must choos the best possible move
+            Game is the board game that whichPlayer is confronted with and must choose the best possible move
             textObj, win and points are not used. This is only provided, so that the same code can be used to promt a 
             a minimax player to make his move, as well as a human or random player.
             
@@ -117,15 +116,52 @@ class playerMinimax(player):
         else:
             return 1
                                   
-            
-                            
-class playerNeural(player):
-    ''' TO DO: IMPLEMENT THE NEURAL NET PLAYER '''
-    pass
-
-    
+                                       
+class playerQTable(player):
+    def move(self,textObj,win, points, Game, whichPlayer):
+        '''
+            This function uses a search dictionary QTable which will be read from the file QTable.txt
+            For each Game state, the funcion will return legal move for which Qscore is the highest
+            textObj, win, points are obsolete - used only by humanPlayer
+        '''
+        #if QTable does not exist, then we shall upload it from a file and make it global,
+        # so that we do not have to upload it for each move seperately
+        try:
+            QTable
+        except NameError:
+            global QTable
+            QTable={}
+            Qfile=open("QTable.txt")
+            lines=Qfile.read().splitlines()
+            for line in lines:
+                numbers=map(float,line.split(","))
+                key=tuple(numbers[:9])
+                value=float(numbers[-1])
+                QTable[key]=value
+            Qfile.close()
+        #get all possible moves with the corresponfing Q vale from the dictionary
+        possibleMoves=[] 
+        for index in range(9):
+            if Game[index]==0:
+                newGame=copy.deepcopy(Game)
+                newGame[index]=whichPlayer
+                try:
+                    possibleMoves.append((index,QTable[tuple(newGame)]))
+                except KeyError:
+                    possibleMoves.append((index,0.0))
+                    
+        #pick the move from possibleMoves with highest Q value
+        move=possibleMoves[0] #start with the first possible move
+        for element in possibleMoves:
+            if element[1]>move[1]:
+                move=element
+        return move[0]
+        
 
 def checkForTie(Game):
+    '''
+        Takes in a Game board and returns True if is a tie and False otherwise
+    '''
     if checkForWin(Game,1)==True or checkForWin(Game,2)==True:
         return False
     else:
@@ -202,7 +238,7 @@ def checkForPlayer(win, player1):
             if x>=20 and x<=100 and y>=560 and y<=590: player=playerHuman(playerSymbol)
             if x>=120 and x<=200 and y>=560 and y<=590:player=playerRandom(playerSymbol)
             if x>=220 and x<=300 and y>=560 and y<=590:player=playerMinimax(playerSymbol)
-            if x>=320 and x<=400 and y>=560 and y<=590:player=playerNeural(playerSymbol)
+            if x>=320 and x<=400 and y>=560 and y<=590:player=playerQTable(playerSymbol)
         except AttributeError:
             pass
     return player
@@ -246,7 +282,7 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
         drawCommandButton(Point(20,560), Point(100,590), 'Human Player')
         drawCommandButton(Point(120,560), Point(200,590), 'Ranodm Player')
         drawCommandButton(Point(220,560), Point(300,590), 'Minimax Player')
-        drawCommandButton(Point(320,560), Point(400,590), 'ML2 Player')
+        drawCommandButton(Point(320,560), Point(400,590), 'QTable Player')
 
         # Since we are in display mode, the human user may choose his oponent type. Ubless player2 was specified before
         if player2==None:
@@ -324,7 +360,7 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
                 
             first=player1
         if display: time.sleep(sleepTime)
-    
+        
     if display==True:
         win.close()                                         #when the game has finished, the window should be closed
         return winner
@@ -332,10 +368,10 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
         return winner
 
 ####################################################
-
-pl1=playerHuman('O')
-pl2=playerRandom('O')
-main(pl1,None,True)
+if __name__=='__main__':
+    pl1=playerHuman('O')
+    pl2=playerRandom('O')
+    main(pl1,None,True)
 
 
 
@@ -352,12 +388,5 @@ main(pl1,None,True)
 ##print pl2.getSymbol()+' wins: ' + str(statWins[1]) + ' times'
 
 
-# TO DO:
-
-
-# 2. Add a text objct indicating who's turn it is!
-# 3. Add alpha-beta pruning to the minimax algorithm
-
-# 5. Find another ML player - neural nets player
 
 
