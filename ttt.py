@@ -10,12 +10,20 @@ class player(object):
         return self.symbol
     def setSymbol(self,newSymbol):
         self.symbol=newSymbol
+    def changePlayer(self,whichPlayer):
+        ''' Helper function which only flips the player number '''
+        if whichPlayer==1:
+            return 2
+        else:
+            return 1
+
 
 class playerRandom(player):
     def move(self,textObj,win, points, Game, whichPlayer=1):
         '''
             Implements the move for the random player, who chooses randomly from available empty fields
         '''
+        if checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2) : return  None
         emptyField=[]
         for index in range(9):
             if Game[index]==0:
@@ -30,6 +38,7 @@ class playerHuman(player):
             Implements the move of the human player based on where has she clicked on the canvas
             The human player should always be player number one, therefore the default value
         '''
+        if checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2): return  None
         EndOfMove=False
         while not EndOfMove: #the loop is needed to wait for the human player to make her move
             mouseCoords=win.checkMouse()
@@ -57,6 +66,8 @@ class playerMinimax(player):
         '''
         if sum(Game)==0:    # If the board is empty, let the minimax player always choose the middle field. This saves computing time
             move=4
+        elif checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2):
+            return None
         else:               # otherwise use the minimax function to choose the best move
         
             value=-100
@@ -108,15 +119,7 @@ class playerMinimax(player):
                         break
             return value
 
-
-    def changePlayer(self,whichPlayer):
-        ''' Helper function which only flips the player number '''
-        if whichPlayer==1:
-            return 2
-        else:
-            return 1
-                                  
-                                       
+                                      
 class playerQTable(player):
     def move(self,textObj,win, points, Game, whichPlayer):
         '''
@@ -124,6 +127,8 @@ class playerQTable(player):
             For each Game state, the funcion will return legal move for which Qscore is the highest
             textObj, win, points are obsolete - used only by humanPlayer
         '''
+
+        if checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2) : return None
         #if QTable does not exist, then we shall upload it from a file and make it global,
         # so that we do not have to upload it for each move seperately
         try:
@@ -138,6 +143,8 @@ class playerQTable(player):
                 key=tuple(numbers[:9])
                 value=float(numbers[-1])
                 QTable[key]=value
+            QTable[(0,0,0,0,whichPlayer,0,0,0,0)]=1 #if possible, start on the middle of the board
+            
             Qfile.close()
         #get all possible moves with the corresponfing Q vale from the dictionary
         possibleMoves=[] 
@@ -156,8 +163,97 @@ class playerQTable(player):
             if element[1]>move[1]:
                 move=element
         return move[0]
-        
 
+
+class playerQTable2(player):
+    def move(self,textObj,win, points, Game, whichPlayer):
+
+        #Check if a QTable already exist. If not read it from a file and close the file. The QTable will be global, so that
+        # it can live through out the entire game
+        try:
+            QTable2
+        except NameError:
+            global QTable2
+            QTable2={}
+            Qfile=open("QTable2.txt")
+            lines=Qfile.read().splitlines()
+            for line in lines:
+                numbers=map(float,line.split(","))
+                t=tuple(numbers[:9])
+                key=()
+                for e in t: key+=(int(e),)
+                value=float(numbers[-1])
+                QTable2[key]=value
+            Qfile.close()
+        
+        #get all possible moves with the corresponfing Q vale from the dictionary, if it is not the end of the game. 
+        possibleMoves=[]
+        if not (checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2)):
+            for index in range(9):
+                if Game[index]==0:
+                    newGame=copy.deepcopy(Game)
+                    newGame[index]=whichPlayer
+                    try:
+                        possibleMoves.append((index,QTable2[tuple(newGame)]))
+                    except KeyError:
+                        possibleMoves.append((index,0.0))
+                    
+        #pick the move from possibleMoves with highest Q value. If there is more than one with maximum Qvalue, then randomize.
+        # If the state is terminal - end of game - then assign zero to Qvalue
+        if possibleMoves==[]:
+            maxMove=(0,0)
+        else:
+            maxMoves=[]
+            maxMove=possibleMoves[0] #start with the first possible move
+            for element in possibleMoves:
+                if element[1]>=maxMove[1]:
+                    maxMoves.append(element)
+            maxMove=random.choice(maxMoves)
+            action=copy.deepcopy(Game)
+            action[maxMove[0]]=whichPlayer
+            action=tuple(action)
+
+        #Check if this is the first move in a game. If no, then update the Qvalue of the previous move/action
+        if sum(Game)<=2:
+            global actionHistory #This will be a container for states/actions.
+            actionHistory=[]
+        else:
+            #what is the reward? A win renders a reward of +1, a loss -1 and a tie is 0
+            if checkForWin(Game, whichPlayer):
+                Reward=1
+            elif checkForWin(Game, self.changePlayer(whichPlayer)):
+                Reward=-1
+            else:
+                Reward=0
+
+            #Update the Qvalue according to Belleman equations.
+            discountRate=0.9
+            QTable2[actionHistory[-1]]=Reward+discountRate*maxMove[1]
+            
+        #Has the game ended? If yes, we need to save QTable into a file with overwritting.
+        #Otherwise we append our move/acion into actionHistry and return it and wait for the response of our opponent/system
+
+        if checkForTie(Game) or checkForWin(Game,1) or checkForWin(Game,2):
+            self.saveToFile(QTable2,'QTable2.txt')
+            del actionHistory
+            return None
+        else:
+            actionHistory.append(action)
+            return maxMove[0]
+
+
+    def saveToFile(self,Dic, fileName):
+        f=open(fileName, 'w')
+        f.truncate(0)
+        for el in Dic.keys():
+            if Dic.keys().index(el)!=len(Dic.keys())-1:
+               f.write(','.join(map(str,el))+','+str(Dic[el])+'\n')
+            else:
+                f.write(','.join(map(str,el))+','+str(Dic[el]))
+        f.close()
+        
+        
+    
 def checkForTie(Game):
     '''
         Takes in a Game board and returns True if is a tie and False otherwise
@@ -238,7 +334,7 @@ def checkForPlayer(win, player1):
             if x>=20 and x<=100 and y>=560 and y<=590: player=playerHuman(playerSymbol)
             if x>=120 and x<=200 and y>=560 and y<=590:player=playerRandom(playerSymbol)
             if x>=220 and x<=300 and y>=560 and y<=590:player=playerMinimax(playerSymbol)
-            if x>=320 and x<=400 and y>=560 and y<=590:player=playerQTable(playerSymbol)
+            if x>=320 and x<=400 and y>=560 and y<=590:player=playerQTable2(playerSymbol)
         except AttributeError:
             pass
     return player
@@ -313,12 +409,13 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
     while not endOfGame:
         
         if first==player1:
-            whoesTurn.setText("player's 1 move ....")
-            try:
-                whoesTurn.undraw()    
-                whoesTurn.draw(win)
-            except GraphicsError:
-                pass
+            if display:
+                whoesTurn.setText("player's 1 move ....")
+                try:
+                    whoesTurn.undraw()    
+                    whoesTurn.draw(win)
+                except GraphicsError:
+                    pass
                 
                               
             move=player1.move(textObj,win, points,Game,1)
@@ -330,34 +427,41 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
                 if display:
                     drawWinLine(textObj, win)
                 endOfGame=True
+                player2.move(textObj,win, points,Game,2)    # This is only needed for the QPlayer, so that she can update Qvalues after end of game
+                player1.move(textObj,win, points,Game,1)
                 winner=(1,0)                                # this is just for stats. 
             if checkForTie(Game):
                 endOfGame=True
                 winner=(0,0)                                # this is just for stats. 
-
+                player2.move(textObj,win, points,Game,2)    # This is only needed for the QPlayer, so that she can update Qvalues after end of game
+                player1.move(textObj,win, points,Game,1)
             first=player2
         else:
-            whoesTurn.setText("player's 2 move ....")
-            try:
-                whoesTurn.undraw()    
-                whoesTurn.draw(win)
-            except GraphicsError:
-                pass
+            if display:
+                whoesTurn.setText("player's 2 move ....")
+                try:
+                    whoesTurn.undraw()    
+                    whoesTurn.draw(win)
+                except GraphicsError:
+                    pass
 
             move=player2.move(textObj,win, points,Game,2)
             Game[move]=2                                    
             if display:
-                textObj[move].setText(player2.getSymbol())  #set the symbok of the player in the correct text object
+                textObj[move].setText(player2.getSymbol())  #set the symbol of the player in the correct text object
                 textObj[move].draw(win)                     #draw new game configuration on canvas
             if checkForWin(Game,2):
                 if display:
                     drawWinLine(textObj, win)
                 endOfGame=True
                 winner=(0,1)                                # this is just for stats.
+                player1.move(textObj,win, points,Game,1)    # This is only needed for the QPlayer, so that she can update Qvalues after end of game
+                player2.move(textObj,win, points,Game,2)
             if checkForTie(Game):
                 endOfGame=True
                 winner=(0,0)                                # this is just for stats. 
-                
+                player1.move(textObj,win, points,Game,1)    # This is only needed for the QPlayer, so that she can update Qvalues after end of game
+                player2.move(textObj,win, points,Game,2)
             first=player1
         if display: time.sleep(sleepTime)
         
@@ -370,22 +474,29 @@ def main(player1,player2,display, first=random.choice([1,2]), sleepTime=0.2):
 ####################################################
 if __name__=='__main__':
     pl1=playerHuman('O')
-    pl2=playerRandom('O')
     main(pl1,None,True)
 
 
+#Checking how  players play against themselves and learning through playing:
 
-# Checking how the random player plays against itself:
-##pl1=playerRandom('X')
-##pl2=playerRandom('0')
-##
-##def plus(tuple1, tuple2):
-##    return (tuple1[0]+tuple2[0],tuple1[1]+tuple2[1])
-##statWins=(0,0)
-##for i in range(1000):
-##    statWins=plus(statWins,main(pl1,pl2,False, random.choice([1,2]), 0.0))
-##print pl1.getSymbol()+' wins: ' + str(statWins[0]) + ' times'
-##print pl2.getSymbol()+' wins: ' + str(statWins[1]) + ' times'
+def plus(tuple1, tuple2):
+    return (tuple1[0]+tuple2[0],tuple1[1]+tuple2[1])
+
+def play(pl1, pl2, numSim):
+    statWins=(0,0)
+    counter=1
+    for i in range(numSim):
+        if i>=counter*10:
+            print counter*10, ' games played...'
+            counter+=1
+        statWins=plus(statWins,main(pl1,pl2,False, random.choice([1,2]), 0.0))
+    print pl1.getSymbol()+' wins: ' + str(statWins[0]) + ' times'
+    print pl2.getSymbol()+' wins: ' + str(statWins[1]) + ' times'
+    return None
+
+
+#play(playerRandom('X'),playerQTable2('0'),1000)
+
 
 
 
