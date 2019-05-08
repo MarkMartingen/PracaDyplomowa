@@ -1,0 +1,19 @@
+\select@language {polish}
+\contentsline {chapter}{Wprowadzenie}{5}
+\contentsline {chapter}{\numberline {1}Minimax}{7}
+\contentsline {section}{\numberline {1.1}Opis algorytmu}{7}
+\contentsline {section}{\numberline {1.2}Przycinanie $\alpha $ - $\beta $}{10}
+\contentsline {section}{\numberline {1.3}Funkcja warto\IeC {\'s}ci}{11}
+\contentsline {section}{\numberline {1.4}Implementacja}{12}
+\contentsline {chapter}{\numberline {2}Q-learning}{15}
+\contentsline {section}{\numberline {2.1}Procesy decyzyjne Markowa}{15}
+\contentsline {section}{\numberline {2.2}Opis algorytmu}{18}
+\contentsline {section}{\numberline {2.3}Implementacja}{19}
+\contentsline {chapter}{\numberline {3}Deep Q-learning}{23}
+\contentsline {section}{\numberline {3.1}Rys historyczny}{23}
+\contentsline {section}{\numberline {3.2}Opis algorytmu}{23}
+\contentsline {chapter}{\numberline {4}Podsumowanie}{25}
+\contentsline {chapter}{\numberline {A}Kody}{27}
+\contentsline {section}{\numberline {A.1}Klasa gry}{27}
+\contentsline {chapter}{\numberline {B}Aplikacja}{29}
+\contentsline {chapter}{Bibliografia}{31}
