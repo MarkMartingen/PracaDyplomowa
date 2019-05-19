@@ -29,6 +29,7 @@
 	breaklines=true
 }
 \DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 % Dane magistranta:
 \autor{Marcin Basiuk}{mbp-18217}
@@ -314,13 +315,103 @@ Ostatni przykład, to ciąg $ 2, 0, 2, 2, 1, 0, 1, 1, 0, -0.0186631984604$ Warto
 	\includegraphics [scale=0.2] {ttt_5.png}
 \end{flushleft}
 
+Mając wszystkie niezbędne elementy możemy przejść do bezpośredniego zdefiniowania algorytmu:
 
 
 
-\chapter{Deep Q-learning}\label{r:Siec}
+Zaczynając od pustego zbioru wartości $q_{s}$, po 20 000 rozegranych grach z graczem losowym mamy zapisanych 
 
-\section{Rys historyczny}
-Jak poprzednio - krótki opis.
+
+\begin{enumerate}
+	\item{Inicjuj pusty zbiór z wartościami $q_{s}$}
+	\item{Ustaw parametry $\alpha$ i $\gamma$ z przedziału $[0, 1]$}
+	\item{Graj n razy z systemem w kółko i krzyzyk:}
+	\begin{enumerate}
+		\item{Jeżeli jest ruch agenta, a plansza jest w stanie $s-1$:}
+		\begin{enumerate}
+			\item{Dla każdego legalnego ruchu prowadzącego z $s-1$ do $s$  sprawdź wartość $q_{s}$ w zbiorze, a jeżeli nie ma takiego elementu w zbiorze to przyjmij $q_{s}=0$.}
+			\item{Wybierz ten ruch $\tilde{s}$, dla którego $q_{\tilde{s}} =\max_{s} q_{s}$. Jeżeli jest kilka takich ruchów, to wybierz jeden losowo.}
+			\item{Połóż $q_{s-1} = q_{s} + \alpha(R(\tilde{s}) + \gamma  q_{\tilde{s}} )$ }
+			\item{Zapisz nową wartość $q_{s-1}$ w zbiorze. Jeżeli wartość już istniała w zbiorze, to nadpisz.}
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+
+Popatrzmy teraz na wyniki uczenia. Zaczynam od pustego zbioru $q_{s}$ i rozgrywam po 100 partii z graczem losowym i z graczem stosującym minmax. Dodatkowo po każdej grze ,,opróżniam" zbiór $q_{s}$ tak żeby algorytm na razie niczego nie uczył się. Robię to po to, żeby mieć punkt odniesienia przy sprawdzaniu na ile dobrze algorytm nauczył się gry. W poniżyszych przykładach agent jest zawsze graczem korzystającym z ,,kółka", a system jest reprezentowany przez ,,krzyżyk". \\
+
+W 100 grach rozegranych z graczem losowym otrzymałem wyniki jak poniżej:
+\begin{flushleft}
+	\includegraphics [scale=0.7]{Qtable_vs_Rnd_untrained.png}
+\end{flushleft}
+Jak widać agent jest nieznacznie lepszy od systemu, ale praktycznie w granicach losowego wahania.\\
+
+Natomiast 100 gier rozegranych z graczem minimax dało 10 remisów i 90 przegranych agenta:
+\begin{flushleft}
+	\includegraphics [scale=0.7]{QTable_vs_Minimax_untrained.png}
+\end{flushleft}
+
+Po przeuczeniu algorytmu na 20 000 grach z graczem losowym, zbiór $q_{s}$ ma 775 rekordów (tyle różnych stanów nasz agent napotkał), natomiast wyniki dla 100 gier teraz wyglądają już znacznie lepiej:
+\begin{flushleft}
+	\includegraphics [scale=0.7]{Qtable_vs_Rnd_trained.png}
+\end{flushleft}
+Z graczem losowym, wytrenowany agent przegrywa tylko w 3\%, ma 76\% wygranych i 21\% remisów. Grając z tak wytrenowanym agentem można odczuć, że gra całkiem dobrze, ale jeszcze czasami potrafi wykonać poważny błąd. \\
+
+\begin{flushleft}
+	\includegraphics [scale=0.7]{QTable_vs_Minimax_trained.png}
+\end{flushleft}
+Nie ma natomiast prawie żadnej poprawy jeżeli chodzi o liczbę remisów (bo wygrać się nie da) z systemem grającym strategią minimax. Nasuwa się oczywiście pytanie, czy przetrenowanie algorytmu na grach z systemem grającym strategią minimax poprawiłoby tą statystykę?. Poniżej wyniki algorytmu po dodatkowym 10 000 grach z systemem grającym strategią minimax:
+
+\begin{flushleft}
+	\includegraphics [scale=0.7]{QTable_vs_Minimax_trained_d.png}
+\end{flushleft}
+A więc trenowanie algorytmu na systemie grającym strategią minimax odniosło skutki.  Warto jeszcze sprawdzić, czy po tym trenowania algorytm nie odnotuje gorszych wyników grając z graczem losowym:
+\begin{flushleft}
+	\includegraphics [scale=0.7]{QTable_vs_Rnd_trained_d.png}
+\end{flushleft}
+Jak widać wyniki uległy nawet poprawie. Agent po dodatkowym trenowaniu wygrywa w 84\%, przegrywa w 2\% i w 14\% remisuje. Należy jednak zaznaczyć, że takie trenowanie algorytmu z systemem, który gra zgodnie ze strategią minimax, nie jest zupełnie zgodne z pierwotną ideą, żeby algorytm nauczył się grać w kółko i krzyżyk bez żadnych dodatkowych informacji, w tym bez możliwości uczenia się przez grę z optymalną strategią. \\
+
+Na koniec dodam jeszcze, że po takim podwójnym trenowaniu, czysto subiektywne odczucie jest takie, że algorytm gra w sposób zbliżony do człowieka. Rzadko popełnia oczywiste błędy, a chwila nie uwagi kończy się zazwyczaj przegraną. 
+
+ 
+\chapter{Sieć neuronowa grająca w kółko i krzyżyk }\label{r:Siec}
+
+\section{Sieci neuronowe}
+Metoda opisana w poprzednim rozdziale ma jedną zasadniczą wadę. Dla gier o znacznie większej liczbie możliwych kombinacji plansz, zbiory z wartościami $q_{s}$ stają się ogromne. O ile jeszcze samo zapisanie takiego zbioru, zważywszy na szybki rozwój elektronicznych nośników danych, mógłby być możliwy, to już przeszukiwanie przed każdym ruchem zbioru w celu wyłonienie tego, który maksymalizuje $q_{s}$ jest absolutnie nie wykonalne. Alternatywą do przechowywania wartości $q_{s}$ w tabeli lub pliku, może być wytrenowanie sieci neuronowej w taki sposób, żeby estymowała funkcję $s\rightarrow q_{s}$\\
+
+Się neuronowa składa się z neuronów. Natomiast jeden neuron ma określoną liczbę danych wejściowych $n$, odpowiadającą tej ilości liczbę wag $w_{i}, 1 < i\leq n+1$, (o jeden więcej niż ilość danych wejściowych) przy czym oznaczymy $w_{n+1}=b$ , oraz zadaną funkcję aktywacji $f:\mathbf{R}\rightarrow\mathbf{R}$.  Załóżmy, że dane wejściowe to $x_{1}, x_{2},...,x_{n}$.  Neuron ,,bierze" sumę ważoną tych danych powiększoną o wyraz stały $w_{n+1}$ i zwraca wartość funkcji aktywacji z tej sumy :
+
+%$$f(\sum_{i=1}^{n}w_{i}x_{i} +b)$$
+\begin{flushleft}
+	\includegraphics [scale=0.2]{neuron.png}
+\end{flushleft}
+
+
+Funkcje aktywacji może być w zasadzie dowolna. Ze względu łatwość ,,uczenia" sieci neuronowej, o czym za chwilę, warto stosować funkcje różniczkowalne (ewentualnie różniczkowalne poza kilkoma punktmai) i monotoniczne. Najczęściej stosuje się takie funkcje jak sigmoid, tanges hiporbeloczny, relu, czy softplus.  Poniżej definicja i wykres funkcji sigmoid - najbardziej klasycznego przykładu funkcji aktywacji.
+
+$$sigmoid(x) = \frac{1}{1-e^{-x}}$$
+\begin{flushleft}
+	\includegraphics [scale=0.5]{sigmoid.png}
+\end{flushleft}
+
+
+Sieć neuronowa składa się, jak nazwa wskazuje z wielu neuronów, ułożonych w warstwy. Pierwsza warstwa, to warstwa wejściowa danych. Dane z wejściowe są przekazywane neuronom w w drugiej warstwie z neuronami. Każdy neuron ma swój zestaw wag, które służy do utworzenia kombinacji liniowej, z danych wejściowych, po czym neuron zwraca wartości funkcji aktywacji na tej kombinacji liniowej. Wartości zwracane przez neurony w drugiej warstwie są z kolei przekazywane do trzeciej warstwy z neuronami, tak jak dane wejściowe zostały przekazane do drugiej warstwy (pierwszej z neuronami).  Wartości obliczone na ostatniej warstwie z neuronami, to są wartości ostatecznie zwracane przez sieć. 
+
+\begin{flushleft}
+	\includegraphics [scale=0.7]{nn_example.png}
+\end{flushleft}
+
+Rysunek powyżej przedstawia przykładową sieć, która ma trzy wartości wejściowe, a następnie warstwę 2 neuronów, warstwę 3 neuronów i ostatnią warstwę wyjściową składającą się z jednego neuronu. Wartości na strzałką pokazuję wartości wag neuronu, do którego prowadzi strzałka. Dodatkowo, na niebiesko zaznaczono wartości stałe ($b$) dla poszczególnych neuronów. Przy tworzeniu sieci neuronowej, ważne jest, żeby ilość wag dla każdego neuronu w k-tej warstwie, była równa ilości neuronów (lub danych wejściowych) w k-1-ej warstwie (plus dodatkowo wyraz stały). W przeciwnym razie nie uda się uwzględnić wszystkich wartości z k-1 warstwy w kombinacji liniowej.  \\
+ 
+Podsumowując można powiedzieć, że siecią neuronową, o zadanej strukturze, jest funkcja $\mathbf{\mathcal{N}}$, której argumenty, to zbiór wartości wejściowych $x_{1},...,x_{n}$ oraz zbiór wszystkich wag $\mathbf{W}$ i zbiór wszystkich wyrazów stałych $\mathbf{b}$, która zwraca wektor wartości $y_{1},...,y_{m}$, którego wymiar jest równy ilości neuronów w ostatniej warstwie.
+
+$$\mathcal{N}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b}) = (y_{1},...,y_{m})$$
+
+Argumenty $\mathbf{W}$  i $\mathbf{b}$ będziemy traktować jak parametry funkcji $\mathbf{\mathcal{N}}$. Chcielibyśmy tak zmieniać te parametry, żeby sieć neuronowa $\mathbf{\mathcal{N}}$ przybliżała nam jakąś rzeczywistą, obserwowalną, ale nieznaną funkcję $\Phi$: 
+$$ (x_{1},...,x_{n})\stackrel{\Phi}{\rightarrow}(y_{1},...,y_{m})$$
+
+Skoro chcemy przybliżać funkcję $\Phi$ siecią neuronową $\mathbf{\mathcal{N}}$, to potrzebna jest jakaś miara skuteczności takiego przybliżenia.  Załóżmy, że mam k-elementowy zbiór danych $\mathbf{X}$ i dla każdego  $x_{1},...,x_{n}\in\mathbf{X}$ obserwujemy $\Phi(x_{1},...,x_{n})$ oraz $\mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b})$. Jak w tym przypadku określić skuteczność przybliżania $\Phi$ za pomocą sieci $\mathbf{W}, \mathbf{b}$ na zbiorze $\mathbf{X}$? W literaturze można spotkać wiele metod, ale chyba najbardziej naturalną jest średnio kwadratowa funkcja straty (kosztu) , albo matematycznie norma $L_{2}$, którą zapiszemy jako funkcję parametrów $\mathbf{W}$ i $\mathbf{b}$.
+
+$$C(\mathbf{W}, \mathbf{b}) = \frac{1}{2k}\sum_{(x_{1},...,x_{n})\in\mathbf{X}}{\norm{\Phi(x_{1},...x_{n}) - \mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b} )}  } ^{2}$$
 
 \section{Opis algorytmu}
 W tej materii jeszcze niczego nie zrobiłem, ale będę walczył :-)
