@@ -21,6 +21,7 @@
 \usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage{caption}
+\captionsetup{justification=raggedright, singlelinecheck=false}
 \usepackage{listings}
 \usepackage{amsfonts}
 \lstset{
@@ -99,7 +100,7 @@ W kolejnych dwóch rozdziałach prezentuję algorytmy typowe dla ,,reinforcement
 
 Ponieważ koncentruje się na algorytmach, i implementacja tych algorytmów jest również częścią pracy, to chciałem wykorzystać uniwersalny obiektowy język programowania. Zdecydowałem się na Python 2.7, który w moim odczuciu łatwiej umożliwia tworzenie i obsługę klas obiektów od R.  Do pracy dołączam:
 \begin{enumerate}
-	\item \textbf{DODATEK A} - Kod z implementacją opisanych algorytmów.
+	\item \textbf{DODATEK A} - Opis oraz sam kod z implementacją opisanych algorytmów.
 	\item \textbf{DODATEK B}  - aplikacja do gry w kółko i krzyżyk
 \end{enumerate}
 
@@ -109,9 +110,13 @@ Ponieważ koncentruje się na algorytmach, i implementacja tych algorytmów jest
 
 \section{Opis algorytmu}
 
-W takich grach jak kółko i krzyżyk, szachy lub warcaby możemy mówić o przestrzeni stanów gry. Każdy stan  gry jest reprezentowany przez położenie pionków albo rozmieszczenie kółek i krzyżyków na kwadratowej planszy z 9 polami. Za każdym ruchem, jednego z dwóch graczy, gra przechodzi do innego stanu. Wszystkie możliwe gry są reprezentowane przez drzewo (drzewo w sensie teorii grafów), którego korzeniem jest początkowy stan gry, a kolejne pokolenia, reprezentują na przemian, możliwe ruchy graczy.  Każda ścieżka od korzenia do wybranego liścia  odpowiada jednej w pełni rozegranej grze. I na odwrót, każda możliwa realizacja gry ma odpowiadającą jej ścieżkę na drzewie gry.  Koncepcja ta  jest zilustrowana na poniższym rysunku zaczerpniętym z książki \cite{RL} \\
+W takich grach jak kółko i krzyżyk, szachy lub warcaby możemy mówić o przestrzeni stanów gry. Każdy stan  gry jest reprezentowany przez położenie pionków albo rozmieszczenie kółek i krzyżyków na kwadratowej planszy z 9 polami. Za każdym ruchem, jednego z dwóch graczy, gra przechodzi do innego stanu. Wszystkie możliwe gry są reprezentowane przez drzewo (drzewo w sensie teorii grafów), którego korzeniem jest początkowy stan gry, a kolejne pokolenia, reprezentują na przemian, możliwe ruchy graczy.  Każda ścieżka od korzenia do wybranego liścia  odpowiada jednej w pełni rozegranej grze. I na odwrót, każda możliwa realizacja gry ma odpowiadającą jej ścieżkę na drzewie gry.  Koncepcja ta  jest zilustrowana na poniższym rysunku \ref{Rys1} zaczerpniętym z książki \cite{RL} \\
 \begin{center}
+	\begin{figure}[h!]
 	\includegraphics [scale=0.60] {game_tree.png}
+	\caption{Drzewo gry}
+	\label{Rys1}
+	\end{figure}
 \end{center}
 
 Przypuśćmy dalej, że z każdym stanem końcowym gry (liściem) może powiązać liczbę wygranych punktów. W przypadku gier takich jak kółko i krzyżyk, może to być jedna z trzech wartości ${-1, 0, 1}$  odpowiadająca przegranej, remisowi i wygranej odpowiednio.  Możemy jednak wyjść poza ten schemat i rozważać dla stanów końcowych wiele innych wartości.  Ważne jest to, że celem gracza jest maksymalizacja zdobytych punktów. Warto jeszcze zaznaczyć, że punkty przypisane do liście są różne dla rywalizujących ze sobą graczy. W naszym przypadku gry w kółko i krzyżyk, suma punktów zdobytych przez jednego rywala, będzie równa sumie punktów zdobytych przez drugiego rywala, ale z przeciwnym znakiem.  W ogólnym. przypadku jednak tak nie musi być. \\
@@ -119,7 +124,11 @@ Przypuśćmy dalej, że z każdym stanem końcowym gry (liściem) może powiąza
  Można by naiwnie przypuszczać, że najlepszą strategią będzie wybranie takiego ruchu, który ,,otworzy'' nam ścieżkę do liści z największą możliwą ilością punktów. Zobaczymy na poniższym przykładzie wziętym ze strony \cite{Game}, że taka strategia nie jest optymalna. Wyobraźmy sobie dwie konkurujące ze sobą firmy, które rozważają poniesienie wydatków na promocję oferowanego przez siebie produktu. Firma 1 pierwsza będzie podejmować decyzję, czy inwestować w reklamę, czy też nie.  Ta decyzja odpowiada pierwszemu rozgałęzieniu na poniższym drzewie. Kolejna decyzja  należy do firmy drugiej - inwestować w reklamę lub nie. W sumie mamy cztery możliwe sytuacje (cztery różne rozgrywki) i odpowiadające im punkty (można je interpretować np. jako zysk). \\
 
 \begin{center}
+	\begin{figure}[h!]
 	\includegraphics [scale=0.30] {advertise.png}
+	\caption{Drzewo decyzyjne dla inwestowania w reklamę}
+	\label{Rys2}
+	\end{figure}
 \end{center}
  
  Jeżeli obie firmy nie zdecydują się nie inwestować w reklamę, to firma 1 zdobędzie 16 punktów, a firma 2 - 12 punktów. Przyjmijmy, że koszt reklamy to 8 punktów. Jeżeli jedna firma zdecyduje się na reklamę, a druga nie, to firma reklamująca uzyska 13 punktów, a firma która nie reklamowała swojego produktu 7 punktów (firma reklamująca się zdobywa 21 punktów z 28 dostępnych, ale ponosi 8 punktowy koszt reklamy).  Natomiast jeżeli obie firmy zdecydują się na reklamę, to podzielą między siebie rynek po równo, ale ponieważ każda z nich poniesie koszt 8 punktów, to finalnie każda zarobi po 6 punktów ($(28 - 16)/2$).\\
@@ -154,13 +163,22 @@ Okazuje się, że jeżeli gracze stosują się do powyższego algorytmu, to znac
 \section{Przycinanie $\alpha$ - $\beta$}
 Podstawowym problemem w zastosowaniach algorytmu minimax jest ilość niezbędnych operacji przy dużych drzewach reprezentujących gry.  Dla gry w kółko i krzyżyk, górnym ograniczeniem ilości możliwych gier (liści na drzewie gry) jest $9! = 362880$. W rzeczywistości ilość możliwych partii ogranicza się do kilku tysięcy, ale i tak przeliczenie wszystkich węzłów takiego drzewa na współczesnym komputerze średniej klasy zajmuje kilka sekund (przynajmniej przy amatorskiej implementacji autora niniejszej pracy). Jeżeli pomyśleć o grach takich jak szachy, w których ilość możliwych ruchów i łączna ilość ruchów w grze jest ogromna, to jasnym się staje, że algorytm minimax ma poważne ograniczenia.  \\
 
-W praktyce, żeby ograniczyć ilość wykonywanych operacji stosuje się tzw. przycinanie  $\alpha$ - $\beta$. Polega to na tym, że jeżeli wiemy, że sprawdzenie i porównanie wartości dla kolejnego ruch/węzła na drzewie gry nie zmieni wyboru gracza , to pomijamy takie obliczenie. Najlepiej zobaczyć to na prostym przykładzie. 
-\begin{center}
+W praktyce, żeby ograniczyć ilość wykonywanych operacji stosuje się tzw. przycinanie  $\alpha$ - $\beta$. Polega to na tym, że jeżeli wiemy, że sprawdzenie i porównanie wartości dla kolejnego ruch/węzła na drzewie gry nie zmieni wyboru gracza , to pomijamy takie obliczenie. Najlepiej zobaczyć to (patrz rysunek \ref{Rys3}) na prostym przykładzie. 
+
+
+\begin{figure}[h!]
 	\includegraphics [scale=0.3] {advertise2.png}
-\end{center}
+	\caption{Przycinanie $\alpha - \beta$}
+	\label{Rys3}
+\end{figure}
+
 Spójrzmy raz jeszcze na poprzedni przykład, ale nieco zmieniony. Jesteśmy graczem rozpoczynającym grę i chcemy wybrać optymalny ruch za pomocą algorytmu minimax. Minimax jest algorytmem rekurencyjnym; żeby policzyć wartości wygranej dla każdego z możliwych ruchów, trzeba "wywołać" minimax dla gracza minimalizującego na odpowiednich poddrzewach. To z kolei sprowadza się do porównywania wszystkich wartości liści, czyli ostatecznej wygranej w grze i następnie sukcesywnego podążania w górę drzewa.  Idąc od lewego dolnego liścia widzimy, że gracz minimalizujący będzie miał wygraną 6, bo  na pewno nie wybierze liścia z wartością 13 (minimalizuje naszą wygraną). Czyli jeżeli wybierzemy ruch "w lewo", to nasza wygrana, to będzie 6. Jeżeli zaczniemy kalkulować wygraną w przypadku ruch "w prawo", to widzimy, że nasz oponent wybierze 5 albo jeszcze mniej gdyby w skrajnym prawym liściu była mniejsza wartość. Ale ten fakt jest dla nas, dla gracza maksymalizującego, już bez żadnego znaczenia. Decydując się na ruch "w lewo" wygramy 6, a decydując się na ruch "w prawo" wygramy co najwyżej 5. Możemy zatem w ogóle nie sprawdzać jaka jest wartość prawego skrajnego liścia i nie wyliczać wartości wygranej gdybyśmy wykonali ruch "w prawo". Tym sposobem zaoszczędziliśmy trochę obliczeń. 
 \begin{flushleft}
+	\begin{figure}
 	\includegraphics [scale=0.45] {big_tree2.png}
+	\caption{Przycinanie $\alpha - \beta$ po raz drugi}
+	\label{Rys4}
+	\end{figure}
 \end{flushleft}
 Załóżmy, że mamy do czynienia z takim drzewem gry jak na rysunku. Ostatni wiersz przedstawia możliwe wygrane gracza maksymalizującego, rozpoczynającego grę. Na rysunku zaznaczono węzły i całe podrzewa, których gracz maksymalizujący nie potrzebuje rozpatrywać. Po lewej stronie węzłów zapisana jest maksymalna możliwa wygrana gracza maksymalizującego o ile gra znajdzie się w tym weźle (czyli wartość jaką zwraca algorytm minimax). Pogrubioną linią widać optymalną ścieżkę gry, która kończy się zdobyciem 8 punktów. Dla zwięzłości pracy nie opisuję całego toku rozumowania. Przykład ten wzięty jest z 6 wykładu profesora Winstona z \cite{MIT_AI}.\\
 
@@ -182,16 +200,21 @@ Nie udało mi się też zaimplementować algorytmu z ograniczeniem głębokości
 
 Algorytm minimax jest graczem optymalnym, nie można grać lepiej od algorytmu minimax. W szczególności, można co najwyżej zremisować. W dalszej części pracy algorytm minimax będzie obok gracza losowego (takiego co losuje z jednostajnym prawdopodobieństwem kolejny ruch z puli możliwych) punktem odniesienie skuteczności algorytmu grającego w kółko i krzyżyk. Skuteczne algorytmy powinny często remisować i rzadko przegrywać z minimax, oraz często wygrywać i rzadko remistować z minimax. Poniżej przedstawiam wyniki partii 100 gier rozegranych pomiędzy graczem stosującym minimax oraz graczem losowym  oraz 100 gier rozegranych pomiędzy dwoma graczami stosującymi algorytm minimax.\\ 
 
-\begin{flushleft}
+\begin{figure}[h!]
 	\includegraphics [scale=0.6] {random_minimax.png}
-\end{flushleft}
+	\caption{Gracz losowy vs minimax}
+	\label{Rys5}
+\end{figure}
 
-Gracz stosujący minimax nie przegrał ani razu, za to zremisował z graczem losowym 13 razy na 100 gier.
+Gracz stosujący minimax nie przegrał ani razu, za to zremisował z graczem losowym 13 razy na 100 gier co ilustruje rysunek \ref{Rys5}. 
+Natomiast dwóch graczy stosujących minimax zawsze będą ze sobą remisować (rysunek \ref{Rys6}). 
 
-\begin{flushleft}
+\begin{figure}[h!]
 	\includegraphics [scale=0.6] {minimax_minimax.png}
-\end{flushleft}
-Dwóch graczy stosujących minimax zawsze będą ze sobą remisować. 
+	\caption{Gracz minimax vs minimax}
+	\label{Rys6}
+\end{figure}
+
 
 \chapter{Q-learning}\label{r:Tablica}
 
