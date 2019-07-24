@@ -10,6 +10,7 @@ BOARD_SIZE = 9
 MIN_MINIMAX_VALUE = -1000
 MAX_MINIMAX_VALUE = 1000
 MATCHES = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
+BATCH_SIZE = 2000
 # MATCHES represents board configurations that result in a win E.g. (0,1,2)
 
 
@@ -248,6 +249,7 @@ class playerQTable(Player):
             return maxMove[0]
 
 
+
 class playerNeural(Player):
     def move(self, Game, ** keyword_parameters):
         # get all possible moves into one list, and get all possible
@@ -303,16 +305,16 @@ class playerNeural(Player):
             # the network (reinforcement learning) so that it can
             # improve weights:
             if checkForWin(Game, whichPlayer):
-                Reward = 100
+                Reward = 1  #100
                 maxMove_qvalue = 0
             elif checkForWin(Game, self.changePlayer(whichPlayer)):
-                Reward = 0.5
+                Reward = -1  #0.5
                 maxMove_qvalue = 0
             elif checkForTie(Game):
-                Reward = 75
+                Reward = 0.75  #75
                 maxMove_qvalue = 0
             else:
-                Reward = 1
+                Reward = 0  #1
                 maxMove_qvalue = possibleStates[maxState]
             # Set hyperparameters
             discountRate = 1.0
@@ -321,11 +323,14 @@ class playerNeural(Player):
             # Train the network - based on one observation.
             # The target value (label) of the previous action by Belleman equations:
 
+
             Qtarget = QNet.predict(np.array(actionHistory[-1]).reshape(BOARD_SIZE, 1)) + learning_rate * (
                 Reward + discountRate * maxMove_qvalue -
                 QNet.predict(np.array(actionHistory[-1]).reshape(BOARD_SIZE, 1)))
 
             # Pass to the network, so that it adjusts weights
+
+
             QNet.train_model(np.array(actionHistory[-1]), Qtarget)
 
         # We will finally return the maxMove, but prior to that update
@@ -334,6 +339,78 @@ class playerNeural(Player):
             actionHistory.append(maxState)
         else:  # this means, that the game has ended, se we delete actionHistory
             del actionHistory
+        return maxMove
+
+
+class playerNeural2(playerNeural):
+    def move(self, Game, ** keyword_parameters):
+
+        whichPlayer = keyword_parameters['whichPlayer']
+        possibleMoves = []
+        possibleStates = {}
+        if not (checkForTie(Game) or checkForWin(Game, 1) or checkForWin(Game, 2)):
+            for index in range(BOARD_SIZE):
+                if Game[index] == 0:
+                    possibleMoves.append(index)
+                    newGame = copy.deepcopy(Game)
+                    newGame[index] = whichPlayer
+                    possibleStates[tuple(newGame)] = 0
+
+
+            for state in possibleStates.keys():
+                possibleStates[state] = QNet.predict(np.array(state).reshape(BOARD_SIZE, 1))
+            # choose the move with the highest q-vaue or pick one randomly with probability epsilon
+
+            maxState = max(possibleStates.items(), key=lambda x: x[1][0, 0])[0]
+
+            # find the corresponding move (integer from 0 to 9):
+            for i in range(len(Game)):
+                if Game[i] != maxState[i]:
+                    maxMove = i
+
+        else:  # the game has ended, hence we do not need a maxMove.
+            maxMove = None
+
+        if sum(Game) == 0:  # if the AI agent makes the first move he will simply opt fot the middle of the board
+            maxMove = 4
+
+
+        # is there a GLOBAL list?
+        try:
+            len(GLOBAL)
+            GLOBAL_exists = True
+        except:
+            GLOBAL_exists = False
+
+
+        if GLOBAL_exists:
+            #is this the first move of a new game????
+            if sum(Game) <= 2:
+                frist_move = True
+            else:
+                frist_move = False
+
+            if not frist_move:
+                # get the reward after the previous move
+                if checkForWin(Game, whichPlayer):
+                    Reward = 0.8  # 100
+                elif checkForWin(Game, self.changePlayer(whichPlayer)):
+                    Reward = -0.8  # 0.5
+                elif checkForTie(Game):
+                    Reward = 0.5  # 75
+                else:
+                    Reward = 0  # 1
+
+                #update GLOBAL's last entry with the reward
+                #GLOBAL[-1] = GLOBAL[-1] + (Reward,)
+                GLOBAL[-1].append(Reward)
+                # update GLOBAL with new state and it's predicted q value and game hasn't finished!:
+                # get the state after choosing the best move
+            if maxMove != None:
+                newGame = copy.deepcopy(Game)
+                newGame[maxMove] = whichPlayer
+                GLOBAL.append(newGame + [float(possibleStates[maxState])])
+
         return maxMove
 
 
@@ -420,7 +497,7 @@ def checkForPlayer(win, player1):
             if 280 <= x <= 360 and 560 <= y <= 590:
                 plr = playerQTable(playerSymbol)
             if 370 <= x <= 450 and 560 <= y <= 590:
-                plr = playerNeural(playerSymbol)
+                plr = playerNeural2(playerSymbol)
         except AttributeError:
             pass
     return plr
@@ -604,12 +681,103 @@ def play(pl1, pl2, numSim):
 
 ####################################################
 if __name__ == '__main__':
-    if sys.argv[1] == 'play':
+    if len(sys.argv) == 1:
         pl1 = playerHuman('O')
         main(pl1, None, True)
+    else:
 
-    if sys.argv[1] == 'train':
-        play(playerRandom('X'), playerNeural('0'), 500)
-        QNet.save()
-        #QVT.save_to_file()
+        if sys.argv[1] == 'play' :
+            pl1 = playerHuman('O')
+            main(pl1, None, True)
 
+        if sys.argv[1] == 'train':
+            play(playerRandom('X'), playerQTable('0'), 10000)
+            QVT.save_to_file()
+
+        if sys.argv[1] == 'train2':
+            GLOBAL = []
+            global GLOBAL
+            play(playerRandom('X'), playerNeural2('0'), 1000)
+
+            #  we need to update the q-values accoriding to the update rule:
+
+            #HelpList
+            HelpList = []
+            counter = 0
+            for i in range(len(GLOBAL)):
+                if GLOBAL[i][-1] == 0:
+                    counter += 1
+                else:
+                    HelpList.append(counter)
+                    counter = 0
+
+            alpha = 0.4
+            counter = 0
+            for i in HelpList:
+                for j in range(i + counter, -1 + counter, -1):
+                    #update here:
+                    GLOBAL[i + counter][-2] = GLOBAL[i + counter][-1]
+                    exponent = i + counter - j
+                    if j != i + counter:
+                        GLOBAL[j][-2] = (1 - alpha**exponent)*GLOBAL[j][-2] + alpha**exponent*GLOBAL[i+counter][-2]
+                counter += i + 1
+
+            #prepare training set for network:
+            if len(GLOBAL) >= BATCH_SIZE:
+                TRAINING_STATES = [x[:9] for x in GLOBAL[:BATCH_SIZE]]
+                TRAINING_TARGETS = [x[-2] for x in GLOBAL[:BATCH_SIZE]]
+
+
+            # now pass this to the network so it can train:
+            QNet.train_model(np.array(TRAINING_STATES), np.array(TRAINING_TARGETS))
+            print 'training network...'
+            QNet.save()
+            print 'weights saved...'
+# ----------------------------------------------------------------------------
+#     if sys.argv[1] == 'train3':
+#         GLOBAL = []
+#         global GLOBAL
+#         play(playerRandom('X'), playerNeural2('0'), 1000)
+#
+#         #print GLOBAL
+#         #  we need to update the q-values accoriding to the update rule:
+#
+#         #HelpList
+#         HelpList = []
+#         counter = 0
+#         for i in range(len(GLOBAL)):
+#             if GLOBAL[i][-1] == 0:
+#                 counter += 1
+#             else:
+#                 HelpList.append(counter)
+#                 counter = 0
+#
+#         discount_rate = 0.95
+#         learning_rate = 0.7
+#         counter = 0
+#         for i in HelpList:
+#             for j in range(counter, i + counter + 1):
+#                 #update here:
+#                 if j != counter + i:
+#                     GLOBAL[j][-2] = GLOBAL[j][-2] + learning_rate * (GLOBAL[j][-1] +
+#                                                discount_rate * GLOBAL[j+1][-2] - GLOBAL[j][-2])
+#                 else:
+#                     GLOBAL[j][-2] = GLOBAL[j][-2] + learning_rate * (GLOBAL[j][-1] - GLOBAL[j][-2])
+#
+#             counter += i + 1
+#
+#         #print '-----------'
+#         #print GLOBAL
+#         # prepare training set for network:
+#         if len(GLOBAL) >= BATCH_SIZE:
+#             TRAINING_STATES = [x[:9] for x in GLOBAL[:BATCH_SIZE]]
+#             TRAINING_TARGETS = [x[-2] for x in GLOBAL[:BATCH_SIZE]]
+#
+#         #print np.array(TRAINING_STATES).shape
+#         #print np.array(TRAINING_TARGETS).shape
+#
+#         # now pass this to the network so it can train:
+#         QNet.train_model(np.array(TRAINING_STATES), np.array(TRAINING_TARGETS))
+#         print 'training network...'
+#         QNet.save()
+#         print 'weights saved...'
