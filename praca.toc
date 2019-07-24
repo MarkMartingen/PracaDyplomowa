@@ -9,11 +9,15 @@
 \contentsline {section}{\numberline {2.1}Procesy decyzyjne Markowa}{15}
 \contentsline {section}{\numberline {2.2}Opis algorytmu}{18}
 \contentsline {section}{\numberline {2.3}Implementacja}{19}
-\contentsline {chapter}{\numberline {3}Deep Q-learning}{23}
-\contentsline {section}{\numberline {3.1}Rys historyczny}{23}
-\contentsline {section}{\numberline {3.2}Opis algorytmu}{23}
-\contentsline {chapter}{\numberline {4}Podsumowanie}{25}
-\contentsline {chapter}{\numberline {A}Kody}{27}
-\contentsline {section}{\numberline {A.1}Klasa gry}{27}
-\contentsline {chapter}{\numberline {B}Aplikacja}{29}
-\contentsline {chapter}{Bibliografia}{31}
+\contentsline {chapter}{\numberline {3}Sie\IeC {\'c} neuronowa graj\IeC {\k a}ca w k\IeC {\'o}\IeC {\l }ko i krzy\IeC {\.z}yk }{25}
+\contentsline {section}{\numberline {3.1}Sieci neuronowe}{25}
+\contentsline {section}{\numberline {3.2}Podej\IeC {\'s}cie I - nieudane}{28}
+\contentsline {section}{\numberline {3.3}Podej\IeC {\'s}cie II - bardziej udane}{31}
+\contentsline {chapter}{\numberline {4}Podsumowanie}{35}
+\contentsline {chapter}{\numberline {A}Kody}{37}
+\contentsline {section}{\numberline {A.1}G\IeC {\l }\IeC {\'o}wny program}{37}
+\contentsline {section}{\numberline {A.2}Klasy graczy}{37}
+\contentsline {section}{\numberline {A.3}Grafika}{38}
+\contentsline {section}{\numberline {A.4}Tensorflow}{38}
+\contentsline {chapter}{\numberline {B}Aplikacja}{39}
+\contentsline {chapter}{Bibliografia}{41}

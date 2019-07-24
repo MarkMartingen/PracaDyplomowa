@@ -409,33 +409,268 @@ $$\mathcal{N}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b}) = (y_{1},...,y_{m})$$
 Argumenty $\mathbf{W}$  i $\mathbf{b}$ będziemy traktować jak parametry funkcji $\mathbf{\mathcal{N}}$. Chcielibyśmy tak zmieniać te parametry, żeby sieć neuronowa $\mathbf{\mathcal{N}}$ przybliżała nam jakąś rzeczywistą, obserwowalną, ale nieznaną funkcję $\Phi$: 
 $$ (x_{1},...,x_{n})\stackrel{\Phi}{\rightarrow}(y_{1},...,y_{m})$$
 
-Skoro chcemy przybliżać funkcję $\Phi$ siecią neuronową $\mathbf{\mathcal{N}}$, to potrzebna jest jakaś miara skuteczności takiego przybliżenia.  Załóżmy, że mam k-elementowy zbiór danych $\mathbf{X}$ i dla każdego  $x_{1},...,x_{n}\in\mathbf{X}$ obserwujemy $\Phi(x_{1},...,x_{n})$ oraz $\mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b})$. Jak w tym przypadku określić skuteczność przybliżania $\Phi$ za pomocą sieci $\mathbf{W}, \mathbf{b}$ na zbiorze $\mathbf{X}$? W literaturze można spotkać wiele metod, ale chyba najbardziej naturalną jest średnio kwadratowa funkcja straty (kosztu) , albo matematycznie norma $L_{2}$, którą zapiszemy jako funkcję parametrów $\mathbf{W}$ i $\mathbf{b}$.
+Skoro chcemy przybliżać funkcję $\Phi$ siecią neuronową $\mathbf{\mathcal{N}}$, to potrzebna jest jakaś miara skuteczności takiego przybliżenia. Poniższe zarys dotyczący tego jak trenować sieci neuronowa zaczerpnięty został z \cite{nn}. Załóżmy, że mam k-elementowy zbiór danych $\mathbf{X}$ i dla każdego $x_{1},...,x_{n}\in\mathbf{X}$ obserwujemy $\Phi(x_{1},...,x_{n})$ oraz $\mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b})$. Jak w tym przypadku określić skuteczność przybliżania $\Phi$ za pomocą sieci $\mathbf{W}, \mathbf{b}$ na zbiorze $\mathbf{X}$? W literaturze można spotkać wiele metod, ale chyba najbardziej naturalną jest średnio kwadratowa funkcja straty (kosztu) , którą zapiszemy jako funkcję parametrów $\mathbf{W}$ i $\mathbf{b}$.
+ 
+\begin{equation}
+	\label{Cost_function}
+	C(\mathbf{W}, \mathbf{b}) = \frac{1}{2k}\sum_{(x_{1},...,x_{n})\in\mathbf{X}}{\norm{\Phi(x_{1},...x_{n}) - \mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b} )} } ^{2}
+\end{equation}
+ 
+ 
+Norma występującą w powyższym wyrażeniu, to zwykła odległość euklidesowa w przestrzeni $\mathbf{R^{d}}$. Zauważmy, że jeżeli ustalimy zbiór testowy $\mathbf{X}$ i zbiór obserwacji $\Phi(\mathbf{X})$, to powyższą funkcję kosztu możemy rozpatrywać jako funkcję parametrów sieci neuronowej $\mathbf{\mathcal{N}}$. Przy takim podejściu, znalezienie wag $\mathbf{W}$ i $\mathbf{b}$, dla których sieć $\mathbf{\mathcal{N}}$ będzie najlepiej przybliżać funkcję $\Phi$ sprowadza się do znalezienia minimum funkcji $C(\mathbf{W}, \mathbf{b}):\mathbf{R^{d}}\rightarrow\mathbf{R}$, dla pewnej liczby naturalnej d. Jeżeli liczba d jest duża, to analityczne szukanie punktów, w których zerują się wszystkie pochodne cząstkowe byłoby niewykonalne. W praktyce przyjmuje się jednak inne podejście. Dla uproszczenia zapisu przyjmijmy, żę $v:=(\mathbf{W}, \mathbf{b}$. Czyli funkcja kosztu C będzie funkcją zmiennej $v\in\mathbf{R^{d}}$. Z rachunku różniczkowego wiadomo, że:
+ 
+\begin{equation}
+	\label{nn_u}
+	\Delta C = \nabla C \cdot \Delta v
+\end{equation}
+ 
+W powyższym równaniu symbol $(\cdot)$ oznacza iloczyn skalarny wektorów. Natomiast $\nabla C$ to jest gradient funkcji C, czyli $\nabla C = (\frac{\delta C}{\delta v_{1}},...,\frac{\delta C}{\delta v_{d}} )$. Zwróćmy uwagę, że $\Delta C$ jest zwykłym skalarem. Jeżeli ustalimy sobie $v$ i pewną małą wartość $\eta>0$, to możemy położyć:
+$$v' = v + \eta\nabla C(v), $$
+$$ \Delta v = v - v'$$
+ 
+i wstawimy do (\ref{nn_u}), to otrzymamy:
+$$\Delta C = \nabla C\cdot (v - v)' = -\eta \nabla C\cdot\nabla C = -\eta\norm{\nabla C}^{2} < 0$$
+ 
+Jeżeli więc będziemy zmieniać komplet wag zgodnie ze wzorem:
+$$v':=v+\eta\nabla C(v),$$
+to będziemy zmniejszać wartość $\Delta C$, co oznacza, że będziemy podążali w kierunku minimum funkcji C. Ta metoda znana jest w literaturze (np. \cite{nn}) jako ,,\textit{gradient descent}''. Ważnym parametrem w tej metodzie jest $\eta$, często nazywana w angielskojęzycznej literaturze \textit{learning rate}. Jeżeli $\eta$ jest duże, to potrzeba będzie mniej kroków na odnalezienie lokalnego minimum, ale zagrożenie jest takie, że zmieniając wagi będziemy ,,przeskakiwać'' nad minimum niewiele zbliżając się do niego. Z drugiej strony, zbyt małe $\eta$ może skutkować koniecznością wykonania bardzo wielu kroków w celu odnalezienia minimum. Odmianą tej metody jest ,,\textit{stochastic gradient descent}'' (dalej SGD), która dodatkowo różni się tym, funkcję kosztu $C$ (\ref{Cost_function}) wyliczamy na podstawie losowo wybranego podzbioru ze zbioru testowego $\mathbf{X}$ i odpowiadających obserwacji $\Phi(\mathbf{X})$. Dla jednego zbioru obserwacji $\mathbf{X}$ wielokrotnie losować podzbioru, obliczać $\nabla C$ zdefiniowanego dla wylosowanego podzbioru i aktualizować wagi $v$. W literaturze można przeczytać, że taka metoda pozwala na skuteczne dobranie wag. Skrajny przypadek metody STD, to branie tylko jednej obserwacji do wyliczenia funkcji kosztu.\\
+ 
+Reasumując, jeżeli potrafilibyśmy policzyć gradient $\nabla C$ dla funkcji kosztu, to mamy przepis na to jak zmieniać wagi $\mathbf{W}$ i wartosci stałe $\mathbf{b}$, czyli parametry sieci $\mathcal{N}$, w sposób, który gwarantuje nam zmniejszanie nam wartości funkcji kosztu, a więc poprawiający przybliżenie. Tutaj z pomocą przychodzi algorytm propagacji wstecznej (z ang. \textit{,,backpropagation algorithm ``}. Algorytm propagacji wstecznej, jest podstawowym algorytmem, który w połączeniu z powyższymi rozważaniami o tym jak zmieniać wagi sieci, pozwala na skuteczne trenowania sieci. W wielkim skrócie, algorytm propagacji wstecznej sprawdza się do wliczenia wartości aktywacji na każdym neuronie, a następnie - idąc od ostatniej warstwy wyjściowej aż d pierwszej warstwy (stąd zapewne nazwa propagacji wstecznej) obliczenia błędów sieci i modyfikowanie wag na każdym poziomie. Dokładny opis algorytm, jak również dowód poprawności algorytmu, jest dostępny w niemal każdym opracowaniu traktującym o podstawach sieci neuronowych. Ponieważ niniejsza praca raczej ma się koncentrować na praktycznych aspektach uczenia sieci, to opis algorytmu zostanie pominięty.
 
-$$C(\mathbf{W}, \mathbf{b}) = \frac{1}{2k}\sum_{(x_{1},...,x_{n})\in\mathbf{X}}{\norm{\Phi(x_{1},...x_{n}) - \mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b} )}  } ^{2}$$
+\section{Podejście I - nieudane}
 
-\section{Opis algorytmu}
-W tej materii jeszcze niczego nie zrobiłem, ale będę walczył :-)
+Biorąc pod uwagę, że trenowanie algorytmu opisanego w poprzednim rozdziale dało całkiem dobre rezultaty, to naturalnym pomysłem było zastąpienie tabeli przypisujących stanom $s$ wartości $q_{s}$ siecią neuronową i pozostawienie pozostałych elementów niezmienionych. W rezultacie mamy taki algorytm:
+
+\begin{enumerate}
+	\item{Inicjuj sieć neuronową, która przyjmuje na wejściu 9 wartości i zwraca na wyjściu 1 wartość -  $q_{s}$}
+	\item{Ustaw parametry $\alpha$ i $\gamma$ z przedziału $[0, 1]$}
+	\item{Graj n razy z systemem w kółko i krzyzyk:}
+	\begin{enumerate}
+		\item{Jeżeli jest ruch agenta, a plansza jest w stanie $s-1$:}
+		\begin{enumerate}
+			\item{Dla każdego legalnego ruchu prowadzącego z $s-1$ do $s$  sprawdź zwracaną przez sieć neruonową wartość $q_{s}$}
+			\item{Wybierz ten ruch $\tilde{s}$, dla którego $q_{\tilde{s}} =\max_{s} q_{s}$. Jeżeli jest kilka takich ruchów, to wybierz jeden losowo.}
+			\item{Połóż $q_{s-1} = q_{s} + \alpha(R(\tilde{s}) + \gamma  q_{\tilde{s}} )$, gdzie $R(\tilde{s})$ jest nagrodą po ruchu $\tilde{s}$. }
+			\item{Przetrenuj sieć na jednoelementowym zbiorze \{$s-1$, $q_{s-1}$\} }.
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+
+Pozostaje jeszcze kwestia ustalenia topologii sieci i tego jaka będzie funkcja aktywacji. Kółko i krzyżyk nie jest skomplikowaną grą, stąd decyzja o sieci z jedną warstwą ukrytą. Warstwa wejściowa, to oczywiście 9 pozycji odpowiadających dziewięciu polom na planszy. Warstwa wyjściowa, to jedna pozycja zwracającą $q_{s}$ dla stanu reprezentowanego przez dane wejściowe. Przy czym podobnie jak w poprzednim rozdziale, dane wejściowe reprezentują stan gry po ruchu agenta. Ilość neuronów w warstwie ukrytej wybrałem poniekąd arbitralnie na $27$. Poniekąd dlatego, że dla symetrii chciałem, żeby to była wielokrotność ilości danych wejściowych. 
+
+\begin{flushleft}
+	\includegraphics [scale=0.5]{nn_1pod.png}
+\end{flushleft}
+
+
+ Na koniec jeszcze pozostaje ustalenie funkcja aktywacji. Ponieważ $q_{s}$ reprezentuje wartość oczekiwaną przyszłych nagród, to ważne jest, żeby funkcja aktywacji miała zbiór wartości obejmujący możliwe wartości przyszłych nagród. W poprzednim rozdziale, przyjąłem takie wartości:
+
+\begin{enumerate}
+	\item{-1 w przypadku przegranej}
+	\item{0.75 w przypadku remisu }
+	\item{1 w przypadku wygranej}
+	\item{0 dla każdego innego stanu gry}
+\end{enumerate}
+
+Ponieważ wygrana, remis, lub przegrana w grze może się zdarzyć tylko raz, to wartość oczekiwana przyszłych nagród, będzie w zakresie  $[-1,1]$ i  stąd dobrze mieć funkcję aktywacji obejmującą ten przedział. Dobrym kandydatem byłaby funkcja $\tanh$, czyli tangens hiberboliczny, którego zbiór wartości to właśnie przedział $[-1,1]$. Problem jednak jest taki, że jeżeli funkcja aktywacji ,,wypłaszcza" się dla dużych argumentów, to jej pochodna jest bliska zeru, co z kolei przekłada się na to, że algorytm propagacji wstecznej (czyli ten, który liczy gradient funkcji kosztu) szacuje pochodne na bliskie zeru i cały algorytm uczenia sieci neuronowej nie aktualizuje wag $\mathbf{W}, \mathbf{b}$. Chcąc uniknąć takiego efektu ,,saturacji", za funkcję aktywacji przyjąłem $f(x) = 2\tanh(x)$. Dla porządku, podaję jak jak policzyć funkcję tangens hiperboliczny i jak wygląda jej wykres.
+
+\begin{flushleft}
+	\includegraphics [scale=0.5]{tanh.png}
+\end{flushleft}
+
+\begin{equation}
+	\tanh(x) = \frac{e^{2x} - 1}{e^{2x} + 1}
+\end{equation}
+
+Niestety takie proste zastąpienie tabeli przechowującej wartości $q_{s}$ przez sieć neuronową, która miałaby w podobny sposób, po każdym ruchu poprawić swoje oszacowanie $q_{s}$ nie zdało egzaminu. Po długotrwałym trenowaniu (20 000 gier z graczem losowym) taka sieć potrafi wygrywać z graczem losowym w około 60\%-70\% przypadków, i w subiektywnym odczuciu grać zdecydowanie gorzej od człowieka.  Poniżej wynik 100 rozegranych gier na przetrenowanej sieci:
+
+\begin{flushleft}
+	\includegraphics [scale=0.7]{nn_I_tanh.png}
+\end{flushleft}
+
+Eksperymentowałem  z większą liczbą neuronów w warstwie ukrytej, jak również z dwiema warstwami ukrytymi, oraz z innymi funkcjami aktywacji, ale zawsze z podobnym, niezadawalającym efektem. Najlepsze wyniki jakie mi się udało uzyskać, to około 75\% wygranych gier z graczem losowym. Wyniki takie uzyskałem używając funkcji aktywacji $softplus$, która definiuje się jako  $f(x) = ln(1+e^{x})$ Ta funkcja aktywacji przyjmuje wartości z przedziału $[0,+\infty]$  (est to wygładzona wersja innej popularnej funkcji aktywacji -  ReLu), stąd konieczna była zmiana wartości nagród. W tym przypadku przyjąłem:
+
+\begin{enumerate}
+	\item{0.5 w przypadku przegranej}
+	\item{75 w przypadku remisu }
+	\item{100 w przypadku wygranej}
+	\item{1 dla każdego innego stanu gry}
+\end{enumerate}
+
+Poniżej wynik rozegranych 100 gier z graczem losowym po przetrenowaniu na 20 000 gier.
+
+\begin{flushleft}
+	\includegraphics [scale=0.7]{nn_I_softplus.png}
+\end{flushleft}
+
+Jak widać, sieć gra statystycznie nieco lepiej od gracza losowego, czyli algorytm ,,czegoś" się nauczył, ale przy tak prostej grze jak kółko i krzyżyk można by się spodziewać znacznie lepszych rezutlatów. Dodam jeszcze, że dla wszystkich wypróbowanych kombinacji sieci, po przetrenowaniu, miały procent remisów z graczem minimax na poziomie od 0\% do 5\%.
+
+
+\section{Podejście II - bardziej udane}
+
+Dlaczego sieci z poprzedniej sekcji nie udało się dobrze nauczyć grać w kółko i krzyżyk? Nie jestem oczywiście odpowiedzieć na to pytanie z całą pewnością, ale stawiam hipotezę, że problem leży w tym, że sieć uczy się po każdym ruchu na jedno-elementowym zbiorze treningowym. Takie rozwiązanie ma zasadniczą wadę. Większość ruchów skutkuje nagrodą równą zero. Dopiero ostatni ruch w grze kończy się inną wartością nagrody. Sieć natomiast modyfikuje wagi po każdym ruchu i używa tych zmodyfikowanych wag do dalszej gry i dalszego uczenia.  To może może powodować, że wielokrotnie modyfikując wagi dla ruchów z zerową nagrodą sieć ,,zapomina" wagi, które pozwalały wygrać. Lepszym podejściem byłoby rozegranie wielu gier (wielu ruchów) i przekazanie sieci do trenowania jednego dużego zbioru danych. W tej części, spróbujemy zastosować takie podejście. Pomysł, na którym się wzoruję  zaczerpnąłem z pracy magisterskiej złożonej na uniwersytecie technicznym w Monachium \cite{TUM}.\\
+
+Chcąc mieć pewność, że sieć nie jest za mała, zmieniłem jej topologię dodając jedną warstwę ukrytą. Ostatecznie sieć ma strukturę typu 9-54-27-1, czyli zwiera dwie warstwy ukryte po 54 i 27 neuronów odpowiednio.  Za funkcję aktywacji przyjmuję tangens hiperboliczny, który przyjmuje wartości z przedziału $[-1,1$. Nagrody, czy odpowiedź systemu, ustalam z uwaga, żeby być daleko od ekstremalnych wartości funkcji aktywacji:
+
+\begin{enumerate}
+	\item{-0.8 w przypadku przegranej}
+	\item{0.5 w przypadku remisu }
+	\item{0.8 w przypadku wygranej}
+	\item{0 dla każdego innego stanu gry}
+\end{enumerate}
+
+Sam proces uczenia sieci wygląda teraz następująco. Ustalam arbitralnie wielkość zbioru do uczenia (w literaturze odpowiednik pojęcia \textit{batch size}) np. na 2500. Następnie rozgrywam tyle gier, żeby zebrać 2500 obserwacji. Przy czym jedną obserwacją będzie teraz wektor przechowujący stan planszy po ruchu agenta (gracza odpowiadającego sieci neuronowej), wartość $q_{s}$ czyli zwróconą przez sieć przyszłą oczekiwaną wartość nagród  oraz rzeczywistą nagrodę $R$  jaką system zwrócił po swoim ruchu lub po zakończeniu gry, jeżeli ruch agenta był ostatnim ruchem. Dla rozjaśnienia zobaczmy jak to wygląda na przykładzie.\\
+
+Pierwsze 9 pozycji odwzorowuje planszę gry. Zero odpowiada pustemu polu, jedynka to pole zajęte przez system (w tym wypadku gracz losowy), a dwójka to pole zajęte przez agenta.
+W naszym przykładzie zaczyna agent, stawia krzyżyk (dwójkę) na środkowym polu. Na 10 pozycji  - wartość 0.642  - widzimy oczekiwana wartość nagrody zwróconą przez sieć. Następnie czekamy na ruch systemu, chyba że to jest ostatni ruch w grze, i dopiero po tym ruchu systemu dopisujemy nagrodę jaką otrzyma agent. W tym wypadku będzie to zero, bo gra jeszcze się nie skończy.
+
+ 
+\begin{flushleft}
+	\includegraphics [scale=0.2] {ttt_6.png}
+\end{flushleft}
+$\text{Obserwacja po pierwszym ruchu:  }[0, 0, 0, 0, 2, 0, 0, 0, 0, 0.642, 0]$\\
+
+ Następnie system stawia swoje kółko w na pozycji $2,1$, czyli w pierwszej kolumnie i w drugim rzędzie. Tego stanu planszy nie zapisujemy, bo interesują nas tylko stany po ruchu agenta. Warto jednak nadmienić, że po ruchu systemu sprawdzam jaka jest nagroda agenta i tym samym, dopiero po tym ruchu systemu mamy w pełni uzupełnioną pierwszą obserwację. Kolejny, trzeci ruch w grze, należy do agenta i ten wybiera (sprawdzając jaki ruch będzie skutkował maksymalną oczekiwaną nagroda $q_{s}$) pozycję $1,2$:
+ 
+\begin{flushleft}
+	\includegraphics [scale=0.2] {ttt_7.png}
+\end{flushleft} 
+$\text{Obserwacja po drugim ruchu agenta:  }[0, 2, 0, 1, 2, 0, 0, 0, 0, 0.723, 0$\\
+
+System - gracz losowy - w kolejnym ruchu nie blokuje agenta, tylko stawia kółko na pozycji $3,3$. W odpowiedzi na to, agent wybiera $3,2$ i wygrywa grę, stąd nagroda jest teraz równa $0.8$.
+
+\begin{flushleft}
+	\includegraphics [scale=0.2] {ttt_7.png}
+\end{flushleft} 
+$\text{Obserwacja po trzecim i ostatnim ruchu agenta ruchu agenta:  }[0, 2, 0, 1, 2, 0, 0, 2, 1, 0.843, 0.8]$\\
+
+Powyższa gra dała w wyniku trzy obserwacje. Podczas jednej \textit{epoki} rozgrywamy tyle gier, żeby otrzymać 2500 obserwacji (albo tyle na ile ustalimy \textit{batch size}.) Kolejnym krokiem jest zbudowanie na bazie tych obserwacji zbioru referencyjnego, na podstawie którego będziemy uczyć sieć. W tym celu chcemy zastąpić prognozy $q_{s}$ jakie zwracała sieć ,,poprawnymi'' wartościami $\tilde{q}_{s}$ .  Ustalamy parametr $\alpha\in(0,1)$ i postępujemy jak następuje:
+
+
+\begin{enumerate}
+	\item{Jeżeli dana obserwacja jest ostatnią obserwacją w grze, to $\tilde{q}_{s}= R$}
+	\item{W przeciwnym przypadku mamy bierzemy $N$ obserwacji pozyskanych z rozpatrywanej gry i w dla $i=N-1, N-2,...,1$: }
+	\begin{enumerate}
+		\item{$\tilde{q}_{s-i}= (1-\alpha^{i})q_{s-i} + \alpha^{i}q_{s} $}
+	\end{enumerate}
+\end{enumerate}
+W skrajnym przypadku, jeżeli $\alpha=0$, to zmiana $q_{s}$ na $\tilde{q}_{s}$ sprowadzała by się wyłącznie do przypisywania $\tilde{q}_{s}$ wartości nagrody z końca gry. W drugim skrajnym przypadku, jeżeli $\alpha=1$, to wszystkie $q_{s}$ z danej gry przyjmują wartość końcowej nagrody. Pomiędzy tymi skrajnościami modyfikujemy $q_{s}$ w zależności od końcowego wyniku gry.  
+
+Stosując powyższą regułę do ciągu 2500 obserwacji otrzymujemy zbiór referencyjny, który po służy do uczenia sieci. Po przetrenowaniu sieci i aktualizacji wag, całą procedurę powtarzamy przez tyle epok ile chcemy. Poniżej przedstawiam wyniki jakie udało mi się uzyskać po 8 epokach, czyli bazując na 20 000 obserwacji.
+
+\begin{flushleft}
+	\includegraphics [scale=0.7] {nn2_1.png}
+\end{flushleft} 
+
+Jak widać agentowi na 100 gier udało się wygrać z graczem losowym w 95\% przypadków.  Można uznać, że to jest całkiem niezły wyniki, aczkolwiek w tym wypadku pomogła trochę losowość. Wydaje się, że procent wygranych gier placuje się w okolicach 90\% przypadków. Poniżej przykładowy wynik po 1000 grach. 
+
+\begin{flushleft}
+	\includegraphics [scale=0.7] {nn2_2.png}
+\end{flushleft} 
+
+A więc teraz agent gra dużo lepiej niż gracz losowy i ma lepsze wyniki niż sieć z I podejścia. Patrząc na wyniki gracza stosującego algorytm z 2 rozdziału (wygrane na poziomie 75\% -85\%)   można by przypuszczać, że sieć sobie radzi co najmniej nie gorzej. Nie jest to jednak poprawny wniosek. Algorytm z 2 rozdziału wygrywa rzadziej, ale też znacznie rzadziej przegrywa (w około 2\%) w stosunku do średnio 5\% przegranych w przypadku gracza bazującego na przetrenowanej sieci. Okazuje się, że ta różnica w ilości przegranych gier ma kluczowe znaczenie. Gracz ,,neuronowy'' prawie zawsze  przegrywa z graczem stosującym algorytm Q-learning z drugiego rozdziału. Oto wyniki dla 100 rozegranych partii pomiędzy dwoma algorytmami:
+
+\begin{flushleft}
+	\includegraphics [scale=0.7] {nn2_3.png}
+\end{flushleft} 
+
+Warto jeszcze podkreślić, że algorytm z drugiego rozdziału stał się najbardziej efektywny po dodatkowych ,,sparingach"  z graczem  stosującym minimax. W wypadku sieci neuronowej dodatkowe trenowanie na bazie obserwacji uzyskanych podczas gier z graczem stosującym minimax nie przyniosło żadnej poprawy. Algorytm z rozdziału drugiego, przetrenowany dodatkowo na algorytmie minimax, prawie zawsze remisuje z graczem stosującym algorytm minimax, natomiast gracz wykorzystujący sieć neruonową już tylko w okolicach 40\%-50\% przypadków, co ilustruje poniższy wynik rozegranych 100 gier.
+
+\begin{flushleft}
+	\includegraphics [scale=0.7] {nn2_4.png}
+\end{flushleft} 
+
+Reasumując, sieć nauczyła się skutecznie wygrywać z graczem losowym, ale niekoniecznie dobrze grać w kółko i krzyżyk, stąd pozostaje nieco słodko-gorzki smak po wykorzystaniu sieci neuronowych do gry w kółko i krzyżyk.
+
+Na koniec podjąłem jeszcze jedną próbę wytrenowania sieci bazując na zasadzie modyfikacji $q_{s}$ jak w I podejściu, ale tym razem nie trenując sieci w locie, po każdym ruchu, ale znowu rozgrywając tyle gier ile potrzeba do uzyskania 2500 obserwacji i trenowanie sieci dopiero na pełnym zbiorze obserwacji. Dokładniej,  $q_{s}$ czyli oczekiwaną wartość przyszłych nagród dla planszy w stanie $s$ po ruchu agenta z $s-1$ do $s$, modyfikowałem zgodnie z regułą (zobacz \cite{RL} rozdział 6.5):
+$$q_{s} := q_{s} + \alpha(R_{s}+\gamma\max_{s+1}q_{s+1}-q_{s}),$$
+gdzie podobnie jak w poprzednich rozdziałach $\alpha$ to parametr sterujący szybkością uczenia się algorytmu (\textit{learning rate}), $\gamma$ to parametr dyskontujący przyszłe nagrody, $R(s)$ to nagroda po odpowiedzi systemu na ruch agenta z $s-1$ do $s$. Niestety, tak jak w poprzednim podejściu, trenując sieci na 20 000 obserwacji (8 epizodów) nie udało się uzyskać wyniki rzędu 70\%  wygranych, 20\% przegranych i 10\% remisów z graczem losowym. A więc wyniki porównywalne z tymi uzyskanymi w podejściu I. Nieznaczna poprawa może wynikać z dodatkowej warstwy ukrytej. 
+  
 
 \chapter{Podsumowanie}
+Celem pracy było zaimplementowanie i opisanie kilku wybranych algorytmów grających w grę ,,kółko i krzyżyk" i ten cel został osiągnięty,  aczkolwiek w przypadku algorytmu bazującego na sieciach neuronowych, poziom gry pozostawia wiele do życzenia.  W poniższych akapitach opisuję po krótce, każdy z trzech algorytmów wraz z refleksjami odnośnie ich skuteczności,  możliwych ulepszeń w samym algorytmie lub w sposobie implementacji.\\
 
-Tak jak zaznaczyłem we wprowadzeniu, tutaj opiszę - bardzo skrótowo - wrażenie z implementacji oraz podam jakieś informacje, który z algorytmów jest skuteczniejszy, szybszy i dlaczego. Na razie nic specjalnie mądrego nie przewiduję w tym rozdziale, ale wypadałoby, żeby jakieś podsumowanie było. Może po ukończeniu i przetestowaniu kodu, przyjdzie mi do głowy coś wartego napisania.
+Minimax jest najbardziej klasycznym podejściem w przypadku gier z dwoma graczami o zerowej sumie nagród,  czyli gier, w których maksymalizacja wygranej jednego z graczy jest równoważna z minimalizacją wygranej oponenta.   Mimo, że kółko i krzyżyk składa się maksymalnie z 9 sekwencji ruchów, a więc drzewo gry ma 9 poziomów, to algorytm wydaje się ciężki i gra zajmuje dosyć długo . Grając z komputerem trudno to odczuć, ale ewidentnie do widać podczas trenowania innych algorytmów poprzez grę z graczem grającym minimax. Np. rozegranie na komputerze autora1000 gier pomiędzy dwoma graczami grającymi losowo zajmuje kilka sekund, a rozegranie 1000 gier pomiędzy graczem grającym losowo z graczem grającym minimax, to już są minuty. Gdyby dodać jeszcze jeden poziom do gry (takie kółko i krzyżyk na planszy 4 razy 4), to oczekiwanie na ruch komputera byłoby nie do zaakceptowania. W takim przypadku trzeba by koniecznie kończyć przeszukiwanie drzewa na jakimś wcześniejszym poziomie, tak jak to robią algorytmy grające w szachy.  Nieznaczną poprawę szybkości działania przyniosło w przycinanie $\alpha-\beta$. W pojedynczej grzez z komputerem nie daje się tego odczuć, ale przy ,,masowym" rozgrywaniu 1000 jest to nieznacznie szybciej. Podobno najlepsze algorytmy grające w szachy przeszukują drzew gry do 12-13 poziomów, więc pewnie poprawiając struktury danych na bardziej optymalne dało by się odciążyć i przyspieszyć tą implementację.\\
+
+Największym pozytywnym zaskoczeniem był algorytm  \textit{Q- table} bazujący na algorytmie \textit{Off-policy Temporal Difference(0)} opisanym w rozdizale 6.5 w \cite{RL}. Zaczynając z pustą tabelą wartości $q_{s}$ już po 5000 gier mamy tabela wypełnia się około 600-700 stanami z odpowiadającymi im $q_{s}$ i algorytm wygrywa z graczem losowym w ponad 70\% przypadków. Trenowanie algorytmu na 20 000 grach skutkuje graczem na zbliżonym do człowieka. W zakresie implementacji kluczową rzeczą było, żeby nie otwierać i nie zamykać pliku z  tabelą  ze stanami i wartościami $q_{s}$ ponieważ jest to czasochłonne i opóźnia działanie programu. Czy to przy  jednorazowej grze (człowieka z graczem posługującym się algorytmem Q-table), czy przy trenowaniu algorytmu podczas wielu grach,  plik jest otwierany na początku, następnie przez całą sesję przetrzymywany w pamięci jest słwonik Q-table, i na końcu jest zapisywany do pliku.\\ 
+
+Po sukcesach z algorytmem Q-table, wydawało się, że łatwo uda się wytrenować prostą sieć neuronową, która zamiast posługiwać się danymi tabelarycznymi (zapisywanymi do pliku), skompresuje tą informację w macierzach z wagami sieci. Niestety rzeczywistość nie potwierdziła tych optymistycznych założeń i trenując sieć na różne sposoby miałem wrażenie dosięgania,,szklanego sufitu", którego nie udało się przebić. Istotnym jest pytania, co jeszcze można by potencjalnie zrobić, że nauczyć sieć dobrze grać w kółko i krzyżyk.  Na myśl przychodzi więcej warstw ukrytych oraz inne sieciowo-neuronowe metody typu    Wydaje się jednak, że to idzie w kierunku strzelania z armaty do muchy. Sieć z jedną warstwą ukrytą jest w stanie całkiem dobrze rozpoznawać odręcznie pisane cyfry \cite{nn}. Trudno przypuszczać, żeby bądź co bądź banalna, gra w kółko i krzyżyk wymagała tak zaawansowanych metod. Może to kwestia dobrania odpowiednich hiper parametrów? Chociaż nie próbowałem stosować żadnych formalnych metod przeszukiwania przestrzeni hiper parametrów, to raczej wątpię, żeby ich dobór mógł zaowocować prawdziwym przełomem.  W internecie można znaleść kilka ciekawych podejść, jednak większość  nie jest satysfakcjonujących. Jednym z takich podejść jest klasyfikowanie ruchów (dobry lub zły) za pomocą algorytmu minimax. Jeżeli gracz grający algorytmem minimax wybrałby ten ruch, to jest to dobry ruch, a w przeciwnym razie uznajemy ruch za zły. Następnie generując $n$ ruchów podczas gry z graczem losowym, możemy łatwo zbudować zbiór do trenowania sieci. Inne osoby z powodzeniem trenowały sieć korzystając z wcześniej ,,wytrenowanej" tabeli Q-table.  Takie drogi zupełnie mnie nie interesowała, jako że ogólnie wiadomo, że sieć można dobrze wytrenować (dopasaować o danych). Znacznie bardziej ciekawym pytaniem jest jak wykorzystać sieć neuronową do nauczenia się  jak grać w kółko i krzyżyk bez wspierania się już istniejącymi algorytmami; bez żadnej a priori wiedzy, poza samymi regułami gry. Stąd mój nacisk na trenowanie tylko i wyłącznie z graczem losowym, co w rezultacie dało całkiem niezłe wyniki przeciwko takiem graczu (ponad 90\%), co jednak nie przełożyło się na umiejętność grania w potocznym, ludzkim, sensie. \\
+
+Pierwotnie zamierzałem zająć się jeszcze jednym podejściem, a mianowicie algorytmem genetycznym. Zasadę działania takiego algorytmu można łatwo zobrazować. Na początku potrzebny jest relatywnie duży zbiór strategii $\pi_{i}$ indeksowany jakimś parametrem $i$. Następnie, losujemy pary strategii, której grają między sobą w kółko i krzyżyk. Pokonana strategia znika (ginie), a zwycięska może się reprodukować, ale potomstwo $\pi_{\tilde{i}}$ mutuje z pewnym prawdopodobieństwem. W efekcie otrzymujemy nowy zbiór strategii zawierający zwycięską strategię $\pi_{i}$ oraz jej potomstwo $\pi_{\tilde{i}}$.  Sekwencje rywalizacji a następnie reprodukcji z możliwością mutacji powtarzamy wielokrotnie, najlepiej aż do pozostania jednej, ewolucyjnie najlepszej strategii. Jak widać opis wydaje się prosty i zachęcający. Niestety trudności związane z wymyśleniem jak w ogóle charakteryzować strategie gry w kółko i krzyżyk, albo jak zapisać kod DNA danej strategii za pomocą parametrów będących obiektami matematycznymi, przerósł możliwości autora. 
 
 \appendix
 
 \chapter{Kody}
-Pytanie, czy warto tu umieszczać wszystkie, kody czy też nie ma sensu i może wystarczy link do gitHub'a.
+W tej części opisuję podstawowe informacje dotyczące kodów napisanych w ramach niniejszej pracy oraz modułów (bibliotek) innych autorów, których korzystałem.  Nie opisuję natomiast poszczególnych elementów kodu i ich działania. Sam kod źródłowy, napisany w języku Python w wersji 2.17, stanowi załącznik do niniejszej pracy i mam nadzieję, że można się w nim z grubsza zorientować czytając komentarze. Całość kodu składa się z kilku plików:
+\begin{itemize}
+	\item{\textbf{ttt.py} - zawiera implementację głównego programu i klas graczy}
+	\item{\textbf{graphics.py} - moduł obsługujący grafikę autorstwa Johna Zole}
+	\item{\textbf{neural.py} - moduł z implementacją sieci neuronowej w narzędziu \textit{Tensorflow}}
+	\item{\textbf{QTable.txt} - plik tekstowy z wyuczonymi danymi dla algorytmu Q-Table}
+	\item{ \textbf{ttt\_model.index, ttt\_model.meta, ttt\_model.data-000000-of-000001} - dane z wagami sieci neruonowej}
+\end{itemize}
 
-\section{Klasa gry}
+\section{Główny program}
+Jądrem programu jest funkcja \textit{main()}, która jest odpowiedzialna za przeprowadzenie pojedynczej gry w kółko i krzyżyk. Funkcja przygotowuje planszę i zaznacza graficznie ruchy poszczególnych graczy, chyba że podając odpowiedni parametr wyłączymy grafikę, co jest niezbędne w przypadku rozgrywania tysięcy gier przy uczeniu algorytmów. Decyduje na podstawie podanych parametrów (domyślnie losowo) o tym, do którego gracza należy pierwszy ruch i wymaga wskazania dwóch graczy, przy czym mogą to być gracze stosujący różne algorytmy lub ludzie (w przypadku wybrania opcji włączonej grafiki). Funkcja \textit{main()} korzysta też z kilku funkcji pomocniczych, które sprawdzają, na przykład, czy po danym ruchu jest remis, czy gra się zakończyła wygraną  lub obsługują aktualizację grafiki. Program korzysta z elementarnych modułów \textit{random, sys, copy} oraz ze znanego modułu \textit{numpy} ułatwiającego obliczenia numeryczne, zwłaszcza w przypadku wielowymiarowych struktur danych, takich ja (n-wymiarowe)macierze.  
 
-\begin{lstlisting}
-        
-        return line
+\section{Klasy graczy}
+Opisana wyżej funkcja \textit{main()} wymaga przekazania jako argumentów dwóch instancji obiektów typu \textit{Player}, czyli obiektów reprezentujących graczy. Ogólnie, klasa typu \textit{Player} ma tylko jeden argument - symbol, który wskazuje czy gracz będzie grał kółkiem czy krzyżykiem. Natomiast każda ,,właściwy" typ gracza jest definiowany w osobnej podklasie:
+\begin{enumerate}
+	\item{Człowiek: klasa \textit{playerHuman}}
+	\item{Gracz grający losowo: klasa \textit{playerRandom}}	
+	\item{Cracz grający algorytmem minimax: klasa \textit{playerMinimax}}
+	\item{Gracz grający algorytmem Q-Table: klasa \textit{playerQTable}}
+	\item{Gracz grający z użyciem sieci neuronowej: klasa \textit{playerNeural}}
+\end{enumerate}
+Każda z tych podklas klasy \textit{Player} ma jedną główną metodę \textit{move()}, która przyjmuje stan  gry jako argument i wybiera najlepszy według siebie ruch. W przypadku klasy \textit{playerHuman} metoda \textit{move()} śledzi pozycję kursora i sprawdza gdzie na  planszy nastąpiło kliknięcie.  \\
 
-\end{lstlisting}
+Gdyby była potrzeba dodania kolejnej wersji algorytmu grającego w kółko i krzyżyk, np. algorytmu genetycznego, to poza dodaniem odpowiedniej opcji w GUI gry, ,,wystarczyłoby" dodać nową podklasę \textit{playerGenetic} ze stosowną metodą \textit{move()}, która przyjmuje głównie 9 elementowy ciąg 0,1 i 2 obrazujący sytujację na planszy i zwraca cyfrę od 1 do 9, która oznacza wybrane pole do ruchu.  
+
+\section{Grafika}
+Istnieje wiele modułów pozwalających tworzenie obiektów graficznych w Pythonie. Jako, że gra w kółko i krzyżyk nie jest graficznie wymagająca, to skorzystałem z bodajże najprostszego narzędzia napisanego przez Johna Zello. Podobno ten moduł został stworzony nie tyle z myślą o poważnych zastosowaniach graficznych, ale z myślą żeby uczyć programowania obiektowego na bazie prostych graficzyncyh obiektów typu punkt, linia, koło itp.  Ogólnodostępny kod źródłowy tego modułu graficznego można znaleźć tutaj.
+
+\section{Tensorflow}
+Moim pierwotnym zamysłem była implementacja  sieci neuronowej od początku do końca za pomocą podstawowych modułów python'a. I chociaż miałem na tym polu pewne sukcesy, to jednak zwyciężył pragmatyzm i ostatecznie sieć neuronowa opisana w rozdziale 3, w sekcji 3.3 powstała z wykorzystaniem bibliotek \textit{Tensorflow}. Jest to narzędzie stworzone przez potentata Google, i służy ogólnie do budowania grafów, w których węzłach mają miejsce obliczenia (w tym różnego typu optymalizacje), natomiast krawędzie ilustrują przepływ danych pomiędzy obliczeniami. Praca z tym narzędzie polega na zbudowaniu lub wczytaniu grafu, następnie zapewnienie niezbędnych danych wejściowych, przeprowadzeniu obliczeń po kolei zgodnie ze strukturą grafu i odczytaniu wyniku.  Więcej o o module \textit{Tensorflow} oraz o dostępnym w python'ie API  \textit{Tensorflow}do  można się dowiedzieć na oficjalnej stronie tutaj.
+
 
 \chapter{Aplikacja}
 
-Tutaj zamieszczę krótki opis i "screen shot" z aplikacji do gry w kółko i krzyżyk.
+Niezależnie od statystycznych wyników, jakie poszczególne algorytmy osiągają grając w kółko i krzyżyk, ciekawie jest samemu przekonać sie o 
+skuteczności algorytmu grając z nim	,,osobiście". Taka ciekawość była główną motywacją do przygotowania w ramach niniejszej pracy 
+bardzo prostej aplikacji gry w kółko o krzyżyk, która zostałą opisana w tym dodatku. \\
+
+Aplikacja ma tylko jeden ekran (zobacz poniższy rysunku), przedstawiający planszę do gry w kółko i krzyżyk. Po uruchomieniu aplikacji 
+należy za pomocą niebieskich przycisków umieszczonych na dole planszy wybrać sobie przeciwnika. Można do wyboru grać z drugą osobą (człowiekiem), 
+z graczem grającym w sposób losowy,  graczem stosującym algorytm minimax, stosującym algorytm Q-Table lub graczem wykorzystującym sieć neuronową 
+z 3 rodziału. Dodatkowo w prawym dolnym rogu aplikacja informuje o tym, którego gracza jest obecnie ruch.
+
+\begin{flushleft}
+	\includegraphics [scale=0.5] {plansza.png}
+\end{flushleft} 
+
+
+
+W celu uruchomienia aplikacji trzeba mieć na komputerze zainstalowanego Pythona 2. Dodatkowo należy w jednym wybranym katalogu umieścić następujące 
+pliki:
+\begin{enumerate}
+	\item{ttt.py}
+	\item{graphics.py}
+	\item{neural.py}
+	\item{Qtable.txt}
+	\item{ttt\_model.meta}
+	\item{ttt\_model.index}
+	\item{ttt\_model.data-00000-of-00001}
+\end{enumerate}
+Pliki 4 - 7 przechowują parametry wytrenowanych algorytmów Qtable i sieci neuronowej. Jeżeli tych plików zabraknie, to aplikacja będzie działa, ale 
+gracze stosujący te algorytmy będą grali tak jak gracz losowy. Samo uruchomienie aplikacji odbywa się, przez otworzenie pliku ttt.py za pomocą programu Python. 
+
+
+\begin{flushleft}
+	\includegraphics [scale=0.5] {uruchamianie.png}
+\end{flushleft} 
+
+
+Moduł ttt.py może również służyć do trenowania algorytmów QTable i sieci neuronowej, ale do tego nie ma GUI.
 
 \begin{thebibliography}{99}
 
@@ -450,6 +685,8 @@ Tutaj zamieszczę krótki opis i "screen shot" z aplikacji do gry w kółko i kr
 	\bibitem {MIT_AI} Prof. Patrick Henry Winston, \textit{MIT course number 6.043, Artifical Inteligence}, https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/index.htm
 	
 	\bibitem{Game} Matthew O. Jackson , \texit{A Brief Introduction to the Basics of Game Theory},\linebreak https://www.ethz.ch/content/dam/ethz/special-interest/gess/chair-of-sociology-dam/documents/education/spieltheorie/literatur/Einführung/Jackson\linebreak\%20Basics\%20of\%20Game\%20Theory\%20SSRN-id1968579.pdf
+	
+	\bibitem{TUM} Michael Heining, \textit{Dynamic Learning: A case study on Tic-Tac-Toe}, https://www-m15.ma.tum.de/foswiki/pub/M15/Allgemeines/PublicationsEN/MasterThesisHeining.pdf
 
 \end{thebibliography}
 

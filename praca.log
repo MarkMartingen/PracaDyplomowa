@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.1.6)  8 MAY 2019 22:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.1.6)  24 JUL 2019 21:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -550,18 +550,18 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (./praca.aux)
 \openout1 = `praca.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -629,12 +629,12 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count123
-LaTeX Font Info:    Try loading font information for U+msa on input line 75.
+LaTeX Font Info:    Try loading font information for U+msa on input line 76.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 75.
+LaTeX Font Info:    Try loading font information for U+msb on input line 76.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -653,316 +653,564 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ] [4
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
 [6]
 Rozdzia\l  1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 <game_tree.png, id=39, 638.385pt x 460.72125pt>
 File: game_tree.png Graphic file (type png)
  <use game_tree.png>
-Package pdftex.def Info: game_tree.png used on input line 113.
+Package pdftex.def Info: game_tree.png used on input line 114.
 (pdftex.def)             Requested size: 383.03394pt x 276.43488pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
 
  []
 
 [7
 
  <./game_tree.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
 <advertise.png, id=46, 870.25125pt x 593.21625pt>
 File: advertise.png Graphic file (type png)
  <use advertise.png>
-Package pdftex.def Info: advertise.png used on input line 121.
+Package pdftex.def Info: advertise.png used on input line 122.
 (pdftex.def)             Requested size: 261.0774pt x 177.96625pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--125
+Underfull \hbox (badness 10000) in paragraph at lines 125--126
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--127
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
 
  []
 
 [8 <./advertise.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--131
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
 
  []
 
 <advertise2.png, id=54, 870.25125pt x 593.21625pt>
 File: advertise2.png Graphic file (type png)
  <use advertise2.png>
-Package pdftex.def Info: advertise2.png used on input line 158.
+Package pdftex.def Info: advertise2.png used on input line 159.
 (pdftex.def)             Requested size: 261.0774pt x 177.96625pt.
 
 [10 <./advertise2.png>] <big_tree2.png, id=60, 1114.1625pt x 565.11125pt>
 File: big_tree2.png Graphic file (type png)
 
 <use big_tree2.png>
-Package pdftex.def Info: big_tree2.png used on input line 162.
+Package pdftex.def Info: big_tree2.png used on input line 163.
 (pdftex.def)             Requested size: 501.3685pt x 254.2977pt.
 
-Overfull \hbox (60.35077pt too wide) in paragraph at lines 162--163
+Overfull \hbox (60.35077pt too wide) in paragraph at lines 163--164
 []  
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--165
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--171
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
 
  []
 
 [11 <./big_tree2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 179--180
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--181
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--183
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
 
  []
 
 <random_minimax.png, id=66, 281.05pt x 63.23625pt>
 File: random_minimax.png Graphic file (type png)
  <use random_minimax.png>
-Package pdftex.def Info: random_minimax.png used on input line 185.
+Package pdftex.def Info: random_minimax.png used on input line 186.
 (pdftex.def)             Requested size: 168.63129pt x 37.94203pt.
 
 <minimax_minimax.png, id=67, 261.97874pt x 57.21375pt>
 File: minimax_minimax.png Graphic file (type png)
 
 <use minimax_minimax.png>
-Package pdftex.def Info: minimax_minimax.png used on input line 191.
+Package pdftex.def Info: minimax_minimax.png used on input line 192.
 (pdftex.def)             Requested size: 157.18845pt x 34.32849pt.
  [12 <./random_minimax.png>] [13 <./minimax_minimax.png>] [14
 
 ]
 Rozdzia\l  2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 198--199
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
 
  []
 
 <agent_env.png, id=79, 551.05875pt x 190.7125pt>
 File: agent_env.png Graphic file (type png)
  <use agent_env.png>
-Package pdftex.def Info: agent_env.png used on input line 201.
+Package pdftex.def Info: agent_env.png used on input line 202.
 (pdftex.def)             Requested size: 330.63779pt x 114.42838pt.
  [15 <./agent_env.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 243--245
+Underfull \hbox (badness 10000) in paragraph at lines 244--246
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+Underfull \hbox (badness 10000) in paragraph at lines 247--248
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 260--262
+Underfull \hbox (badness 10000) in paragraph at lines 261--263
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--271
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
 
  []
 
 [18] <QTable_ex.png, id=104, 305.14pt x 104.39pt>
 File: QTable_ex.png Graphic file (type png)
  <use QTable_ex.png>
-Package pdftex.def Info: QTable_ex.png used on input line 284.
+Package pdftex.def Info: QTable_ex.png used on input line 285.
 (pdftex.def)             Requested size: 244.11232pt x 83.51208pt.
  [19 <./QTable_ex.png>] <ttt_1.png, id=109, 909.3975pt x 614.295pt>
 File: ttt_1.png Graphic file (type png)
  <use ttt_1.png>
-Package pdftex.def Info: ttt_1.png used on input line 292.
+Package pdftex.def Info: ttt_1.png used on input line 293.
 (pdftex.def)             Requested size: 181.87628pt x 122.85681pt.
 
 <ttt_2.png, id=110, 905.3825pt x 657.45625pt>
 File: ttt_2.png Graphic file (type png)
  <use ttt_2.png>
-Package pdftex.def Info: ttt_2.png used on input line 299.
+Package pdftex.def Info: ttt_2.png used on input line 300.
 (pdftex.def)             Requested size: 181.07329pt x 131.48892pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
+Underfull \hbox (badness 10000) in paragraph at lines 302--303
 
  []
 
 <ttt_3.png, id=111, 930.47626pt x 644.4075pt>
 File: ttt_3.png Graphic file (type png)
  <use ttt_3.png>
-Package pdftex.def Info: ttt_3.png used on input line 305.
+Package pdftex.def Info: ttt_3.png used on input line 306.
 (pdftex.def)             Requested size: 186.09195pt x 128.87921pt.
  [20 <./ttt_1.png> <./ttt_2.png> <./ttt_3.png>] <ttt_4.png, id=118, 942.52126pt
  x 655.44875pt>
 File: ttt_4.png Graphic file (type png)
 
 <use ttt_4.png>
-Package pdftex.def Info: ttt_4.png used on input line 310.
+Package pdftex.def Info: ttt_4.png used on input line 311.
 (pdftex.def)             Requested size: 188.50092pt x 131.08742pt.
  <ttt_5.png, id=119, 915.42pt x 631.35875pt>
 File: ttt_5.png Graphic file (type png)
  <use ttt_5.png>
-Package pdftex.def Info: ttt_5.png used on input line 314.
+Package pdftex.def Info: ttt_5.png used on input line 315.
 (pdftex.def)             Requested size: 183.08075pt x 126.2695pt.
 
-[21 <./ttt_4.png> <./ttt_5.png>] [22
+[21 <./ttt_4.png> <./ttt_5.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 340--341
+
+ []
+
+<Qtable_vs_Rnd_untrained.png, id=125, 259.97125pt x 48.18pt>
+File: Qtable_vs_Rnd_untrained.png Graphic file (type png)
+
+<use Qtable_vs_Rnd_untrained.png>
+Package pdftex.def Info: Qtable_vs_Rnd_untrained.png used on input line 344.
+(pdftex.def)             Requested size: 181.97862pt x 33.72574pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
+
+ []
+
+<QTable_vs_Minimax_untrained.png, id=126, 255.95625pt x 48.18pt>
+File: QTable_vs_Minimax_untrained.png Graphic file (type png)
+
+<use QTable_vs_Minimax_untrained.png>
+Package pdftex.def Info: QTable_vs_Minimax_untrained.png used on input line 350
+.
+(pdftex.def)             Requested size: 179.16814pt x 33.72574pt.
+
+<Qtable_vs_Rnd_trained.png, id=127, 265.99374pt x 44.165pt>
+File: Qtable_vs_Rnd_trained.png Graphic file (type png)
+
+<use Qtable_vs_Rnd_trained.png>
+Package pdftex.def Info: Qtable_vs_Rnd_trained.png used on input line 355.
+(pdftex.def)             Requested size: 186.19434pt x 30.91527pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--358
+
+ []
+
+<QTable_vs_Minimax_trained.png, id=128, 268.00125pt x 48.18pt>
+File: QTable_vs_Minimax_trained.png Graphic file (type png)
+
+<use QTable_vs_Minimax_trained.png>
+Package pdftex.def Info: QTable_vs_Minimax_trained.png used on input line 360.
+(pdftex.def)             Requested size: 187.59958pt x 33.72574pt.
+
+<QTable_vs_Minimax_trained_d.png, id=129, 258.9675pt x 45.16875pt>
+File: QTable_vs_Minimax_trained_d.png Graphic file (type png)
+
+<use QTable_vs_Minimax_trained_d.png>
+Package pdftex.def Info: QTable_vs_Minimax_trained_d.png used on input line 365
+.
+(pdftex.def)             Requested size: 181.27599pt x 31.61789pt.
+
+<QTable_vs_Rnd_trained_d.png, id=130, 261.97874pt x 46.1725pt>
+File: QTable_vs_Rnd_trained_d.png Graphic file (type png)
+
+<use QTable_vs_Rnd_trained_d.png>
+Package pdftex.def Info: QTable_vs_Rnd_trained_d.png used on input line 369.
+(pdftex.def)             Requested size: 183.38387pt x 32.32051pt.
+ [22 <./Qtable_vs_Rnd_untrained.png> <./QTable_vs_Minimax_untrained.png> <./Qta
+ble_vs_Rnd_trained.png> <./QTable_vs_Minimax_trained.png> <./QTable_vs_Minimax_
+trained_d.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 371--372
+
+ []
+
+[23 <./QTable_vs_Rnd_trained_d.png>] [24
 
 ]
 Rozdzia\l  3.
-[23] [24
 
-]
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
+
+ []
+
+<neuron.png, id=147, 872.25874pt x 342.27875pt>
+File: neuron.png Graphic file (type png)
+ <use neuron.png>
+Package pdftex.def Info: neuron.png used on input line 385.
+(pdftex.def)             Requested size: 174.44865pt x 68.45453pt.
+
+<sigmoid.png, id=148, 462.528pt x 346.896pt>
+File: sigmoid.png Graphic file (type png)
+ <use sigmoid.png>
+Package pdftex.def Info: sigmoid.png used on input line 393.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+
+Underfull \vbox (badness 1931) has occurred while \output is active []
+
+ [25 <./neuron.png>] <nn_example.png, id=153, 455.7025pt x 280.04625pt>
+File: nn_example.png Graphic file (type png)
+
+<use nn_example.png>
+Package pdftex.def Info: nn_example.png used on input line 400.
+(pdftex.def)             Requested size: 318.98956pt x 196.03102pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+
+ []
+
+[26 <./sigmoid.png> <./nn_example.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 435--437
+
+ []
+
+[27] [28] <nn_1pod.png, id=167, 260.975pt x 585.18625pt>
+File: nn_1pod.png Graphic file (type png)
+ <use nn_1pod.png>
+Package pdftex.def Info: nn_1pod.png used on input line 462.
+(pdftex.def)             Requested size: 130.48718pt x 292.5924pt.
+
+<tanh.png, id=168, 462.528pt x 346.896pt>
+File: tanh.png Graphic file (type png)
+ <use tanh.png>
+Package pdftex.def Info: tanh.png used on input line 478.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+ [29 <./nn_1pod.png>]
+<nn_I_tanh.png, id=174, 259.97125pt x 45.16875pt>
+File: nn_I_tanh.png Graphic file (type png)
+ <use nn_I_tanh.png>
+Package pdftex.def Info: nn_I_tanh.png used on input line 488.
+(pdftex.def)             Requested size: 181.97862pt x 31.61789pt.
+
+<nn_I_softplus.png, id=175, 250.9375pt x 47.17625pt>
+File: nn_I_softplus.png Graphic file (type png)
+ <use nn_I_softplus.png>
+Package pdftex.def Info: nn_I_softplus.png used on input line 503.
+(pdftex.def)             Requested size: 175.65504pt x 33.02313pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 511--512
+
+ []
+
+[30 <./tanh.png> <./nn_I_tanh.png> <./nn_I_softplus.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 522--523
+
+ []
+
+<ttt_6.png, id=182, 915.42pt x 631.35875pt>
+File: ttt_6.png Graphic file (type png)
+ <use ttt_6.png>
+Package pdftex.def Info: ttt_6.png used on input line 529.
+(pdftex.def)             Requested size: 183.08075pt x 126.2695pt.
+
+Underfull \vbox (badness 5954) has occurred while \output is active []
+
+ [31]
+Underfull \hbox (badness 10000) in paragraph at lines 531--532
+
+ []
+
+<ttt_7.png, id=186, 915.42pt x 631.35875pt>
+File: ttt_7.png Graphic file (type png)
+ <use ttt_7.png>
+Package pdftex.def Info: ttt_7.png used on input line 536.
+(pdftex.def)             Requested size: 183.08075pt x 126.2695pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 538--539
+
+ []
+
+File: ttt_7.png Graphic file (type png)
+<use ttt_7.png>
+Package pdftex.def Info: ttt_7.png used on input line 543.
+(pdftex.def)             Requested size: 183.08075pt x 126.2695pt.
+
+Overfull \hbox (0.58975pt too wide) in paragraph at lines 545--546
+$[]\OT1/cmr/m/n/10.95 [0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 2\OML/cmm/m/it
+/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm
+/m/it/10.95 ; \OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OM
+L/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95
+ 2\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/
+10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 843\OML/cmm/m/it/10.95 ; \OT1/cm
+r/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 8]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 545--546
+
+ []
+
+[32 <./ttt_6.png> <./ttt_7.png>] <nn2_1.png, id=192, 244.915pt x 54.2025pt>
+File: nn2_1.png Graphic file (type png)
+
+<use nn2_1.png>
+Package pdftex.def Info: nn2_1.png used on input line 562.
+(pdftex.def)             Requested size: 171.43932pt x 37.94148pt.
+ <nn2_2.png, id=193, 268.00125pt x 45.16875pt>
+File: nn2_2.png Graphic file (type png)
+ <use nn2_2.png>
+Package pdftex.def Info: nn2_2.png used on input line 568.
+(pdftex.def)             Requested size: 187.59958pt x 31.61789pt.
+
+<nn2_3.png, id=194, 251.94125pt x 47.17625pt>
+File: nn2_3.png Graphic file (type png)
+ <use nn2_3.png>
+Package pdftex.def Info: nn2_3.png used on input line 574.
+(pdftex.def)             Requested size: 176.35767pt x 33.02313pt.
+
+<nn2_4.png, id=195, 258.9675pt x 48.18pt>
+File: nn2_4.png Graphic file (type png)
+ <use nn2_4.png>
+Package pdftex.def Info: nn2_4.png used on input line 580.
+(pdftex.def)             Requested size: 181.27599pt x 33.72574pt.
+ [33 <./nn2_1.png> <./nn2_2.png> <./nn2_3.png>] [34 <./nn2_4.png>]
 Rozdzia\l  4.
-[25] [26
 
-]
+Underfull \hbox (badness 10000) in paragraph at lines 591--592
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 593--594
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 595--596
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 597--598
+
+ []
+
+[35
+
+] [36]
 Dodatek A.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 339.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 606.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [27] [28
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 606.
+ [37
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 625--626
+
+ []
+
+[38]
 Dodatek B.
-[29] [30
 
-]
-Underfull \hbox (badness 2409) in paragraph at lines 359--360
+Underfull \hbox (badness 10000) in paragraph at lines 638--641
+
+ []
+
+<plansza.png, id=219, 597.23125pt x 625.33624pt>
+File: plansza.png Graphic file (type png)
+ <use plansza.png>
+Package pdftex.def Info: plansza.png used on input line 648.
+(pdftex.def)             Requested size: 298.61488pt x 312.66736pt.
+ [39
+
+ <./plansza.png>] <uruchamianie.png, id=224, 542.025pt x 141.52875pt>
+File: uruchamianie.png Graphic file (type png)
+
+<use uruchamianie.png>
+Package pdftex.def Info: uruchamianie.png used on input line 669.
+(pdftex.def)             Requested size: 271.01183pt x 70.76419pt.
+ [40 <./uruchamianie.png>]
+Underfull \hbox (badness 2409) in paragraph at lines 685--686
 []\T1/cmr/m/n/10.95 Prof. Pa-trick Henry Win-ston, \T1/cmr/m/it/10.95 MIT co-ur
 se num-ber 6.043, Ar-ti-fi-cal In-te-li-gence\T1/cmr/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 359--360
+Underfull \hbox (badness 10000) in paragraph at lines 685--686
 \T1/cmr/m/n/10.95 https://ocw.mit.edu/courses/electrical-engineering-and-comput
 er-science/6-034-
  []
 
-./praca.tex:361: Undefined control sequence.
-l.361 	\bibitem{Game} Matthew O. Jackson , \texit
+./praca.tex:687: Undefined control sequence.
+l.687 	\bibitem{Game} Matthew O. Jackson , \texit
                                                  {A Brief Introduction to th...
 
 ? 
 
-Underfull \hbox (badness 2229) in paragraph at lines 361--362
+Underfull \hbox (badness 2229) in paragraph at lines 687--688
 []\T1/cmr/m/n/10.95 Matthew O. Jack-son , A Brief In-tro-duc-tion to the Ba-sic
 s of Game The-ory,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--362
+Underfull \hbox (badness 10000) in paragraph at lines 687--688
 \T1/cmr/m/n/10.95 https://www.ethz.ch/content/dam/ethz/special-interest/gess/ch
 air-of-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--362
+Underfull \hbox (badness 10000) in paragraph at lines 687--688
 \T1/cmr/m/n/10.95 sociology-dam/documents/education/spieltheorie/literatur/Einf
 ührung/Jackson
  []
 
-[31] (./praca.aux) ) 
+
+Overfull \hbox (9.36806pt too wide) in paragraph at lines 689--690
+\T1/cmr/m/n/10.95 m15.ma.tum.de/foswiki/pub/M15/Allgemeines/PublicationsEN/Mast
+erThesisHeining.pdf 
+ []
+
+[41
+
+] (./praca.aux) ) 
 Here is how much of TeX's memory you used:
- 6635 strings out of 492995
- 93187 string characters out of 6132705
- 169017 words of memory out of 5000000
- 10062 multiletter control sequences out of 15000+600000
- 25932 words of font info for 69 fonts, out of 8000000 for 9000
+ 6485 strings out of 492995
+ 93067 string characters out of 6132705
+ 170051 words of memory out of 5000000
+ 9893 multiletter control sequences out of 15000+600000
+ 25619 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,9n,38p,1385b,1035s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-supe
-r/cm-super-t1.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
-pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr
-/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/l
-ocal/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local
-/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/t
-exlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/tex
-live/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texli
-ve/2017/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive
-/2017/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on praca.pdf (33 pages, 777437 bytes).
+ 39i,9n,38p,2399b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/c
+m-super-t1.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
+fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/loca
+l/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
+Output written on praca.pdf (43 pages, 1092459 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 148 compressed objects within 2 object streams
+ 315 PDF objects out of 1000 (max. 8388607)
+ 175 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
