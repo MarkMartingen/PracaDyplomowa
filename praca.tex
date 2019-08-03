@@ -261,43 +261,102 @@ Powiemy, że $\pi_{*}$ jest optymalna, jeżeli dla każdej strategii $\pi$ zacho
 
 
 $$\forall s\in \mathcal{S}: v_{\pi_{*}}(s) =\max_{\pi} v_{\pi}(s)$$ $$\forall s\in\mathcal{S}\wedge \forall a\in\mathcal{A}: q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$$
-Gdyby na przykład  $v_{\pi_{*}}(s)<v_{\tilde{\pi}}(s)$ dla pewnego stanu $s$ i  pewnej $\tilde{\pi}$, to  strategię $\pi_{*}$ można by poprawić grając strategią $\tilde{\pi}$ po napotkaniu stanu $s$ co jest sprzeczne z tym, że   $\tilde{\pi}\prec\pi_{*}$. Poddobnie ma sie rzecz z równaniem $q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$.\\
+Gdyby na przykład  $v_{\pi_{*}}(s)<v_{\tilde{\pi}}(s)$ dla pewnego stanu $s$ i  pewnej $\tilde{\pi}$, to  strategię $\pi_{*}$ można by poprawić grając strategią $\tilde{\pi}$ po napotkaniu stanu $s$ co jest sprzeczne z tym, że   $\tilde{\pi}\prec\pi_{*}$. Poddobnie ma sie rzecz z równaniem $q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$.  Znajość $q_{\pi_{*}}(a,s)$ jest z praktycznego punktu widzenia najbardziej porządana, bo daje odpowiedź na kluczowe pytanie - jaką akcję należy wybrać będąc w stanie $s$:\\
+$$\argmax_{a}q_{\pi_{*}}(a,s)$$
+Dla uproszczenia zapisu, polożmy:
+$$v_{\pi_{*}}:=v_{*}\text{ oraz } q_{\pi_{*}}:=q_{*}$$
 
 Dopiero teraz przechodzimy do pytania jak znaleźć optymalną strategię? Jeżeli zbiory  $\mathcal{S}, \mathcal{A}, \mathcal{R}$ są skończone, to znajomość funkcji $p$ daje ,,pełną wiedzę'' o systemie. W szczególności można dokładnie wyliczyć optymalną strategię, bazując na tzw. równiach Bellman'a, które wiążą $v_{\pi}(s)$ z kolejnym stanem systemu $v_{\pi}(s')$
-$$v_{\pi}(s) = \sum_{a}\pi(a|s)\sum_{s',r}p(s,a,s',r)[r +\gamma v_{\pi}(s')] $$
 
-Jeżeli wybierze się aritralną nie losową strategię $\pi$, to bazując na równaniu Bellman'a można policzyć $v_{\pi}(s)$ dla wszytskich stanów $s$. Sprowadza się to do rozsupłanie powyższej ,,rekurencji''  prez rozwiązanie $|\mathcal{S}|$  (tutaj $|\cdot|$ oznacza liczebność zbioru ) równań liniowych.  Następnie można ,,poprawiać'' deterministyczną strategię $\pi$ poprzez sprawdzanie, czy dla poszczególnych stanów $s$ i $a$ (takich, że $\pi(s)\neq a$ ) będzie $q_{\pi}(s,a)\geq v_{\pi}(s)$. Jeżeli znajdziemy ,,lepszą'' akcję $a$  dla stanu $s$ aniżeli $\pi(s)$, to mamy poprawioną strategię 
+\begin{equation}
+	v_{\pi}(s) = \sum_{a}\pi(a|s)\sum_{s',r}p(s,a,s',r)[r +\gamma v_{\pi}(s')] 
+\end{equation}
+A w przypakdu strategii optymalnej $\pi_{*}$ równanie Bellmana dla $v_{*}(s)$ oraz dla funkcji $q_{*}$ zadane są przez:
+
+\begin{equation}\label{vstar}
+	v_{*}(s) = \max_{a}\sum_{s',r}p(s,a,s',r)[r +\gamma v_{*}(s')]
+\end{equation}
+\begin{equation}\label{qstar}
+	q_{*}(a, s) = \sum_{s',r}p(s,a,s',r)[r +\gamma q_{*}(a,s')]
+\end{equation}
+Wyprowadzenie powyższych wzorów sprowadza się do zastosowaniu kilki przekształceń i manipulowaniua definicją $v_{\pi}$. Nie jest to skomplikowane, ale zostaje pominięte ze względu na zwięzłość pracy. 
+
+Jeżeli wybierze się aritralną  $\pi$, to bazując na równaniu Bellman'a można policzyć $v_{\pi}(s)$ dla wszytskich stanów $s$. Sprowadza się to do rozsupłanie powyższej ,,rekurencji''  prez rozwiązanie 
+$|\mathcal{S}|$  (tutaj $|\cdot|$ oznacza liczebność zbioru ) równań liniowych. Takie podejście może się sprawdzić o ile liczba stanów jest niwielka i łatwo jest policzyć bezpośrednio $v_{*}(s)$ lub $q_{*}(a,s)$ korzystając \ref{vstar} i \ref{qstar}.  Jeżeli jednak przestrzeń stanów jest ,,duża'', to  wówczas stosuje się metody iteracyjne do policzneia $v_{\pi}$, bazujące na cyklicznym poprawianiu wartoci $v_{\pi}(s)$ z wykorzystanien równań Bellman'a. Zaczynamy od arbitralnej strategii $\pi$ i arbitralnej funkcji $v_{0}(s)$. Następnie poprawiamy wiele razy wedłu przepisu:
+
+\begin{equation}\label{GPI}
+	v_{k+1}(s) = \sum_{a}\pi(a|s)\sum_{s',r}p(s,a,s',r[r+\gamma v_{k}(s)]
+\end{equation}
+
+Okazuje się, że takie iteracyjne poprawianie $v_{k}(s)$ zgodnie z \ref{GPI} gwarantuje zbieżnosć punktową $v_{k}(s)\rightarrow v_{\pi}(s)$, przy $k\rightarrow\infty$.\\
+
+Mając (dla pewnej arbitralnej strategii $\pi$) wyestymowaną funkcję $v_{\pi}(s)$  można policzyć  funckję $q_{\pi}(a,s)$ bezposrednio z definicji:
+$$q_{\pi}(a,s)=\mathbb{E}_{\pi}(G_{t}| S_{t} = s, a_{t} = a)  =  \sum_{s',r}p(s',r|s, a)[r+\gamma v_{\pi}(s)]$$
+
+Majć powyższe można  ,,poprawiać'' strategię $\pi$ czyniąc z niej $\pi'$ : 
+
+\begin{equation}\label{update1}
+	\pi'(s)\stackrel{\text{def}}{=}\argmax_{a}q_{\pi}(a,s)
+\end{equation}
+
+
+Gdyby ograniczyć się tylko do strategii nielosowych, to dla par  $s$ i $a$ o ile będzie $q_{\pi}(s,a)\geq v_{\pi}(s)$, to znaczy, że akcja $a$  dla stanu $s$ jest lepsza aniżeli $\pi(s)$ i można poprawiać strategię: 
 $$\pi'(s) =
 	\begin{cases}
 		a\text{ ,  }s=a,\\			
 		\pi(s)\text{ , } s\neq a\\
 	\end{cases}
 $$
- Okazuje się, że takie sukcesywne poprawianie strategii $\pi\rightarrow\pi'\rightarrow\pi''\rightarrow ...$ prowadzi do optymalnej strategii $\pi_{*}$. Takie podejście w \cite{RL} nazywane jest programowaniem dynamicznym (z ang. \textit{dynamic programming}). Jest to skuteczne podejście jeżeli dostępna jest  pełna wiedzę o funkcji $p$ oraz jeżeli liczba możliwych stanów nie jest bardzo duża. Najczęściej to podejście sprawdza się przy modelowaniu rzeczywistychy systemów za pomocą procesu decyzyjnego Markowa.\\
 
-Inną interesującą sytuacją jest brak znajomości funkcji $p$ i wówczas celem jest stworzenie algorytmu, który znajduje optymalną strategię doświadczalnie, ucząc się systemu, bez uprzednich założeń odnośnie jego dynamiki zadanej preze funkcję $p$. Najczęściej zaczyna się od losowej strategii i z każdym cyklem interakcji z systemem (albo po ustalonej liczbie  $n$ cyklach) dostosowujemy strategię na podstawie dotychczasowych obserwacji. Ponieważ $v_{\pi}(s)$ jest definiowana jako wartość oczekiwana, to naturalnym odruchem może być wyliczanie przyszłych nagród startując ze stanu $s$ i podążając za strategią $\pi$ w wielu epizodach iterakcji agenta z system, a następnie uśrednienia otrzymanych wartości. Takie podejście, typowo w stylu monte-carlo, ma poważną wadę w przypadku systemów z dużą ilością stanów, bo potrzeba czasami nierealistycznie dużej próbki danych (epizodów), żeby sensownie policzyć  $v_{\pi}(s)$. \\
+Okazuje się, że takie sukcesywne, naprzemienne wyliczanie $v_{\pi}$, poprawianie na tej podstawie strategii na $\pi'$, następnie znowu estymowanie $v_{\pi'}$ i tak dalej:
+
+\begin{equation}\label{update2}
+ 	\pi\rightarrow v_{\pi}\rightarrow \pi' \rightarrow v_{\pi'} \rightarrow \pi'' \rightarrow v_{\pi''} \rightarrow...
+\end{equation}
+
+
+prowadzi do optymalnej strategii $\pi_{*}$.  Algorytm ten często nazywany jest GPI od angielskiego \textit{general policy iteration}. Natomiast całe podejście w \cite{RL} nazywane jest programowaniem dynamicznym (z ang. \textit{dynamic programming}). Jest to skuteczne podejście jeżeli dostępna jest  pełna wiedzę o funkcji $p$ oraz jeżeli liczba możliwych stanów nie jest bardzo duża. Najczęściej to podejście sprawdza się przy modelowaniu rzeczywistychy systemów za pomocą procesu decyzyjnego Markowa.\\
+
+Inną interesującą sytuacją jest brak znajomości funkcji $p$ i wówczas celem jest stworzenie algorytmu, który znajduje optymalną strategię doświadczalnie, ucząc się systemu, bez uprzednich założeń odnośnie zasad rządzącyh  jego dynamiką.  Podobnie jak  w sytuacji znajomoci $p$,  zaczyna się od losowej strategii i z każdym cyklem interakcji z systemem (albo po ustalonej liczbie  $n$ cyklach) dostosowuje się strategię na podstawie dotychczasowych obserwacji zgodnie z \ref{update1} i \ref{update2}. To co się zmienia, to kwestia estymacji funkcji $v_{\pi}(s)$ (lub powiązanej z nią $q_{\pi}(a,s)$). Ponieważ $v_{\pi}(s)$ jest definiowana jako wartość oczekiwana, to naturalnym odruchem może być wyliczanie przyszłych nagród po pierwzej wizycie w stanie $s$ podążając za strategią $\pi$ w wielu epizodach iterakcji agenta z system, a następnie uśrednienia otrzymanych wartości nagród. Takie podejście, typowo w stylu monte-carlo, ma poważną wadę w przypadku systemów z dużą ilością stanów, bo potrzeba czasami nierealistycznie dużej próbki danych (epizodów), żeby sensownie policzyć  $v_{\pi}(s)$. A nawet jeżeli ilość epizodów nie jest problem, to konieczne są pewne dodatkowe założenia takie jak konieczność startowania epizodu ze wszystkich możliwych stanów. W przeciwnym razie pewne stany mogą nigdy nie być odwiedzane i nie trudno wówczas mówić o estymacji $v_{\pi}$.  \\
  
- Metodą, poniekąd łączącą, programowanie dynamiczne z metodami w stylu monte carlo, nie wymagających znajomości funkcji $p$, są metody Q-learning (albo ogólnej z ang. \textit{temporal difference}).  Idea tych metod sprowadza się do tego, że można w każdy kroku, po każdej interakcji agenta z systemem, poprawiać stosowaną przez niego strategię $\pi$ zgodnie ze wzorem
-\begin{equation}
-   v_{\pi}(s_{t}) := v_{\pi}(s_{t}) +\alpha [R_{t+1} + \gamma v_{\pi}(s_{t+1}) - v_{\pi}(s_{t+1})]
+ Metodą, poniekąd łączącą, programowanie dynamiczne z metodami w stylu monte carlo, nie wymagającą znajomości funkcji $p$, są metody Q-learning (albo ogólnej z ang. \textit{temporal difference}).  Idea tych metod sprowadza się do tego, że można w każdy kroku, po każdej interakcji agenta z systemem, poprawiać stosowaną przez niego strategię $\pi$ zgodnie ze wzorem
+\begin{equation}\label{qlearning1}
+   v_{\pi}(s_{t}) := v_{\pi}(s_{t}) +\alpha [R_{t+1} + \gamma v_{\pi}(s_{t+1}) - v_{\pi}(s_{t})]
  \end{equation}
- W tym wypadku nie potrzeba czekać do końca epizodu (np. do końca gry), a najlepiej wielokrotnie, żeby zaktualizować $v_{\pi}(s_{t})$ jak w metodach monte carlo. Możemy bazować tylko na otrzymanej nagrodzie i estymacji $v_{\pi}(s_{t+1})$ dla kolejnego stanu. Tutaj $\alpha$ jest hiperparametrem algorytmu, często nazywany z angielskiego \textit{learning rate}, a $\gamma$ jest, już wcześniej wsppomnianym, czynnikiem dyskontującym wartość przyszłych nagród. W kolejnym rozdziale opisana jest zastosowanie tego rodzaju algorytmu. 
+ albo dla funkcji $q$:
+\begin{equation}\label{qlearning2}
+   q_{\pi}(s_{t}, a_{t}) := q_{\pi}(s_{t},a_{t}) +\alpha [R_{t+1} + \gamma q_{\pi}(s_{t+1}, a_{t+1}) - q_{\pi}(s_{t},a_{t})]
+ \end{equation}
+ 
+ W tym wypadku nie potrzeba czekać do końca epizodu (np. do końca gry), żeby zaktualizować $v_{\pi}(s_{t})$ jak w metodach monte carlo. Estymacja $v_{\pi}$  bazuje tylko na otrzymanej nagrodzie i estymacji $v_{\pi}(s_{t+1})$ dla kolejnego stanu. Ponieważ estymacja częściowo bazuje na estymacju, to mżna powiedzieć, że jest to metoda ,,bootstrapowa'''. Jednak tak jak poprzednio, po wyestymowaniu $v_{pi}$ konieczne jest dalsze podążanie algorytmem GPI, czyli suckesywną poprawą strategii $\pi$ zgodnie z \ref{update2} .   W \ref{qlearning1} i \ref{qlearning2}  $\alpha$ jest hiperparametrem algorytmu, często nazywany z angielskiego \textit{learning rate}, a $\gamma$ jest, już wcześniej wsppomnianym, czynnikiem dyskontującym wartość przyszłych nagród. W kolejnym rozdziale opisana jest zastosowanie tego rodzaju algorytmu. \\
+ 
+ Finalnie algorytmem wykorzystanym w tej pracy do nauki gry w kółko i krzyżyk, jest algorytm znany jako Q-learning, opracowany w 1989 przez C. Watkins'a \cite{Watkins} w ramach jego  pacy dokorskiej. Algorytm Q-learning jest o tyle rewolucyjny, że odchodzi od naprzemiennego estymowania $v_{\pi}$ i poprawiania odpowiednio $\pi\rightarrow \pi'$ jako to ma miejsce w klasycznym GPI. W tym przypadku estymuje się bezpośrednio $q_{*}$ zgodnie ze wzorem:
+ \begin{equation}\label{qlearning}
+ 	 q_{*}(s_{t}, a_{t}) := q_{*}(s_{t},a_{t}) +\alpha [R_{t+1} + \gamma \max_{a_{t+1}} q_{*}(s_{t+1}, a_{t+1}) - q_{*}(s_{t},a_{t})]
+ \end{equation} 
+ 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Opis algorytmu}
-Strategia została zdefioniowana jako mapowanie, które każdemu stanowi $s\in\mathcal{S}$ przypisuje rozkład prawdopodobieństwa $\mathbf{P}_{s}$ na przestrzeni stanów $\mathcal{A}$. Teraz jednak celem jest przejście od ogólnej teorii do konkretnego algorytmu grającego w kółko i krzyżyk i w tym celu potrzebnych będzie kilka uproszczeń. W szczególności ograniczenie się do strategii nie losowych, tzn, do mapowania
-$$\pi : \mathcal{S}\rightarrow\mathcal{A}$$
-Jest to szczególny przypadek opisanej w poprzedniej sekcji teorii, gdzie rozważamy wyłącznie atomowe rozkłady prawdopodobieństwa na $\mathcal{A}$. Mając dany stan $s\in\mathcal{S}$ potrzeba znaleźć optymalny ruch $\pi(s)\in\mathcal{A}$.  Przy takim uproszczeniu:
-	$$\pi_{*}(s) = \argmax_{a\in\mathcal{A}} q(a,s)$$
-		oraz
-	$$v_{\pi_{*}}(s)=\max_{a\in\mathcal{A}} q(a,s)$$
-Optymalna strategia, przy założeniu że znaleźliśmy się w stanie $s$ będzie maksymalizować oczekiwaną nagród wartość $q(a,s)$. Kolejnym celem jest włożenie tych uproszczeń do (2.1) i na tej podstawie wypracowanie algorytm nadającego się do implementacji. Na początek można położyć dla każdego stanu $s\in\mathcal{S}$ i dla każdej akcji $a$, $q(a,s) = 0$.  Dalej załóżmy, że wykonano pierwszy cykl interakcji  z systemem. W przypadku gry w kółko i krzyżyk oponent wykonał ruch i gra jest w stanie $s$. Teraz kolej na agenta, który dąży do tego, żeby nauczyć się optymalnej strategii. Zgodnie z (2.2) agent powinien rozważyć wszystkie możliwe ruchy $a$ i wybrać ten, który maksymalizuje $q(a, s)$. Jeżeli jest więcej niż jedno takie $a$, to agent wybiera je losowo. W każdym razie agent wybiera  $\tilde{a}$, które maksymalizuje wszytskie $q(a,s)$. System znowu odpowiada na ruch $\tilde{a}$  i przechodzi do stanu $\tilde{s}$ i zwraca nagrodę $R$. Teraz podstawiając $q(\tilde{a},s)$ za $v_{\pi}(s)$ do (2.1) otrzymujemy przypis jak je  zmienić:\\
-\begin{equation}
-\label{q}
-	q(\tilde{a},s) := q(\tilde{a},s) +\alpha[R + \gamma\cdot\max_{a\in\mathcal{A}}q(a,\tilde{s})]
-\end{equation}
-Można zainicjować wszystkie $q(a,s):=0$, a następnie podczas wielokrotnie rozgrywanych gier z systemem aktualizować te wartości po każdym ruchu zgodnie z (\ref{q}). Okazuje się, że takie aktualizacje wartości $q(a,s)$ po każdym ruchu, zapewniają zbieżność do rzeczywistych wartości  $q(a,s)$. Następnie stosując (2.1) otrzymujemy optymalną startegię gry w kółko o krzyżyk.
+
+Koncepcja algorytmu uczącego się gry w kółko i krzyżyk bazuje na rozgrywaniu wielu gier z graczem losowym stosując nieustannie \ref{qlearning} i tym samym poprawiając szacowanie funkcji $q_{*}$, która definiuje nam optymalną strategię zgodnie ze wzorem
+
+$$\pi(s) = \argmax_{a}q_{*}(s,a).$$
+
+Do tego dochodzi kilka drobnych subtelnosci, takich jak pilnowanie tego, żeby dla stanów końcowych (koniec gry)  kłasć $q_{*}(s,a)=0$ oraz wybieranie losowych ruchów z małym prawdopodobieństwem $\epsilon>0$. Poniżej znajduje się opis algorytmu w punktach:
+
+\begin{enumerate}
+	\item{Zaincjalizuje $q(s,a):=0$ dla wszytskich możliwych stanów}
+	\item{Rozegraj $N$ gier w kółko i krzyżyk:}
+		\begin{enumerate}
+			\item{Jeżeli jest ruch agenta w stanie $s$, to wybierz z prawdopodobieństwem $\epsilon$ ruch $a$ maksymalizujący $q(a,s)$ albo wybierz dowolny legalny ruch z prawdopodobieństwem $\epsilon$}
+			\item{Jeżeli ruch agenta był ruchem kończącym grę, to połóż $q(s,a)=0$}
+			\item{Jeżeli ruch agenta nie był ostatnim ruchem, to połóż, to zaczytaj nowy stan planszy $s'$ po ruchu systemu oraz nagrodę $r$ oraz połóż:
+				$$ q(s, a) := q(s,a) +\alpha [r + \gamma \max_{a} q(s', a) - q(s,a)]$$ }
+		\end{enumerate}
+\end{enumerate}
+
 
 \section{Implementacja}
 
@@ -778,7 +837,7 @@ Moduł ttt.py może również służyć do trenowania algorytmów QTable i sieci
 \addcontentsline{toc}{chapter}{Bibliografia}
 
 	\bibitem {nn} Michael Nielsen, \textit{Neural Networks and Deep Learning}, Determination Press, 2015
-
+	
 	\bibitem {itsl} James Gareth, \textit{Introduction to Statistical Learning}, Springer, 2013
 	
 	\bibitem {RL} Richard S. Sutton and Andrew G. Barto, \textit{Reinforcement Learning: An Introduction},  MIT Press, Cambridge, MA, 2018
@@ -787,10 +846,13 @@ Moduł ttt.py może również służyć do trenowania algorytmów QTable i sieci
 
 	\bibitem{TUM} Michael Heining, \textit{Dynamic Learning: A case study on Tic-Tac-Toe}, https://www-m15.ma.tum.de/foswiki/pub/M15/Allgemeines/PublicationsEN/MasterThesisHeining.pdf
 	
+	\bibitem{Watkins} Christopher John Cornish Hellaby Watkins, \textit{Learning from Delayed Rewards}, http://www.cs.rhul.ac.uk/~chrisw/new\_thesis.pdf
+	
 	\bibitem{Game}  Matthew O. Jackson, \textit{A Brief Introduction to the Basics of Game Theory}, \linebreak https://ethz.ch/content/dam/ethz/special-interest/gess/chair-of-sociology-dam/documents/education/spieltheorie/literatur/Einf\%c3\%bchrung/\linebreak Jackson\%20Basics\%20of\%20Game\%20Theory\%20SSRN-id1968579.pdf
 
 	\bibitem{Graphics} John Zelle,  \textit{Pyhton Programming: An introduction to Computer Science}, https://mcsp.wartburg.edu/zelle/python/
 	\bibitem{TF} TensorFlow, https://www.tensorflow.org/
+	
 
 \end{thebibliography}
 
