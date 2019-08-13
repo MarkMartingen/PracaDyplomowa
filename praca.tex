@@ -1,20 +1,4 @@
 % !TEX encoding = UTF-8 Unicode
-%
-% Niniejszy plik stanowi przykład formatowania pracy magisterskiej na
-% Wydziale MIM UW.  Szkielet użytych poleceń można wykorzystywać do
-% woli, np. formatujac wlasna prace.
-%
-% Zawartosc merytoryczna stanowi oryginalnosiagniecie
-% naukowosciowe Marcina Wolinskiego.  Wszelkie prawa zastrzeżone.
-%
-% Copyright (c) 2001 by Marcin Woliński <M.Wolinski@gust.org.pl>
-% Poprawki spowodowane zmianami przepisów - Marcin Szczuka, 1.10.2004
-% Poprawki spowodowane zmianami przepisow i ujednolicenie
-% - Seweryn Karłowicz, 05.05.2006
-% Dodanie wielu autorów i tłumaczenia na angielski - Kuba Pochrybniak, 29.11.2016
-
-% dodaj opcję [licencjacka] dla pracy licencjackiej
-% dodaj opcję [en] dla wersji angielskiej (mogą być obie: [licencjacka,en])
 \documentclass[licencjacka]{pracamgr}
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -50,7 +34,7 @@ Warsztaty z wykorzystaniem programu R.}
  }
 
 % miesiąc i~rok:
-\date{Czerwiec 2018}
+\date{Sierpień 2019}
 
 %Podać dziedzinę wg klasyfikacji Socrates-Erasmus:
 \dziedzina{}
@@ -75,7 +59,7 @@ Warsztaty z wykorzystaniem programu R.}
 \maketitle
 %tu idzie streszczenie na strone poczatkowa
 \begin{abstract}
-  W pracy przedstawiono i zaimplementowano trzy różne algorytmy uczące komputer gry w kółko i krzyżyk. Pierwszym algorytmem jest Minimax połączony z przycinaniem $\alpha$ - $\beta$. Następny algorytm, to znany pod angielską nazwą \textit{Q-learning} w połączeniu z  klaysczną tablicą. Trzecie podejcie wykorzystuje sieć neuronową. Praca zawiera opis, porównanie działania algorytmów oraz opis aplikacji do gry z komputerem wykorzystującym wybrane algorytmy.
+  W pracy przedstawiono i zaimplementowano trzy różne algorytmy uczące komputer gry w kółko i krzyżyk. Pierwszym algorytmem jest Minimax połączony z przycinaniem $\alpha$ - $\beta$. Następny algorytm, to znany pod angielską nazwą \textit{Q-learning} w połączeniu z  klasyczną tablicą. Trzecie podeśjcie wykorzystuje sieć neuronową. Praca zawiera opis, porównanie działania algorytmów oraz opis aplikacji do gry z komputerem wykorzystującym wybrane algorytmy.
 \end{abstract}
 
 \tableofcontents
@@ -90,7 +74,7 @@ W trakcie zajęć na studiach podyplomowych wiele uwagi poświęcono budowaniu m
 
 Doświadczenie z zajęć jednoznacznie wskazywało na dwa kluczowe aspekty, które decydowały o skuteczności modeli predykcyjnych. Po pierwsze jakość danych. Zaszumienie danych, bądź niepoprawne skalowanie prowadziło najczęściej do wyników poniżej oczekiwań. Druga sprawa dotyczyła tego na ile zmienne objaśniające rzeczywiście determinują zmienną (lub zmienne) objaśniane. Intuicyjnie, mało kto uwierzy, że dane ankietowe dotyczące średniej ilości godzin spędzonych w pracy połączonych z danymi demograficznymi takimi jak wiek, poziom wykształcenia, miejsce zamieszkania itd. będzie w pełni determinować poziom przychodu. Sukces finansowy najprawdopodobniej zależy również od szeregu cech osobowości takich jak odwaga do podążania za swoimi celami, umiejętność budowania swojej pozycji w systemach społecznych itp.  Modele bazujące na danych ankietowych i demograficznych - takie jak budowano na zajęciach - miały skuteczność mierzoną średnim odchyleniem kwadratowy rzędu $70\% - 85\%$  Trudno jednoznacznie powiedzieć na ile satysfakcjonujące są takie wyniki. Można uznać, że model ,,działa'', można też w ten sposób porównywać modele, ale trudno powiedzieć na ile ,,uchwycono'',  prawa natury rządzące poziomem przychodu.\\
  
-Podczas przymiarek do napisania tej pracy celem było skoncentrowanie się bardziej na algorytmach uczących komputery, aniżeli na zbieraniu, czyszczeniu i doborze danych, czyli na tzw. ,,feature engineering'''. Należy podkrelić,  że w żadnym wypadku nie pomniejsza się wagi ani znaczenia tej sztuki. Po prostu sam proces towrzenia lagorytmów uczeąych się wydawał się ciekawszy od zbierania i oróbki odpowiednich danych, żeby to uczenie było skuteczne. W poszukiwaniu problemów, w których dane byłyby niejako naturalnie dostępne uwaga autora skupiła się na grach. Jak nauczyć komputer grać w prostą grę?  W tym wypadku dane są zbierane poprzez grę komputera z człowiekiem, z graczem losowym lub z samym sobą (komputer vs. komputer) i oczywiście nie ma mowy o żadnym zaszumieniu. Szachy i warcaby wydawały się zbyt ambitnym wyzwaniem. W obszarze rozważań znalazły się gry karciane, ale lepiej skupiać się na grze w pełni deterministycznej, w której losowość nie miałaby wpływu na wynik. Dzięki temu wiadomo na ile komputer dobrze nauczył się grać, bez względu na to jak dobra trafiła mu się karta. Ostatecznie wybór padł na kółko i krzyżyk - prosta i w pełni deterministyczna gra. Idealne pole do eksperymentowania z algorytmami uczącymi się. \\
+Podczas przymiarek do napisania tej pracy celem było skoncentrowanie się bardziej na algorytmach uczących komputery, aniżeli na zbieraniu, czyszczeniu i doborze danych, czyli na tzw. ,,feature engineering'''. Należy podkreślić,  że w żadnym wypadku nie pomniejsza się wagi ani znaczenia tej sztuki. Po prostu sam proces tworzenia algorytmów uczących się wydawał się ciekawszy od zbierania i obróbki odpowiednich danych, żeby to uczenie było skuteczne. W poszukiwaniu problemów, w których dane byłyby niejako naturalnie dostępne uwaga autora skupiła się na grach. Jak nauczyć komputer grać w prostą grę?  W tym wypadku dane są zbierane poprzez grę komputera z człowiekiem, z graczem losowym lub z samym sobą (komputer vs. komputer) i oczywiście nie ma mowy o żadnym zaszumieniu. Szachy i warcaby wydawały się zbyt ambitnym wyzwaniem. W obszarze rozważań znalazły się gry karciane, ale lepiej skupiać się na grze w pełni deterministycznej, w której losowość nie miałaby wpływu na wynik. Dzięki temu wiadomo na ile komputer dobrze nauczył się grać, bez względu na to jak dobra trafiła mu się karta. Ostatecznie wybór padł na kółko i krzyżyk - prosta i w pełni deterministyczna gra. Idealne pole do eksperymentowania z algorytmami uczącymi się. \\
 
 W pierwszym rozdziale opisano zaimplementowany algorytm minimax - jest to klasyczne podejście stosowane do uczenia komputerów grania w gry turowe, gdzie jest dwóch graczy i jeżeli jeden wygrywa, to drugi przegrywa; ewentualnie może być remis.  Można polemizować na ile minimax wpisuje się w uczenie maszynowe. Jednak skoro uczy się takiego podejścia na przedmiocie "Artificial Inteligence"  na MIT \cite{MIT_AI},  to wydaje się, żeby pasuje przedmiotowo do niniejszej pracy.\\
 
@@ -131,7 +115,7 @@ Przypuśćmy dalej, że z każdym stanem końcowym gry (liściem) można powiąz
  
  Z powyższego, bardzo prostego rozumowania, wynika kilka wniosków. Po pierwsze, przy założeniu, że oponent (firma 2 w tym przypadku) racjonalnie usiłuję maksymalizować liczbę zdobytych punktów, to wybór ,,otwierający'' drogę do liści z największą liczbą punktów nie musi być wyborem optymalnym. Firma 1 mogłaby zdecydować nie reklamować się, bo wówczas jej potencjalna wygrana, to 7 lub 16 punktów versus 6 i 13 przy reklamowaniu się. Taka strategia byłaby słuszna gdyby firma 2 losowo podejmowała decyzje, ale nie jeżeli firma  2 ma racjonalnych decydentów. Druga obserwacja, często podnoszona w teorii gier, że najlepsze rozwiązanie dla obydwu firm - nie reklamować swoich produktów  - jest rozwiązaniem niemożliwym lub przynajmniej nie stablinym. Teoretycznie prezesi firm mogliby się zmówić, że nie będą inwestować w reklamę.  Ale w takiej sytuacji, o ile firma 1 rzeczywiście zdecyduje nie reklamować się, to firma 2, chcąc maksymalizować swoje punkty, powinna zdecydować się na reklamę i tym samym złamać umowę. Stąd wspomniana wyżej niestabilność.\\
  
-Na powyższym przykładzie można też zrozumieć w jaki sposób wybrać optymalny ruch. Załóżmy, że reprezentujmy firmę 1. Do nas należy otwierający ruch. Racjonalnie będzie założyć, że po naszym ruchu firma 2 wykona ruch, który pozwoli w ostatecznym rachunku na maksymalizację jej wygranej, co przy stałej puli możliwych do wygrania punktów, będzie tożsame z takim ruchem, który zminimalizuje naszą wygraną. Zatem należy wybrać taki ruch, który maksymalizuje minimum z naszych wygranych do jakich może doprowadzić firma 2 kolejnym ruchem.  To rozumowanie naturalnie przekłada się na gry, których drzewa mają więcej pokoleń. W każdym przypadku konieczne jest przejście wszystkich węzłów drzewa idąc od liśc (tutaj wiadomo jakie są wygrane) biorąc pod uwagę dla każdego pokolenia czy to ruch gracza (,,nasz ruch''), czy też ruch oponenta, który ma na celu minimalizowanie naszej wygranej. Przedstawiając powyższe rozumowanie w punktach dochodzi się do algorytmu minimax, który dla każdego węzła zwraca wygraną wartość gracza (wygraną pod warunkiem stosowania strategii minimax). \\
+Na powyższym przykładzie można też zrozumieć w jaki sposób wybrać optymalny ruch. Załóżmy, że reprezentujmy firmę 1. Do nas należy otwierający ruch. Racjonalnie będzie założyć, że po naszym ruchu firma 2 wykona ruch, który pozwoli w ostatecznym rachunku na maksymalizację jej wygranej, co przy stałej puli możliwych do wygrania punktów, będzie tożsame z takim ruchem, który zminimalizuje naszą wygraną. Zatem należy wybrać taki ruch, który maksymalizuje minimum z naszych wygranych do jakich może doprowadzić firma 2 kolejnym ruchem.  To rozumowanie naturalnie przekłada się na gry, których drzewa mają więcej pokoleń. W każdym przypadku konieczne jest przejście wszystkich węzłów drzewa idąc od liść (tutaj wiadomo jakie są wygrane) biorąc pod uwagę dla każdego pokolenia czy to ruch gracza (,,nasz ruch''), czy też ruch oponenta, który ma na celu minimalizowanie naszej wygranej. Przedstawiając powyższe rozumowanie w punktach dochodzi się do algorytmu minimax, który dla każdego węzła zwraca wygraną wartość gracza (wygraną pod warunkiem stosowania strategii minimax). \\
 
 \begin{enumerate}
 	\item{Jeżeli to jest ruch końcowy, to zwróć wartość wygranej i skończ}
@@ -152,7 +136,7 @@ Na powyższym przykładzie można też zrozumieć w jaki sposób wybrać optymal
 \end{enumerate}
 
 
-Okazuje się, że jeżeli gracze stosują się do powyższego algorytmu, to znaczy wybierają ruchy, które zapewnią im największą wygraną wyliczoną według powyższego algorytmu, to takie strategie będą w równowadze Nash'a. Mówiąc obrazowo są  to najlepsza strategie, w tym sensie, że żadnemu z graczy nie opłaca się ich zmieniać. Jeżeli wiadomo, że oponent będzie grał zgodnie z algorytmem minimax, to moją najlepszą strategią jest robić to samo. Jeżeli  oponent będzie grał inną strategią, to być może istnieje lepsza odpowiedź na jego strategie niż minimax. Jeżeli gracz gra według algorytmu minimax, a jego oponent nie, to oponent stosuje strategię suboptymalną. 
+Okazuje się, że jeżeli gracze stosują się do powyższego algorytmu, to znaczy wybierają ruchy, które zapewnią im największą wygraną wyliczoną według powyższego algorytmu, to takie strategie będą w równowadze Nash'a. Mówiąc obrazowo są  to najlepsza strategie, w tym sensie, że żadnemu z graczy nie opłaca się ich zmieniać. Jeżeli wiadomo, że oponent będzie grał zgodnie z algorytmem minimax, to moją najlepszą strategią jest robić to samo. Jeżeli  oponent będzie grał inną strategią, to być może istnieje lepsza odpowiedź na jego strategie niż minimax. Jeżeli gracz gra według algorytmu minimax, a jego oponent nie, to oponent stosuje strategię sub optymalną. 
 
 \section{Przycinanie $\alpha$ - $\beta$}
 Podstawowym problemem w zastosowaniach algorytmu minimax jest ilość niezbędnych operacji przy dużych drzewach reprezentujących gry.  Dla gry w kółko i krzyżyk, górnym ograniczeniem ilości możliwych gier (liści na drzewie gry) jest $9! = 362880$. W rzeczywistości ilość możliwych partii ogranicza się do kilku tysięcy, ale i tak przeliczenie wszystkich węzłów takiego drzewa na współczesnym komputerze średniej klasy zajmuje kilka sekund (przynajmniej przy amatorskiej implementacji autora niniejszej pracy). Jeżeli pomyśleć o grach takich jak szachy, w których ilość możliwych ruchów i łączna ilość ruchów w grze jest ogromna, to jasnym się staje, że algorytm minimax ma poważne ograniczenia.  \\
@@ -165,12 +149,12 @@ W praktyce, żeby ograniczyć ilość wykonywanych operacji stosuje się tzw. pr
 	\label{Rys3}
 \end{figure}
 
-W tym przykładzie gracz rozpocznający grę chce maksymalizować swoją wygraną. W pierwszym ruchu ma dwie możliwości. Może pójść w lewo i wówczas jego oponent z pewnością wybierze lewy skrajny liść i gracz maksymalizujący uzyska wygraną 6. Następie gracz maksymalizujący rozpatruje pierwszy ruch w prawo. Skoro drugi od prawej liść daje wygraną 5, to skrajnego prawego liścia nie ma sesnu już rozważać. Jeżeli tam wygrana byłaby mniejsza od 5, to z punktu widzenia gracza maksymalizującego lepiej wykonać pierwszy ruch w lewo. Ale nawet, gdyby wygrana w prawym skrajnym liściu była bardzo duża (np. 1000), to i tak jest nie osiągalna, bo oponent wybierze liść z wygraną 5. Tak więc w każdym przypadku, pierwszy ruch w lewo, jest dla gracza maksymnalizującego optymalny. Tym samym udało się wyłączyć kawałek drzewa gry z rozważań i zaoszczędzić trochę  operacji przy wykonaywaniu algorytmu minimax. \\
+W tym przykładzie gracz rozpoczynający grę chce maksymalizować swoją wygraną. W pierwszym ruchu ma dwie możliwości. Może pójść w lewo i wówczas jego oponent z pewnością wybierze lewy skrajny liść i gracz maksymalizujący uzyska wygraną 6. Następie gracz maksymalizujący rozpatruje pierwszy ruch w prawo. Skoro drugi od prawej liść daje wygraną 5, to skrajnego prawego liścia nie ma sensu już rozważać. Jeżeli tam wygrana byłaby mniejsza od 5, to z punktu widzenia gracza maksymalizującego lepiej wykonać pierwszy ruch w lewo. Ale nawet, gdyby wygrana w prawym skrajnym liściu była bardzo duża (np. 1000), to i tak jest nie osiągalna, bo oponent wybierze liść z wygraną 5. Tak więc w każdym przypadku, pierwszy ruch w lewo, jest dla gracza maksymalizującego optymalny. Tym samym udało się wyłączyć kawałek drzewa gry z rozważań i zaoszczędzić trochę  operacji przy wykonywaniu algorytmu minimax. \\
 
-Warto rozważyć nieco bardziej złożony przykład. Załóżmy, że mamy do czynienia z takim drzewem gry jak na rysunku \ref{Rys4}. Ostatni wiersz przedstawia możliwe wygrane gracza maksymalizującego, rozpoczynającego grę. Na rysunku zaznaczono węzły i całe podrzewa, których gracz maksymalizujący nie potrzebuje rozpatrywać. Po lewej stronie węzłów zapisana jest maksymalna możliwa wygrana gracza maksymalizującego o ile gra znajdzie się w tym węźle (czyli wartość jaką zwraca algorytm minimax). Pogrubioną linią widać optymalną ścieżkę gry, która kończy się zdobyciem 8 punktów. Opis rozumowania prowadzący do tego rysunku byłby długi i nie wiele wnoszący do całości pracy, stąd zostaje pominięty. Przykład został wzięty z 6 wykładu profesora Winstona z \cite{MIT_AI}.\\
+Warto rozważyć nieco bardziej złożony przykład. Załóżmy, że mamy do czynienia z takim drzewem gry jak na rysunku \ref{Rys4}. Ostatni wiersz przedstawia możliwe wygrane gracza maksymalizującego, rozpoczynającego grę. Na rysunku zaznaczono węzły i całe poddrzewa, których gracz maksymalizujący nie potrzebuje rozpatrywać. Po lewej stronie węzłów zapisana jest maksymalna możliwa wygrana gracza maksymalizującego o ile gra znajdzie się w tym węźle (czyli wartość jaką zwraca algorytm minimax). Pogrubioną linią widać optymalną ścieżkę gry, która kończy się zdobyciem 8 punktów. Opis rozumowania prowadzący do tego rysunku byłby długi i nie wiele wnoszący do całości pracy, stąd zostaje pominięty. Przykład został wzięty z 6 wykładu profesora Winstona z \cite{MIT_AI}.\\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7] {big_tree2.png}
+	\includegraphics [scale=0.4] {big_tree2.png}
 	\caption{Przycinanie $\alpha - \beta$ po raz drugi}
 	\label{Rys4}
 \end{figure}
@@ -188,14 +172,14 @@ Algorytm grający będzie z reguły miał ustawiony parametr, który każe przer
 \section{Implementacja}
  W tej sekcji opisanych zostało  kilka spostrzeżeń związanych z implementacją algorytmu minimax z przycinaniem $\alpha - \beta$.\\
 
-Zastosowanie przycinania $\alpha - \beta$, wbrew pokładnych nadziejom, nie zmniejszyło drastycznie  czasu wykonania algorytmu. Najdłuższy czas oczekiwania ma miejsce na początku gry, w pierwszych dwóch ruchach,  kiedy konieczne jest przeszukanie największych drzew. Od trzeciego ruchu, wykonanie algorytmu trwa poniżej $0.1$ sekundy, więc optymalizacje przestają mieć znaczenie.  Żeby ograniczyć czas oczekiwania na odpowiedź komputera dodano instrukcję, powodującą, że jeżeli algorytm zaczyna grę, to zawsze wybiera środkowe pole.\\
+Zastosowanie przycinania $\alpha - \beta$, wbrew pokładanych nadziejom, nie zmniejszyło drastycznie  czasu wykonania algorytmu. Najdłuższy czas oczekiwania ma miejsce na początku gry, w pierwszych dwóch ruchach,  kiedy konieczne jest przeszukanie największych drzew. Od trzeciego ruchu, wykonanie algorytmu trwa poniżej $0.1$ sekundy, więc optymalizacje przestają mieć znaczenie.  Żeby ograniczyć czas oczekiwania na odpowiedź komputera dodano instrukcję, powodującą, że jeżeli algorytm zaczyna grę, to zawsze wybiera środkowe pole.\\
 
-Nie udało się też zaimplementować algorytmu z ograniczeniem głębokości przeszukiwania drzewa i wykorzystującego funkcję wartości. Banalne funkcje wartości typu sprawdzenie,  czy na planszy są dwa krzyżyki(kółka) w linii nie dawały dobrych rezultatów. Tak skalibrowany algorytm popełniał oczywiste błędy i łatwo z nim było wygrać.  Natomiast uwzględnienie większej ilości niuansów, w zasadzie prowadziło do napisania reguły jak grać w kółko i krzyżyk. Wówczas minimax przestaje być potrzebny i można się ograniczyć do do policzenia funkcji wartości dla możliwych ruchów i wybrania tego z największą wartością. Niestety nie udałosię znaleźć ,,złotego środka'' i w końcowa implementacja nie korzysta z funkcji wartości. \\
+Nie udało się też zaimplementować algorytmu z ograniczeniem głębokości przeszukiwania drzewa i wykorzystującego funkcję wartości. Banalne funkcje wartości typu sprawdzenie,  czy na planszy są dwa krzyżyki(kółka) w linii nie dawały dobrych rezultatów. Tak skalibrowany algorytm popełniał oczywiste błędy i łatwo z nim było wygrać.  Natomiast uwzględnienie większej ilości niuansów, w zasadzie prowadziło do napisania reguły jak grać w kółko i krzyżyk. Wówczas minimax przestaje być potrzebny i można się ograniczyć do do policzenia funkcji wartości dla możliwych ruchów i wybrania tego z największą wartością. Niestety nie udało się znaleźć ,,złotego środka'' i w końcowa implementacja nie korzysta z funkcji wartości. \\
 
 Algorytm minimax jest graczem optymalnym, nie można grać lepiej od algorytmu minimax. W szczególności, można co najwyżej z nim zremisować. W dalszej części pracy algorytm minimax będzie obok gracza losowego (takiego co losuje z jednostajnym prawdopodobieństwem kolejny ruch z puli możliwych) punktem odniesienie skuteczności algorytmu grającego w kółko i krzyżyk. Skuteczne algorytmy powinny często remisować i rzadko przegrywać z minimax, oraz często wygrywać i rzadko remisować z graczem losowym. Poniżej przedstawiano wyniki partii 100 gier rozegranych pomiędzy graczem stosującym minimax oraz graczem losowym  oraz 100 gier rozegranych pomiędzy dwoma graczami stosującymi algorytm minimax.\\ 
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.6] {random_minimax.png}
+	\includegraphics [scale=0.8] {random_minimax.png}
 	\caption{Gracz losowy vs minimax}
 	\label{Rys5}
 \end{figure}
@@ -204,7 +188,7 @@ Gracz stosujący minimax nie przegrał ani razu, za to zremisował z graczem los
 Natomiast dwóch graczy stosujących minimax zawsze będą ze sobą remisować (rysunek \ref{Rys6}). 
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.6] {minimax_minimax.png}
+	\includegraphics [scale=0.8] {minimax_minimax.png}
 	\caption{Gracz minimax vs minimax}
 	\label{Rys6}
 \end{figure}
@@ -221,7 +205,7 @@ W rozdziale pierwszym gry były reprezentowane (a w zasadzie wszystkie możliwe 
 	\label{Rys7}
 \end{figure}
 
-Punktem wyjścia jest założenie,  że istnieje agent (gracza), który jest w interakcji z pewnym systemem (z angielskiego \textit{environment} na rysunku \ref{Rys7}). System znajduje się w pewnym stanie $s$, w dyskretnym czasie $t$ i agent ma do wyboru podjęcie jednej z dostępnych akcji $a\in\mathcal{A}$. Na skutek podjęcia akcji $a$ system odpowiada przejściem do nowego stanu $s'$ oraz nagrodą $r$ (z ang. \textit{reward}) w czasie $t+1$.  Nie jest przy tym powiedziane, że dla konkretnej pary $(s,a)$ system zawsze przejdzie do tego samego stanu $s'$. System może wybierać swoją odpowiedź losowo (czy ogólnie wedle pewnej niedeterministycznej reguły). Podobnie przy przejściu ze stanu $s$ do $s'$ system może zwracać różne nagrody $r$.  Natomiast ważne, jest że przejście do kolejnego stanu $s'$ oraz powiązana z prześjciem nagroda $r$ zależą tylko i wyłącznie od pary $(s,a)$ i nie mogą w  żaden sposób zależeć od poprzednich stanów w jakich system się znajdował. Na tym polega istota ,,markowość", że historia (poza ostatnim ruchem) nie ma znaczenia. W tym miejscu dodaje się jeszcze jedno założenie dotyczące skończonoci  zbioru możliwych stanów systemu. To założenie nie jest konieczne w ogólnej teorii, ale pozwala na daleko idące uproszczenia wykorzystywane w niniejszej pracy.\\
+Punktem wyjścia jest założenie,  że istnieje agent (gracza), który jest w interakcji z pewnym systemem (z angielskiego \textit{environment} na rysunku \ref{Rys7}). System znajduje się w pewnym stanie $s$, w dyskretnym czasie $t$ i agent ma do wyboru podjęcie jednej z dostępnych akcji $a\in\mathcal{A}$. Na skutek podjęcia akcji $a$ system odpowiada przejściem do nowego stanu $s'$ oraz nagrodą $r$ (z ang. \textit{reward}) w czasie $t+1$.  Nie jest przy tym powiedziane, że dla konkretnej pary $(s,a)$ system zawsze przejdzie do tego samego stanu $s'$. System może wybierać swoją odpowiedź losowo (czy ogólnie wedle pewnej niedeterministycznej reguły). Podobnie przy przejściu ze stanu $s$ do $s'$ system może zwracać różne nagrody $r$.  Natomiast ważne, jest że przejście do kolejnego stanu $s'$ oraz powiązana z przejściem nagroda $r$ zależą tylko i wyłącznie od pary $(s,a)$ i nie mogą w  żaden sposób zależeć od poprzednich stanów w jakich system się znajdował. Na tym polega istota ,,markowość", że historia (poza ostatnim ruchem) nie ma znaczenia. W tym miejscu dodaje się jeszcze jedno założenie dotyczące skończoności  zbioru możliwych stanów systemu. To założenie nie jest konieczne w ogólnej teorii, ale pozwala na daleko idące uproszczenia wykorzystywane w niniejszej pracy.\\
 
  Interakcja agenta z systemem przez kilka kolejnych kroków począwszy od $t=0$ można przedstawić za pomocą takiej trajektorii:
 $$s_{o}, a_{0}, r_{1}, s_{1}, a_{1}, r_{2}, s_{2}, a_{2}, r_{3}, s_{3},...$$
@@ -254,13 +238,13 @@ Podobnie definiuje się jeszcze funkcję określającą wartość akcji $a$ podj
 $$q_{\pi}(a,s) \stackrel{\text{def}}{=} \mathbb{E}_{\pi}(G_{t}| S_{t} = s, a_{t} = a) $$
 
 Co zatem oznacza znalezienie optymalnej strategii? Intuicyjnie jest to oczywiste. Chcemy mieć strategię, która będzie maksymalizować wartość oczekiwaną sumy przyszłych zdyskontowanych nagród. Formalnie $\pi_{1}\prec\pi_{2}$ jeżeli dla każdego $s\in\mathcal{S}$ zachodzi $$v_{\pi_{1}}(s)\leq v_{\pi_{1}}(s)$$
-Powiemy, że $\pi_{*}$ jest optymalna, jeżeli dla każdej strategii $\pi$ zachodzi   $\pi\prec\pi_{*}$ Nietrudno przy tym zauważyć, że jeżeli $\pi_{*}$ jest optymalną strategią, to spełnione będą równiania:
+Powiemy, że $\pi_{*}$ jest optymalna, jeżeli dla każdej strategii $\pi$ zachodzi   $\pi\prec\pi_{*}$ Nietrudno przy tym zauważyć, że jeżeli $\pi_{*}$ jest optymalną strategią, to spełnione będą równania:
 
 
 $$\forall s\in \mathcal{S}: v_{\pi_{*}}(s) =\max_{\pi} v_{\pi}(s)$$ $$\forall s\in\mathcal{S}\wedge \forall a\in\mathcal{A}: q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$$
-Gdyby na przykład  $v_{\pi_{*}}(s)<v_{\tilde{\pi}}(s)$ dla pewnego stanu $s$ i  pewnej $\tilde{\pi}$, to  strategię $\pi_{*}$ można by poprawić grając strategią $\tilde{\pi}$ po napotkaniu stanu $s$ co jest sprzeczne z tym, że   $\tilde{\pi}\prec\pi_{*}$. Poddobnie ma sie rzecz z równaniem $q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$.  Znajość $q_{\pi_{*}}(a,s)$ jest z praktycznego punktu widzenia najbardziej porządana, bo daje odpowiedź na kluczowe pytanie - jaką akcję należy wybrać będąc w stanie $s$:\\
+Gdyby na przykład  $v_{\pi_{*}}(s)<v_{\tilde{\pi}}(s)$ dla pewnego stanu $s$ i  pewnej $\tilde{\pi}$, to  strategię $\pi_{*}$ można by poprawić grając strategią $\tilde{\pi}$ po napotkaniu stanu $s$ co jest sprzeczne z tym, że   $\tilde{\pi}\prec\pi_{*}$. Podobnie ma się rzecz z równaniem $q_{\pi_{*}}(a,s) = \max_{\pi} q_{\pi}(a,s)$.  Znajomość $q_{\pi_{*}}(a,s)$ jest z praktycznego punktu widzenia najbardziej pożądana, bo daje odpowiedź na kluczowe pytanie - jaką akcję należy wybrać będąc w stanie $s$:\\
 $$\argmax_{a}q_{\pi_{*}}(a,s)$$
-Dla uproszczenia zapisu, polożmy:
+Dla uproszczenia zapisu, położmy:
 $$v_{\pi_{*}}:=v_{*}\text{ oraz } q_{\pi_{*}}:=q_{*}$$
 
 \section{Algorytmy RL}
@@ -270,7 +254,7 @@ Ten rozdział poświęcony jest odpowiedzi na pytanie jak znaleźć optymalną s
 \begin{equation}
 	v_{\pi}(s) = \sum_{a}\pi(a|s)\sum_{s',r}p(s,a,s',r)[r +\gamma v_{\pi}(s')] 
 \end{equation}
-A w przypakdu strategii optymalnej $\pi_{*}$ równanie Bellmana dla $v_{*}(s)$ oraz dla funkcji $q_{*}$ zadane są przez:
+A w przypadku strategii optymalnej $\pi_{*}$ równanie Bellmana dla $v_{*}(s)$ oraz dla funkcji $q_{*}$ zadane są przez:
 
 \begin{equation}\label{vstar}
 	v_{*}(s) = \max_{a}\sum_{s',r}p(s,a,s',r)[r +\gamma v_{*}(s')]
@@ -280,19 +264,18 @@ A w przypakdu strategii optymalnej $\pi_{*}$ równanie Bellmana dla $v_{*}(s)$ o
 \end{equation}
 Wyprowadzenie powyższych wzorów sprowadza się do zastosowaniu kilku przekształceń i manipulowania definicją $v_{\pi}$. Nie jest to skomplikowane, ale zostaje pominięte ze względu na zwięzłość pracy. 
 
-Jeżeli wybierze się arbitralną  $\pi$, to bazując na równaniu Bellman'a można policzyć $v_{\pi}(s)$ dla wszytskich stanów $s$. Sprowadza się to do rozsupłanie powyższej ,,rekurencji''  przez rozwiązanie 
-$|\mathcal{S}|$  (tutaj $|\cdot|$ oznacza liczebność zbioru ) równań liniowych. Takie podejście może się sprawdzić o ile liczba stanów jest niwielka i łatwo jest policzyć bezpośrednio $v_{*}(s)$ lub $q_{*}(a,s)$ korzystając \ref{vstar} i \ref{qstar}.  Jeżeli jednak przestrzeń stanów jest ,,duża'', to  wówczas stosuje się metody iteracyjne do policzneia $v_{\pi}$, bazujące na cyklicznym poprawianiu wartoci $v_{\pi}(s)$ z wykorzystanien równań Bellman'a. Zaczynamy od arbitralnej strategii $\pi$ i arbitralnej funkcji $v_{0}(s)$. Następnie poprawiamy wiele razy wedłu przepisu:
+Jeżeli wybierze się arbitralną  $\pi$, to bazując na równaniu Bellman'a można policzyć $v_{\pi}(s)$ dla wszystkich stanów $s$. Sprowadza się to do rozsupłanie powyższej ,,rekurencji''  przez rozwiązanie $|\mathcal{S}|$  (tutaj $|\cdot|$ oznacza liczebność zbioru ) równań liniowych. Takie podejście może się sprawdzić o ile liczba stanów jest niewielka i łatwo jest policzyć bezpośrednio $v_{*}(s)$ lub $q_{*}(a,s)$ korzystając \ref{vstar} i \ref{qstar}.  Jeżeli jednak przestrzeń stanów jest ,,duża'', to  wówczas stosuje się metody iteracyjne do policzenia $v_{\pi}$, bazujące na cyklicznym poprawianiu wartości $v_{\pi}(s)$ z wykorzystaniem równań Bellman'a. Zaczynamy od arbitralnej strategii $\pi$ i arbitralnej funkcji $v_{0}(s)$. Następnie poprawiamy wiele razy według przepisu:
 
 \begin{equation}\label{GPI}
 	v_{k+1}(s) = \sum_{a}\pi(a|s)\sum_{s',r}p(s,a,s',r[r+\gamma v_{k}(s)]
 \end{equation}
 
-Okazuje się, że takie iteracyjne poprawianie $v_{k}(s)$ zgodnie z \ref{GPI} gwarantuje zbieżnosć punktową $v_{k}(s)\rightarrow v_{\pi}(s)$, przy $k\rightarrow\infty$.\\
+Okazuje się, że takie iteracyjne poprawianie $v_{k}(s)$ zgodnie z \ref{GPI} gwarantuje zbieżność punktową $v_{k}(s)\rightarrow v_{\pi}(s)$, przy $k\rightarrow\infty$.\\
 
-Mając (dla pewnej arbitralnej strategii $\pi$) wyestymowaną funkcję $v_{\pi}(s)$  można policzyć  funckję $q_{\pi}(a,s)$ bezposrednio z definicji:
+Mając (dla pewnej arbitralnej strategii $\pi$) wyestymowaną funkcję $v_{\pi}(s)$  można policzyć  funkcję $q_{\pi}(a,s)$ bezpośrednio z definicji:
 $$q_{\pi}(a,s)=\mathbb{E}_{\pi}(G_{t}| S_{t} = s, a_{t} = a)  =  \sum_{s',r}p(s',r|s, a)[r+\gamma v_{\pi}(s)]$$
 
-Majć powyższe można  ,,poprawiać'' strategię $\pi$ czyniąc z niej $\pi'$ : 
+Mając powyższe można  ,,poprawiać'' strategię $\pi$ czyniąc z niej $\pi'$ : 
 
 \begin{equation}\label{update1}
 	\pi'(s)\stackrel{\text{def}}{=}\argmax_{a}q_{\pi}(a,s)
@@ -316,7 +299,7 @@ Okazuje się, że takie sukcesywne, naprzemienne wyliczanie $v_{\pi}$, poprawian
 
 prowadzi do optymalnej strategii $\pi_{*}$.  Algorytm ten często nazywany jest GPI od angielskiego \textit{general policy iteration}. Natomiast całe podejście w \cite{RL} nazywane jest programowaniem dynamicznym (z ang. \textit{dynamic programming}). Jest to skuteczne podejście jeżeli dostępna jest  pełna wiedzę o funkcji $p$ oraz jeżeli liczba możliwych stanów nie jest bardzo duża. Najczęściej to podejście sprawdza się przy modelowaniu rzeczywistych systemów za pomocą procesu decyzyjnego Markowa.\\
 
-Inną interesującą sytuacją jest brak znajomości funkcji $p$ i wówczas celem jest stworzenie algorytmu, który znajduje optymalną strategię doświadczalnie, ucząc się systemu, bez uprzednich założeń odnośnie zasad rządzącyh  jego dynamiką.  Podobnie jak  w sytuacji znajomoci $p$,  zaczyna się od losowej strategii i z każdym cyklem interakcji z systemem (albo po ustalonej liczbie  $n$ cyklach) dostosowuje się strategię na podstawie dotychczasowych obserwacji zgodnie z \ref{update1} i \ref{update2}. To co się zmienia, to kwestia estymacji funkcji $v_{\pi}(s)$ (lub powiązanej z nią $q_{\pi}(a,s)$). Ponieważ $v_{\pi}(s)$ jest definiowana jako wartość oczekiwana, to naturalnym odruchem może być wyliczanie przyszłych nagród po pierwzej wizycie w stanie $s$ podążając za strategią $\pi$ w wielu epizodach iterakcji agenta z system, a następnie uśrednienia otrzymanych wartości nagród. Takie podejście, typowo w stylu monte-carlo, ma poważną wadę w przypadku systemów z dużą ilością stanów, bo potrzeba czasami nierealistycznie dużej próbki danych (epizodów), żeby sensownie policzyć  $v_{\pi}(s)$. A nawet jeżeli ilość epizodów nie jest problemem, to wymagane są pewne dodatkowe założenia takie jak konieczność startowania epizodu ze wszystkich możliwych stanów. W przeciwnym razie pewne stany mogą nigdy nie być odwiedzane i nie trudno wówczas mówić o estymacji $v_{\pi}$.  \\
+Inną interesującą sytuacją jest brak znajomości funkcji $p$ i wówczas celem jest stworzenie algorytmu, który znajduje optymalną strategię doświadczalnie, ucząc się systemu, bez uprzednich założeń odnośnie zasad rządzących  jego dynamiką.  Podobnie jak  w sytuacji znajomości $p$,  zaczyna się od losowej strategii i z każdym cyklem interakcji z systemem (albo po ustalonej liczbie  $n$ cyklach) dostosowuje się strategię na podstawie dotychczasowych obserwacji zgodnie z \ref{update1} i \ref{update2}. To co się zmienia, to kwestia estymacji funkcji $v_{\pi}(s)$ (lub powiązanej z nią $q_{\pi}(a,s)$). Ponieważ $v_{\pi}(s)$ jest definiowana jako wartość oczekiwana, to naturalnym odruchem może być wyliczanie przyszłych nagród po pierwszej wizycie w stanie $s$ podążając za strategią $\pi$ w wielu epizodach interakcji agenta z system, a następnie uśrednienia otrzymanych wartości nagród. Takie podejście, typowo w stylu monte-carlo, ma poważną wadę w przypadku systemów z dużą ilością stanów, bo potrzeba czasami nierealistycznie dużej próbki danych (epizodów), żeby sensownie policzyć  $v_{\pi}(s)$. A nawet jeżeli ilość epizodów nie jest problemem, to wymagane są pewne dodatkowe założenia takie jak konieczność startowania epizodu ze wszystkich możliwych stanów. W przeciwnym razie pewne stany mogą nigdy nie być odwiedzane i nie trudno wówczas mówić o estymacji $v_{\pi}$.  \\
  
  Metodą, poniekąd łączącą, programowanie dynamiczne z metodami w stylu monte carlo, nie wymagającą znajomości funkcji $p$, są metody opisane w literaturze anglojęzycznej jako \textit{temporal difference}).  Idea tych metod sprowadza się do tego, że można w każdy kroku, po każdej interakcji agenta z systemem, poprawiać stosowaną przez niego strategię $\pi$ zgodnie ze wzorem
 \begin{equation}\label{qlearning1}
@@ -327,9 +310,9 @@ Inną interesującą sytuacją jest brak znajomości funkcji $p$ i wówczas cele
    q_{\pi}(s_{t}, a_{t}) := q_{\pi}(s_{t},a_{t}) +\alpha [R_{t+1} + \gamma q_{\pi}(s_{t+1}, a_{t+1}) - q_{\pi}(s_{t},a_{t})]
  \end{equation}
  
- W tym wypadku nie potrzeba czekać do końca epizodu (np. do końca gry), żeby zaktualizować $v_{\pi}(s_{t})$ jak w metodach monte carlo. Estymacja $v_{\pi}$  bazuje tylko na otrzymanej nagrodzie i estymacji $v_{\pi}(s_{t+1})$ dla kolejnego stanu. Ponieważ estymacja częściowo bazuje na estymacji, to można powiedzieć, że jest to metoda typu \textit{bootstrap}. Jednak tak jak poprzednio, po wyestymowaniu $v_{\pi}$ konieczne jest dalsze podążanie algorytmem GPI, czyli suckesywną poprawą strategii $\pi$ zgodnie z \ref{update2} .   W \ref{qlearning1} i \ref{qlearning2}  $\alpha$ jest hiperparametrem algorytmu, często nazywany z angielskiego \textit{learning rate}, a $\gamma$ jest, już wcześniej wsppomnianym, czynnikiem dyskontującym wartość przyszłych nagród. W kolejnym rozdziale opisana jest zastosowanie tego rodzaju algorytmu. \\
+ W tym wypadku nie potrzeba czekać do końca epizodu (np. do końca gry), żeby zaktualizować $v_{\pi}(s_{t})$ jak w metodach monte carlo. Estymacja $v_{\pi}$  bazuje tylko na otrzymanej nagrodzie i estymacji $v_{\pi}(s_{t+1})$ dla kolejnego stanu. Ponieważ estymacja częściowo bazuje na estymacji, to można powiedzieć, że jest to metoda typu \textit{bootstrap}. Jednak tak jak poprzednio, po wyestymowaniu $v_{\pi}$ konieczne jest dalsze podążanie algorytmem GPI, czyli sukcesywną poprawą strategii $\pi$ zgodnie z \ref{update2} .   W \ref{qlearning1} i \ref{qlearning2}  $\alpha$ jest hiper parametrem algorytmu, często nazywany z angielskiego \textit{learning rate}, a $\gamma$ jest, już wcześniej wspomnianym, czynnikiem dyskontującym wartość przyszłych nagród. W kolejnym rozdziale opisana jest zastosowanie tego rodzaju algorytmu. \\
  
- Finalnie algorytmem wykorzystanym w tej pracy do nauki gry w kółko i krzyżyk, jest algorytm znany jako Q-learning, opracowany w 1989 przez C. Watkins'a \cite{Watkins} w ramach jego pacy dokorskiej. Algorytm Q-learning jest o tyle rewolucyjny, że odchodzi od naprzemiennego estymowania $v_{\pi}$ i poprawiania odpowiednio $\pi\rightarrow \pi'$ jako to ma miejsce w klasycznym GPI. W tym przypadku estymuje się bezpośrednio $q_{*}$ zgodnie ze wzorem:
+ Finalnie algorytmem wykorzystanym w tej pracy do nauki gry w kółko i krzyżyk, jest algorytm znany jako Q-learning, opracowany w 1989 przez C. Watkins'a \cite{Watkins} w ramach jego pacy doktorskiej. Algorytm Q-learning jest o tyle rewolucyjny, że odchodzi od naprzemiennego estymowania $v_{\pi}$ i poprawiania odpowiednio $\pi\rightarrow \pi'$ jako to ma miejsce w klasycznym GPI. W tym przypadku estymuje się bezpośrednio $q_{*}$ zgodnie ze wzorem:
  \begin{equation}\label{qlearning}
  	 q_{*}(s_{t}, a_{t}) := q_{*}(s_{t},a_{t}) +\alpha [R_{t+1} + \gamma \max_{a_{t+1}} q_{*}(s_{t+1}, a_{t+1}) - q_{*}(s_{t},a_{t})]
  \end{equation} 
@@ -348,7 +331,7 @@ W samej implementacji konieczne jest jeszcze ustalenia wartości nagród $\mathc
 	\item{0 dla każdego innego stanu gry}
 \end{enumerate}
 
-W implementacji wykorzystywany jest plik tekstowy, przechowujący wartości $q_{s}$, gdzie $q_{s}$, zgodnie z powyższą obserwacją jest równa wszystkim  $q(a',s')$, które prowadzą do stanu gry $s$ po podjęciu akcji $a'$ w stanie $s'$ przez agenta. Na rysunku \ref{Rys8} widać kilka pozycji z tego pliku, już po przetrenowaniu algorytmu (około 20 000 gier rozegranych z graczem losowym), a poniżej znajduje się szczególowe omówienie struktury.
+W implementacji wykorzystywany jest plik tekstowy, przechowujący wartości $q_{s}$, gdzie $q_{s}$, zgodnie z powyższą obserwacją jest równa wszystkim  $q(a',s')$, które prowadzą do stanu gry $s$ po podjęciu akcji $a'$ w stanie $s'$ przez agenta. Na rysunku \ref{Rys8} widać kilka pozycji z tego pliku, już po przetrenowaniu algorytmu (około 20 000 gier rozegranych z graczem losowym), a poniżej znajduje się szczegółowe omówienie struktury.
 
 
 \begin{figure}[h!]
@@ -359,11 +342,11 @@ W implementacji wykorzystywany jest plik tekstowy, przechowujący wartości $q_{
 
 Pierwsze 9 cyfr rozdzielonych przecinkami przedstawia stan gry. Przy czym pierwsza cyfra opisuje pole w lewym górnym rogu planszy. Druga cyfra opisuje środkowe pole w górnym wierszu planszy. Trzecia cyfra pole w prawym górnym rogu. Kolejne trzy cyfry opisują środkowym rząd planszy idąc od lewej do prawej. Ostatnie 3 cyfry, opisują idąc od lewej do prawej dolny rząd planszy.  Cyfry 1 oznaczają ruchy systemu, który gra z algorytmem. Cyfry 2 przedstawiają ruchy agenta, czyli grającego algorytmu. Cyfra 0 oznacza puste pole. Ostatnia liczba rzeczywista oznacza wartość  $q$ dla każdego ruchu agenta, który doprowadzi do stanu planszy reprezentowanego prze pierwsze 9 cyfr.\\ 
 
-Rozważmy pierwszy wiersz z rysunku \ref{Rys8}. Dla ustalenia uwagi załóżmy, że system gra ,,kółkiem", a agent ,,krzyżykiem". Ciąg $2, 0, 1, 2, 1, 2,  2, 1, 1.0$ przedstawia stan gry po ruchu agenta jak na rysunku \ref{Rys9}. To jest sytuacja w której agent wygrywa, stąd wartość $q$ dla tego stanu jest równa 1. 
+Rozważmy pierwszy wiersz z rysunku \ref{Rys8}. Dla ustalenia uwagi załóżmy, że system gra ,,kółkiem", a agent ,,krzyżykiem". Ciąg $2, 0, 1, 2, 1, 2,  2, 1, 1, 1.0$ przedstawia stan gry po ruchu agenta jak na rysunku \ref{Rys9}. To jest sytuacja w której agent wygrywa, stąd wartość $q$ dla tego stanu jest równa 1. 
 
 \begin{figure}[h!]
 	\includegraphics [scale=0.22] {ttt_1.png}
-	\caption{Stan gry dla ciągu (2, 0, 1, 2, 1, 2,  2, 1, 1.0)}
+	\caption{Stan gry dla ciągu (2, 0, 1, 2, 1, 2,  2, 1, 1, 1.0)}
 	\label{Rys9}
 \end{figure}
 
@@ -384,7 +367,7 @@ Kolejny wiersz, to ciąg $2, 2, 1, 2,  2, 1, 1, 0, 0, -1$ (rysunek \ref{Rys11}),
 	\label{Rys11}
 \end{figure}
 
-Czwarty przykład odpowiadający ciągowi $2, 0, 0, 1, 2, 2, 0, 0, 0, 0.418681257165$  zilustrowany na rysunku \ref{Rys12} to gra w stanie jeszcze mało zaawansowanym, w którym obaj gracze mają szansę wygrać lub przegrać. W tym przypadku wyczuona wartość $q$ wynosi około $0.42$, co wskazywałoby, że jest to relatywnie korzystna sytuacja dla agenta grającego ,,krzyżykiem''.
+Czwarty przykład odpowiadający ciągowi $2, 0, 0, 1, 1, 2, 0, 0, 0, 0.418681257165$  zilustrowany na rysunku \ref{Rys12} to gra w stanie jeszcze mało zaawansowanym, w którym obaj gracze mają szansę wygrać lub przegrać. W tym przypadku wyuczuona wartość $q$ wynosi około $0.42$, co wskazywałoby, że jest to relatywnie korzystna sytuacja dla agenta grającego ,,krzyżykiem''.
 
 \begin{figure}[h!]
 	\includegraphics [scale=0.22] {ttt_4.png}
@@ -406,28 +389,28 @@ Mając wszystkie niezbędne elementy można przejść do bezpośredniego zdefini
 \begin{enumerate}
 	\item{Inicjuj pusty zbiór z wartościami $q_{s}$}
 	\item{Ustaw parametry $\alpha$, $\gamma$  i $\epsilon$ z przedziału $[0, 1]$}
-	\item{Graj n razy z systemem w kółko i krzyzyk:}
+	\item{Graj n razy z systemem w kółko i krzyżyk:}
 	\begin{enumerate}
 		\item{Jeżeli jest ruch agenta, a plansza jest w stanie $s-1$:}
 		\begin{enumerate}
 			\item{Dla każdego legalnego ruchu prowadzącego z $s-1$ do $s$  sprawdź wartość $q_{s}$ w zbiorze, a jeżeli nie ma zbiorze wartości $q_{s}$, to przyjmij $q_{s}=0$.}
 			\begin{enumerate}
 					\item{Z prawdopodobieństwem $1-\epsilon$ wybierz ruch $a$ prowadzący do $\tilde{s}$, dla którego $q_{\tilde{s}} =\max_{s} q_{s}$. Jeżeli jest kilka takich ruchów, to wybierz jeden losowo.}
-					\item{Z prawdopodobieństwem $\epsilon$ wybierz losowo dowolny ruch $a$ prowadzący do $\tilde{s}$}
+					\item{Z prawdopodobieństwem $\epsilon$ wybierz losowo dowolny ruch $a$ prowadzący do pewnego stanu $\tilde{s}$}
 			\end{enumerate}
-			\item{Połóż $q_{s-1} = q_{s-1} + \alpha(R(\tilde{s}) + \gamma  q_{\tilde{s}} - q_{s-1} )$ }
+			\item{Połóż $q_{s-1} = q_{s-1} + \alpha(R_{\tilde{s}} + \gamma  q_{\tilde{s}} - q_{s-1} )$, gdzie $R(\tilde{s})$ jest nagrodą przejściu s $s-1$ do $\tilde{s}$ }
 			\item{Zapisz nową wartość $q_{s-1}$ w zbiorze. Jeżeli wartość już istniała w zbiorze, to nadpisz.}
 		\end{enumerate}
 	\end{enumerate}
 \end{enumerate}
 
-Słowa komentarza wymaga parametr $\epsilon\in[0,1]$. Przyjmując $epsilon=0$ algorytm zawsze wybiera ruch maksymalizujący przyszłe nagrody zgodnie z posiadaną wiedzą zawartą w zbiorze wartości $q_{s}$. Przyjmując natomiast $\epsilon>0$ czasami algorytm będzie wybierał ruch losowo, z dostępnych legalnych ruchów. Jest to swoiste zabezpieczenie przed sytuacją, w której niefortunna inicjacja wartości $q_{s}$ może doporowadzić do tego, że pewne stany w ogóle nigdy nie zostaną odwiedzone. W \cite{RL} jest to opisane jako dylemat pomiędzy eksploracją a eksploatacją (\textit{exploration versu exploitation}). Wybierając najlepsze ruchy algorytm szybciej się uczy - eksploatuje zdobytą informację. Ale bez eksploracji istenieje ryzyko, że nigdy (albo bardzo długi) nie zbliży się do pełnej wiedzy właśnie ze względu na nie odwiedzanie pewnych stanów.  W przypadku niewielkiej liczby ruchów w grze w kółko o krzyżyk nie wydaje się to nie mieć znaczenia. 
+Słowa komentarza wymaga parametr $\epsilon\in[0,1]$. Przyjmując $\epsilon=0$ algorytm zawsze wybiera ruch maksymalizujący przyszłe nagrody zgodnie z posiadaną wiedzą zawartą w zbiorze wartości $q_{s}$. Przyjmując natomiast $\epsilon>0$ czasami algorytm będzie wybierał ruch losowo, z dostępnych legalnych ruchów. Jest to swoiste zabezpieczenie przed sytuacją, w której niefortunna inicjacja wartości $q_{s}$ może doprowadzić do tego, że pewne stany w ogóle nigdy nie zostaną odwiedzone. W \cite{RL} jest to opisane jako dylemat pomiędzy eksploracją a eksploatacją (\textit{exploration versu exploitation}). Wybierając najlepsze ruchy algorytm szybciej się uczy - eksploatuje zdobytą informację. Ale bez eksploracji istnieje ryzyko, że nigdy (albo bardzo długi) nie zbliży się do pełnej wiedzy właśnie ze względu na nie odwiedzanie pewnych stanów.  W przypadku niewielkiej liczby ruchów w grze w kółko o krzyżyk nie wydaje się to nie mieć znaczenia. \\
 
-Popatrzmy  teraz na wyniki uczenia. Zaczynając od pustego zbioru $q_{s}$ rozegrano po 100 partii z graczem losowym i z graczem stosującym minmax. Dodatkowo po każdej grze ,,opróżniany'' jest zbiór $q_{s}$ tak żeby algorytm na razie niczego nie uczył się,   po to, żeby mieć później punkt odniesienia przy sprawdzaniu postępów w uczeniu się gry. W poniżyszych przykładach agent jest zawsze graczem korzystającym z ,,kółka", a system jest reprezentowany przez ,,krzyżyk". \\
+Popatrzmy  teraz na wyniki uczenia. Zaczynając od pustego zbioru $q_{s}$ rozegrano po 100 partii z graczem losowym i z graczem stosującym minmax. Dodatkowo po każdej grze ,,opróżniany'' jest zbiór $q_{s}$ tak żeby algorytm na razie niczego nie uczył się,   po to, żeby mieć później punkt odniesienia przy sprawdzaniu postępów w uczeniu się gry. W poniższych przykładach agent jest zawsze graczem korzystającym z ,,kółka", a system jest reprezentowany przez ,,krzyżyk". \\
 
 W 100 grach rozegranych z graczem losowym otrzymałem wyniki jak na rysunku \ref{Rys14}.\\
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{Qtable_vs_Rnd_untrained.png}
+	\includegraphics [scale=0.8]{Qtable_vs_Rnd_untrained.png}
 	\caption{Wynik 100 gier z graczem losowym(X) przed uczeniem algorytmu}
 	\label{Rys14}
 \end{figure}
@@ -435,15 +418,15 @@ Jak widać agent jest nieznacznie lepszy od systemu, ale praktycznie w granicach
 
 Natomiast 100 gier rozegranych z graczem minimax (zobacz rysunek \ref{Rys15}) dało 10 remisów i 90 przegranych agenta\\
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{QTable_vs_Minimax_untrained.png}
+	\includegraphics [scale=0.8]{QTable_vs_Minimax_untrained.png}
 	\caption{Wynik 100 gier z gracem minimax (X) przed uczeniem algorytmu}
 	\label{Rys15}
 \end{figure}
 
-Po przeuczeniu algorytmu na 20 000 grach z graczem losowym, przy parameterach $\alpha=0,4$ , $\gamma=0,95$ i $\epsilon=0$ zbiór $q_{s}$ ma 775 rekordów (tyle różnych stanów  agent napotkał podczas rozegranych gier), natomiast wyniki dla 100 gier, przedstawione na rysunku \ref{Rys16} teraz wyglądają już znacznie lepiej.\\
+Po przeuczeniu algorytmu na 20 000 grach z graczem losowym, przy parametrach $\alpha=0,4$ , $\gamma=0,95$ i $\epsilon=0$ zbiór $q_{s}$ ma 775 rekordów (tyle różnych stanów  agent napotkał podczas rozegranych gier), natomiast wyniki dla 100 gier, przedstawione na rysunku \ref{Rys16} teraz wyglądają już znacznie lepiej.\\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{Qtable_vs_Rnd_trained.png}
+	\includegraphics [scale=0.8]{Qtable_vs_Rnd_trained.png}
 	\caption{Wynik 100 gier z graczem losowym(X) po przetrenowaniu algorytmu}
 	\label{Rys16}
 \end{figure}
@@ -452,7 +435,7 @@ Po przeuczeniu algorytmu na 20 000 grach z graczem losowym, przy parameterach $\
 Z graczem losowym, wytrenowany agent przegrywa tylko w 3\%, ma 76\% wygranych i 21\% remisów. Grając z tak wytrenowanym agentem można odczuć, że gra całkiem dobrze, ale jeszcze czasami potrafi wykonać poważny błąd. Nie ma natomiast prawie żadnej poprawy jeżeli chodzi o liczbę remisów (bo wygrać się nie da) z systemem grającym strategią minimax, co widać na rysunku \ref{Rys17}. \\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{QTable_vs_Minimax_trained.png}
+	\includegraphics [scale=0.8]{QTable_vs_Minimax_trained.png}
 	\caption{Wynik 100 gier z graczem minimax (O) po przetrenowaniu algorytmu}
 	\label{Rys17}
 \end{figure}
@@ -460,7 +443,7 @@ Z graczem losowym, wytrenowany agent przegrywa tylko w 3\%, ma 76\% wygranych i 
 Nasuwa się oczywiście pytanie, czy przetrenowanie algorytmu na grach z systemem grającym strategią minimax poprawiłoby tą statystykę?. Na rysunku \ref{Rys18} przedstawione zostały wyniki algorytmu po dodatkowych 10 000 grach z systemem grającym strategią minimax.\\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{QTable_vs_Minimax_trained_d.png}
+	\includegraphics [scale=0.8]{QTable_vs_Minimax_trained_d.png}
 	\caption{Wynik 100 gier z graczem minimax (O) po przetrenowaniu algorytmu}
 	\label{Rys18}
 \end{figure}
@@ -468,7 +451,7 @@ Nasuwa się oczywiście pytanie, czy przetrenowanie algorytmu na grach z systeme
 A więc trenowanie algorytmu na systemie grającym strategią minimax odniosło skutki.  Agentowi udało się 100 razy na 100 gier zremisować z graczem grającym według minimax. Warto jeszcze sprawdzić, czy po tym trenowaniu algorytm nie odnotuje gorszych wyników grając z graczem losowym. Wyniki zamieszczono na rysunku \ref{Rys19}.\\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{QTable_vs_Rnd_trained_d.png}
+	\includegraphics [scale=0.8]{QTable_vs_Rnd_trained_d.png}
 	\caption{Wynik 100 gier z graczem losowym(X) po dodatkowym przetrenowaniu algorytmu z graczem minimax}
 	\label{Rys19}
 \end{figure}
@@ -494,7 +477,7 @@ oznaczenie  $b=w_{n+1}$ (wyraz stały)  , oraz zadaną funkcję aktywacji $f:\ma
 \end{figure}
 
 
-Funkcja aktywacji może być w zasadzie dowolna. Ze względu algorytm ,,uczenia" sieci neuronowej, o czym za chwilę, warto stosować funkcje różniczkowalne (ewentualnie różniczkowalne poza kilkoma punktmai) i monotoniczne. Najczęściej stosuje się takie funkcje jak sigmoid, tanges hiporbeloczny, relu, czy softplus.  Poniżej definicja i wykres (rysunek \ref{Rys21}) funkcji sigmoid - najbardziej klasycznego przykładu funkcji aktywacji.
+Funkcja aktywacji może być w zasadzie dowolna. Ze względu algorytm ,,uczenia" sieci neuronowej, o czym za chwilę, warto stosować funkcje różniczkowalne (ewentualnie różniczkowalne poza kilkoma punktami) i monotoniczne. Najczęściej stosuje się takie funkcje jak sigmoid, tanges hiporbeloczny, relu, czy softplus.  Poniżej definicja i wykres (rysunek \ref{Rys21}) funkcji sigmoid - najbardziej klasycznego przykładu funkcji aktywacji.
 
 $$sigmoid(x) = \frac{1}{1-e^{-x}}$$
 \begin{figure}[h!]
@@ -508,7 +491,7 @@ Sieć neuronowa składa się, jak nazwa wskazuje z wielu neuronów, ułożonych 
 
 \begin{figure}[h!]
 	\includegraphics [scale=0.7]{nn_example.png}
-	\caption{Przykład sieci neuronwej wygenerewany w R}
+	\caption{Przykład sieci neuronowej wygenerowany w R}
 	\label{Rys22}
 \end{figure}
 
@@ -521,7 +504,7 @@ $$\mathcal{N}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b}) = (y_{1},...,y_{m})$$
 Argumenty $\mathbf{W}$  i $\mathbf{b}$ można traktować jak parametry funkcji $\mathbf{\mathcal{N}}$. Zasdaniczym celem jest tak zmieniać te parametry, żeby sieć neuronowa $\mathbf{\mathcal{N}}$ przybliżała nam jakąś rzeczywistą, obserwowalną, ale nieznaną funkcję $\Phi$: 
 $$ (x_{1},...,x_{n})\stackrel{\Phi}{\rightarrow}(y_{1},...,y_{m})$$
 
-Poniżej przedstawiony został zarys klasycznej metody uczenia sieci neuronowych (czyli de facto dostrajania wag   $\mathbf{W}$  i $\mathbf{b}$ na podstawie danych) bazujący na pierwszych rozdzaiałach \cite{nn}.\\
+Poniżej przedstawiony został zarys klasycznej metody uczenia sieci neuronowych (czyli de facto dostrajania wag   $\mathbf{W}$  i $\mathbf{b}$ na podstawie danych) bazujący na pierwszych rozdziałach \cite{nn}.\\
 
  
 Po pierwsze, skoro celem jest przybliżanie funkcji $\Phi$ siecią neuronową $\mathbf{\mathcal{N}}$, to potrzebna jest jakaś miara skuteczności takiego przybliżenia.  Załóżmy, że mam k-elementowy zbiór danych (treningowych) $\mathbf{X}$ i dla każdego $x_{1},...,x_{n}\in\mathbf{X}$ obserwujemy $\Phi(x_{1},...,x_{n})$ oraz $\mathbf{\mathcal{N}}(x_{1},...,x_{n}, \mathbf{W}, \mathbf{b})$. Jak w tym przypadku określić skuteczność przybliżania $\Phi$ za pomocą sieci $\mathbf{W}, \mathbf{b}$ na zbiorze $\mathbf{X}$? W literaturze można spotkać wiele metod, ale chyba najbardziej naturalną jest średnio kwadratowa funkcja straty (kosztu) , którą zapisuje się jako funkcję parametrów $\mathbf{W}$ i $\mathbf{b}$.
@@ -561,13 +544,13 @@ Biorąc pod uwagę, że trenowanie algorytmu opisanego w poprzednim rozdziale da
 \begin{enumerate}
 	\item{Inicjuj sieć neuronową, która przyjmuje na wejściu 9 wartości i zwraca na wyjściu 1 wartość -  $q_{s}$}
 	\item{Ustaw parametry $\alpha$ i $\gamma$ z przedziału $[0, 1]$}
-	\item{Graj n razy z systemem w kółko i krzyzyk:}
+	\item{Graj n razy z systemem w kółko i krzyżyk:}
 	\begin{enumerate}
 		\item{Jeżeli jest ruch agenta, a plansza jest w stanie $s-1$:}
 		\begin{enumerate}
 			\item{Dla każdego legalnego ruchu prowadzącego z $s-1$ do $s$  sprawdź zwracaną przez sieć neruonową wartość $q_{s}$}
 			\item{Wybierz ten ruch $\tilde{s}$, dla którego $q_{\tilde{s}} =\max_{s} q_{s}$. Jeżeli jest kilka takich ruchów, to wybierz jeden losowo.}
-			\item{Połóż $q_{s-1} = q_{s} + \alpha(R(\tilde{s}) + \gamma  q_{\tilde{s}} )$, gdzie $R(\tilde{s})$ jest nagrodą po ruchu $\tilde{s}$. }
+			\item{Połóż $q_{s-1} = q_{s-1} + \alpha(R_{\tilde{s}} + \gamma  q_{\tilde{s}} )$, gdzie $R(\tilde{s})$ jest nagrodą po przejściu z $s-1$ do $\tilde{s}$. }
 			\item{Przetrenuj sieć na jednoelementowym zbiorze \{$s-1$, $q_{s-1}$\} }.
 		\end{enumerate}
 	\end{enumerate}
@@ -591,7 +574,7 @@ Pozostaje jeszcze kwestia ustalenia topologii sieci i tego jaka będzie funkcja 
 	\item{0 dla każdego innego stanu gry}
 \end{enumerate}
 
-Ponieważ wygrana, remis, lub przegrana w grze może się zdarzyć tylko raz, to wartość oczekiwana przyszłych nagród, będzie w zakresie  $[-1,1]$ i  stąd dobrze mieć funkcję aktywacji obejmującą ten przedział. Dobrym kandydatem byłaby funkcja $\tanh$, czyli tangens hiberboliczny, którego zbiór wartości to właśnie przedział $[-1,1]$. Problem jednak jest taki, że jeżeli funkcja aktywacji ,,wypłaszcza" się dla dużych argumentów, to jej pochodna jest bliska zeru, co z kolei przekłada się na to, że algorytm propagacji wstecznej (czyli ten, który liczy gradient funkcji kosztu) szacuje pochodne na bliskie zeru i cały algorytm uczenia sieci neuronowej prawie nie aktualizuje wag $\mathbf{W}, \mathbf{b}$. Chcąc uniknąć takiego efektu ,,saturacji", za funkcję aktywacji przyjęto $f(x) = 2\tanh(x)$. Dla porządku, podano ponizej definicję funkcję tangens hiperboliczny i joraz przedstawiono jej wykres na rysunku \ref{Rys24}.
+Ponieważ wygrana, remis, lub przegrana w grze może się zdarzyć tylko raz, to wartość oczekiwana przyszłych nagród, będzie w zakresie  $[-1,1]$ i  stąd dobrze mieć funkcję aktywacji obejmującą ten przedział. Dobrym kandydatem byłaby funkcja $\tanh$, czyli tangens hiperboliczny, którego zbiór wartości to właśnie przedział $[-1,1]$. Problem jednak jest taki, że jeżeli funkcja aktywacji ,,wypłaszcza" się dla dużych argumentów, to jej pochodna jest bliska zeru, co z kolei przekłada się na to, że algorytm propagacji wstecznej (czyli ten, który liczy gradient funkcji kosztu) szacuje pochodne na bliskie zeru i cały algorytm uczenia sieci neuronowej prawie nie aktualizuje wag $\mathbf{W}, \mathbf{b}$. Chcąc uniknąć takiego efektu ,,saturacji", za funkcję aktywacji przyjęto $f(x) = 2\tanh(x)$. Dla porządku, podano poniżej definicję funkcję tangens hiperboliczny oraz przedstawiono jej wykres na rysunku \ref{Rys24}.
 
 \begin{figure}[h!]
 	\includegraphics [scale=0.5]{tanh.png}
@@ -606,7 +589,7 @@ Ponieważ wygrana, remis, lub przegrana w grze może się zdarzyć tylko raz, to
 Niestety takie proste zastąpienie tabeli przechowującej wartości $q_{s}$ przez sieć neuronową, która miałaby w podobny sposób, po każdym ruchu poprawić swoje oszacowanie $q_{s}$ nie zdało egzaminu. Po długotrwałym trenowaniu (20 000 gier z graczem losowym) taka sieć potrafi wygrywać z graczem losowym w około 60\%-70\% przypadków, i w subiektywnym odczuciu gra zdecydowanie gorzej od człowieka.  Poniżej (rysunek \ref{Rys25}) wynik 100 rozegranych gier na przetrenowanej sieci:
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{nn_I_tanh.png}
+	\includegraphics [scale=0.8]{nn_I_tanh.png}
 	\caption{}
 	\label{Rys25}
 \end{figure}
@@ -623,17 +606,17 @@ Eksperymenty z większą liczbą neuronów w warstwie ukrytej, jak również z d
 Poniżej (rysunek \ref{Rys26}) )wynik rozegranych 100 gier z graczem losowym po przetrenowaniu na 20 000 gier.
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7]{nn_I_softplus.png}
+	\includegraphics [scale=0.8]{nn_I_softplus.png}
 	\caption{}
 	\label{Rys26}
 \end{figure}
 
-Jak widać, sieć gra statystycznie nieco lepiej od gracza losowego, czyli algorytm ,,czegoś" się nauczył, ale przy tak prostej grze jak kółko i krzyżyk można by się spodziewać znacznie lepszych rezutlatów. Należy jeszcze dodać, że dla wszystkich wypróbowanych kombinacji sieci, po przetrenowaniu odnotowywano miały procent remisów z graczem minimax na poziomie od 0\% do 5\%.
+Jak widać, sieć gra statystycznie nieco lepiej od gracza losowego, czyli algorytm ,,czegoś" się nauczył, ale przy tak prostej grze jak kółko i krzyżyk można by się spodziewać znacznie lepszych rezultatów. Należy jeszcze dodać, że dla wszystkich wypróbowanych kombinacji sieci, po przetrenowaniu odnotowywano miały procent remisów z graczem minimax na poziomie od 0\% do 5\%.
 
 
 \section{Podejście II - bardziej udane}
 
-Dlaczego sieci z poprzedniej sekcji nie udało się dobrze nauczyć grać w kółko i krzyżyk? Trudno oczywiście o kategoryczną odpowiedzieć na to pytanie, ale można postawić hipotezę, że problem leży w tym, że sieć uczy się po każdym ruchu na jedno-elementowym zbiorze treningowym. Takie rozwiązanie ma zasadniczą wadę. Większość ruchów skutkuje nagrodą równą zero. Dopiero ostatni ruch w grze kończy się inną wartością nagrody. Sieć natomiast modyfikuje wagi po każdym ruchu i używa tych zmodyfikowanych wag do dalszej gry i dalszego uczenia.  To może może powodować, że wielokrotnie modyfikując wagi dla ruchów z zerową nagrodą sieć ,,zapomina" wagi, które pozwalały wygrać. Lepszym podejściem byłoby rozegranie wielu gier (wielu ruchów) i przekazanie sieci do trenowania jednego dużego zbioru danych. W tej częśc takie podejście zostało wypróbowane. Pomysł został zaczerpnięty z pracy magisterskiej złożonej na uniwersytecie technicznym w Monachium \cite{TUM}.\\
+Dlaczego sieci z poprzedniej sekcji nie udało się dobrze nauczyć grać w kółko i krzyżyk? Trudno oczywiście o kategoryczną odpowiedzieć na to pytanie, ale można postawić hipotezę, że problem leży w tym, że sieć uczy się po każdym ruchu na jedno-elementowym zbiorze treningowym. Takie rozwiązanie ma zasadniczą wadę. Większość ruchów skutkuje nagrodą równą zero. Dopiero ostatni ruch w grze kończy się inną wartością nagrody. Sieć natomiast modyfikuje wagi po każdym ruchu i używa tych zmodyfikowanych wag do dalszej gry i dalszego uczenia.  To może może powodować, że wielokrotnie modyfikując wagi dla ruchów z zerową nagrodą sieć ,,zapomina" wagi, które pozwalały wygrać. Lepszym podejściem byłoby rozegranie wielu gier (wielu ruchów) i przekazanie sieci do trenowania jednego dużego zbioru danych. W tej części takie podejście zostało wypróbowane. Pomysł został zaczerpnięty z pracy magisterskiej złożonej na uniwersytecie technicznym w Monachium \cite{TUM}.\\
 
 Dodatkowo, żeby wyeliminować ewentualny problem zbyt małej sieci, zmieniono jej topologię dodając jedną warstwę ukrytą. Ostatecznie sieć ma strukturę typu 9-54-27-1, czyli zwiera dwie warstwy ukryte po 54 i 27 neuronów odpowiednio.  Za funkcję aktywacji przyjęto tangens hiperboliczny, który przyjmuje wartości z przedziału $[-1,1]$. Nagrody, czy odpowiedź systemu, ustalono z uwagą żeby być daleko od ekstremalnych wartości funkcji aktywacji:
 
@@ -647,35 +630,33 @@ Dodatkowo, żeby wyeliminować ewentualny problem zbyt małej sieci, zmieniono j
 Sam proces uczenia sieci wygląda teraz następująco. Ustala się arbitralnie wielkość zbioru do uczenia (w literaturze odpowiednik pojęcia \textit{batch size}) np. na 2500. Następnie rozgrywane jest tyle gier, żeby zebrać 2500 obserwacji. Przy czym jedną obserwacją będzie teraz wektor przechowujący stan planszy po ruchu agenta (gracza odpowiadającego sieci neuronowej), wartość $q_{s}$ czyli zwróconą przez sieć przyszłą oczekiwaną wartość nagród  oraz rzeczywistą nagrodę $R$  jaką system zwrócił po swoim ruchu lub po zakończeniu gry, jeżeli ruch agenta był ostatnim ruchem. Najlepiej zobaczyć jak to wygląda na przykładzie.\\
 
 Pierwsze 9 pozycji odwzorowuje planszę gry. Zero odpowiada pustemu polu, jedynka to pole zajęte przez system (w tym wypadku gracz losowy), a dwójka to pole zajęte przez agenta.
-W poniższym (rysunkek \ref{Rys27}) przykładzie zaczyna agent, stawia krzyżyk (dwójkę) na środkowym polu. Na 10 pozycji  - wartość 0.642  - znajduje się oczekiwana wartość przyszłych nagród zwrócona przez sieć. Następnie jest oczekiwanie na ruch systemu, chyba że to jest ostatni ruch w grze, i dopiero po tym ruchu systemu dopisuje się nagrodę jaką otrzyma agent. W tym wypadku będzie to zero, bo gra jeszcze się nie skończy.
+W poniższym (rysunek \ref{Rys27}) przykładzie zaczyna agent, stawia krzyżyk (dwójkę) na środkowym polu. Na 10 pozycji  - wartość 0.642  - znajduje się oczekiwana wartość przyszłych nagród zwrócona przez sieć. Następnie jest oczekiwanie na ruch systemu, chyba że to jest ostatni ruch w grze, i dopiero po tym ruchu systemu dopisuje się nagrodę jaką otrzyma agent. W tym wypadku będzie to zero, bo gra jeszcze się nie skończy.
 
  
-\begin{figure}[h!]
+\begin{figure}[H]
 	\includegraphics [scale=0.2] {ttt_6.png}
-	\caption{}
+	\caption{Obserwacja po pierwszym ruchu: $[0, 0, 0, 0, 2, 0, 0, 0, 0, 0.642, 0]$}
 	\label{Rys27}
 \end{figure}
-$\text{Obserwacja po pierwszym ruchu:  }[0, 0, 0, 0, 2, 0, 0, 0, 0, 0.642, 0]$\\
 
  Następnie system stawia swoje kółko w na pozycji $2,1$, czyli w pierwszej kolumnie i w drugim wierszu. Ten stan planszy nie zostanie zapisany, bo interesujące są tylko stany po ruchu agenta. Jednak po ruchu systemu sprawdza się jaka jest nagroda agenta i tym samym, dopiero po tym ruchu systemu mamy w pełni uzupełnioną pierwszą obserwację. Kolejny, trzeci ruch w grze, należy do agenta i ten wybiera (sprawdzając jaki ruch będzie skutkował maksymalną oczekiwaną nagroda $q_{s}$) pozycję $1,2$:
  
-\begin{figure}[h!]
-	\includegraphics [scale=0.2] {ttt_5.png}
-	\caption{}
+\begin{figure}[H]
+	\includegraphics [scale=0.2] {ttt_7.png}
+	\caption{Obserwacja po drugim ruchu agenta:  $[0, 2, 0, 1, 2, 0, 0, 0, 0, 0.723, 0]$}
 	\label{Rys28}
 \end{figure} 
-$\text{Obserwacja po drugim ruchu agenta:  }[0, 2, 0, 1, 2, 0, 0, 0, 0, 0.723, 0]$\\
 
 System - gracz losowy - w kolejnym ruchu nie blokuje agenta, tylko stawia kółko na pozycji $3,3$. W odpowiedzi na to, agent wybiera $3,2$ i wygrywa grę, stąd nagroda jest teraz równa $0.8$.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\includegraphics [scale=0.2] {ttt_8.png}
-	\caption{}
+	\caption{Obserwacja po trzecim i ostatnim ruchu agenta ruchu agenta:  $[0, 2, 0, 1, 2, 0, 0, 2, 1, 0.843, 0.8]$}
 	\label{Rys29}
 \end{figure} 
-$\text{Obserwacja po trzecim i ostatnim ruchu agenta ruchu agenta:  }[0, 2, 0, 1, 2, 0, 0, 2, 1, 0.843, 0.8]$\\
 
-Powyższa gra dała w wyniku trzy obserwacje. Podczas jednej \textit{epoki} rozgrywamy tyle gier, żeby otrzymać 2500 obserwacji (albo tyle na ile ustalimy \textit{batch size}). Kolejnym krokiem jest zbudowanie na bazie tych obserwacji zbioru referencyjnego, na podstawie którego będzie odbywało się uczenie sieci. W tym celu zastąpuje się prognozy $q_{s}$ jakie zwracała sieć ,,lepszymi'' wartościami $\tilde{q}_{s}$ wedle następującej reguły.  Ustalony zostaje parametr $\alpha\in(0,1)$ i postępuje się jak następuje:
+
+Powyższa gra dała w wyniku trzy obserwacje. Podczas jednej \textit{epoki} rozgrywamy tyle gier, żeby otrzymać 2500 obserwacji (albo tyle na ile ustalimy \textit{batch size}). Kolejnym krokiem jest zbudowanie na bazie tych obserwacji zbioru referencyjnego, na podstawie którego będzie odbywało się uczenie sieci. W tym celu zastępuje się prognozy $q_{s}$ jakie zwracała sieć ,,lepszymi'' wartościami $\tilde{q}_{s}$ wedle następującej reguły.  Ustalony zostaje parametr $\alpha\in(0,1)$ i postępuje się jak następuje:
 
 
 \begin{enumerate}
@@ -685,12 +666,12 @@ Powyższa gra dała w wyniku trzy obserwacje. Podczas jednej \textit{epoki} rozg
 		\item{$\tilde{q}_{N-i}= (1-\alpha^{i})q_{N-i} + \alpha^{i}q_{N} $}
 	\end{enumerate}
 \end{enumerate}
-W skrajnym przypadku, jeżeli $\alpha=0$, to zmiana $\tilde{q}_{s}=q_{s}$ dla wszytskich stanów $s$, czyli nic się nie zmienia. W drugim skrajnym przypadku, jeżeli $\alpha=1$, to wszystkie $q_{s}$ z danej gry przyjmują wartość końcowej nagrody. Pomiędzy tymi skrajnościami modyfikuje się $q_{s}$ w zależności od końcowego wyniku gry, przy czym stany z początku gry są w mniejszym stopniu modyfikowane, aniżeli te bezpośrednio poprzedzające koniec gry.  \\
+W skrajnym przypadku, jeżeli $\alpha=0$, to zmiana $\tilde{q}_{s}=q_{s}$ dla wszystkich stanów $s$, czyli nic się nie zmienia. W drugim skrajnym przypadku, jeżeli $\alpha=1$, to wszystkie $q_{s}$ z danej gry przyjmują wartość końcowej nagrody. Pomiędzy tymi skrajnościami modyfikuje się $q_{s}$ w zależności od końcowego wyniku gry, przy czym stany z początku gry są w mniejszym stopniu modyfikowane, aniżeli te bezpośrednio poprzedzające koniec gry.  \\
 
 Stosując powyższą regułę do ciągu 2500 obserwacji powstaje zbiór referencyjny, który posłuży do uczenia sieci. Po przetrenowaniu sieci i aktualizacji wag, całą procedurę powtarza się przez z góry ustaloną ilość epok. Poniżej przedstawiane są wyniki jakie udało się uzyskać po 8 epokach, czyli bazując na 20 000 obserwacji.\\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7] {nn2_1.png}
+	\includegraphics [scale=0.8] {nn2_1.png}
 	\caption{Wynik trenowania sieci na 20 000 obserwacji w 8 epokach}
 	\label{Rys30}
 \end{figure} 
@@ -698,7 +679,7 @@ Stosując powyższą regułę do ciągu 2500 obserwacji powstaje zbiór referenc
 Jak widać agentowi na 100 gier udało się wygrać z graczem losowym w 95\% przypadków.  Można uznać, że to jest całkiem niezły wyniki, aczkolwiek w tym wypadku pomogła trochę losowość. Wydaje się, że średni procent wygranych gier plasuje się w okolicach 90\% przypadków. Poniżej (rysunek \ref{Rys31}) przykładowy wynik po 1000 grach. \\
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7] {nn2_2.png}
+	\includegraphics [scale=0.8] {nn2_2.png}
 	\caption{}
 	\label{Rys31}
 \end{figure} 
@@ -706,24 +687,24 @@ Jak widać agentowi na 100 gier udało się wygrać z graczem losowym w 95\% prz
 A więc teraz agent gra dużo lepiej niż gracz losowy i ma lepsze wyniki niż sieć z I podejścia. Patrząc na wyniki gracza stosującego algorytm z 2 rozdziału (wygrane na poziomie 75\% -85\%)   można by przypuszczać, że sieć sobie radzi co najmniej nie gorzej. Nie jest to jednak poprawny wniosek. Algorytm z 2 rozdziału wygrywa rzadziej, ale też znacznie rzadziej przegrywa (w około 2\%) w stosunku do średnio 5\% przegranych w przypadku gracza bazującego na przetrenowanej sieci. Okazuje się, że ta różnica w ilości przegranych gier ma kluczowe znaczenie. Gracz ,,neuronowy'' prawie zawsze  przegrywa z graczem stosującym algorytm Q-learning z drugiego rozdziału. Na rysunku \ref{Rys32} zaprezentowano wyniki dla 100 rozegranych partii pomiędzy dwoma algorytmami:
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7] {nn2_3.png}
-	\caption{Wynik 100 gier rozegranych pomiędzy graczem stosusującym Q-learning (X) i sieć neuronową (O)}
+	\includegraphics [scale=0.8] {nn2_3.png}
+	\caption{Wynik 100 gier rozegranych pomiędzy graczem stosującym Q-learning (X) i sieć neuronową (O)}
 	\label{Rys32}
 \end{figure} 
 
-Warto jeszcze podkreślić, że algorytm z drugiego rozdziału stał się najbardziej efektywny po dodatkowych ,,sparingach'' z graczem  stosującym minimax. W wypadku sieci neuronowej dodatkowe trenowanie na bazie obserwacji uzyskanych podczas gier z graczem stosującym minimax nie przyniosło żadnej poprawy. Algorytm z rozdziału drugiego, przetrenowany dodatkowo na algorytmie minimax, prawie zawsze remisuje z graczem stosującym algorytm minimax, natomiast gracz wykorzystujący sieć neruonową już tylko w okolicach 40\%-50\% przypadków, co ilustruje (rysunek \ref{Rys32}) poniższy wynik rozegranych 100 gier.
+Warto jeszcze podkreślić, że algorytm z drugiego rozdziału stał się najbardziej efektywny po dodatkowych ,,sparingach'' z graczem  stosującym minimax. W wypadku sieci neuronowej dodatkowe trenowanie na bazie obserwacji uzyskanych podczas gier z graczem stosującym minimax nie przyniosło żadnej poprawy. Algorytm z rozdziału drugiego, przetrenowany dodatkowo na algorytmie minimax, prawie zawsze remisuje z graczem stosującym algorytm minimax, natomiast gracz wykorzystujący sieć neuronową już tylko w okolicach 40\%-50\% przypadków, co ilustruje (rysunek \ref{Rys32}) poniższy wynik rozegranych 100 gier.
 
 \begin{figure}[h!]
-	\includegraphics [scale=0.7] {nn2_4.png}
+	\includegraphics [scale=0.8] {nn2_4.png}
 	\caption{Wynik 100 gier rozegranych pomiędzy graczem minimax (X) a graczem stosującym sieć neuronową (O)}
 	\label{Rys33}
 \end{figure} 
 
 Reasumując, sieć nauczyła się skutecznie wygrywać z graczem losowym, ale niekoniecznie dobrze grać w kółko i krzyżyk, stąd pozostaje nieco słodko-gorzki smak po wykorzystaniu sieci neuronowych do gry w kółko i krzyżyk.\\
 
-Na koniec podjęo jeszcze jedną próbę wytrenowania sieci bazując na zasadzie modyfikacji $q_{s}$ jak w I podejściu, ale tym razem nie trenując sieci w locie, po każdym ruchu, ale znowu rozgrywając tyle gier ile potrzeba do uzyskania 2500 obserwacji i trenowanie sieci dopiero na pełnym zbiorze obserwacji. Dokładniej,  $q_{s}$ czyli oczekiwaną wartość przyszłych nagród dla planszy w stanie $s$ po ruchu agenta z $s-1$ do $s$, modyfikowano zgodnie z regułą (zobacz \cite{RL} rozdział 6.5):
+Na koniec podjęto jeszcze jedną próbę wytrenowania sieci bazując na zasadzie modyfikacji $q_{s}$ jak w I podejściu, ale tym razem nie trenując sieci w locie, po każdym ruchu, ale znowu rozgrywając tyle gier ile potrzeba do uzyskania 2500 obserwacji i trenowanie sieci dopiero na pełnym zbiorze obserwacji. Dokładniej,  $q_{s-1}$ czyli oczekiwaną wartość przyszłych nagród dla planszy w stanie $s-1$ po ruchu agenta z $s-1$ do $s$, modyfikowano zgodnie z regułą (zobacz \cite{RL} rozdział 6.5):
 
-$$q_{s} := q_{s} + \alpha(R_{s}+\gamma\max_{s+1}q_{s+1}-q_{s}),$$
+$$q_{s-1} := q_{s-1} + \alpha(R_{s}+\gamma\max_{s}q_{s}-q_{s-1}),$$
 
 gdzie podobnie jak w poprzednich rozdziałach $\alpha$ to parametr sterujący szybkością uczenia się algorytmu (\textit{learning rate}), $\gamma$ to parametr dyskontujący przyszłe nagrody, $R_{s}$ to nagroda po odpowiedzi systemu na ruch agenta z $s-1$ do $s$. Niestety, tak jak w poprzednim podejściu, trenując sieci na 20 000 obserwacji (8 epizodów) udało się uzyskać wyniki rzędu 70\%  wygranych, 20\% przegranych i 10\% remisów z graczem losowym. A więc wyniki porównywalne z tymi uzyskanymi w podejściu I. Nieznaczna poprawa może wynikać z dodatkowej warstwy ukrytej. 
   
@@ -733,11 +714,11 @@ Celem pracy było zaimplementowanie i opisanie kilku wybranych algorytmów graj�
 
 Minimax jest najbardziej klasycznym podejściem w przypadku gier z dwoma graczami o zerowej sumie nagród,  czyli gier, w których maksymalizacja wygranej jednego z graczy jest równoważna z minimalizacją wygranej oponenta.   Mimo, że kółko i krzyżyk składa się maksymalnie z 9 sekwencji ruchów, a więc drzewo gry ma 9 poziomów, to algorytm wydaje się ciężki i gra zajmuje dosyć długo . Grając z komputerem trudno to odczuć, ale ewidentnie do widać podczas trenowania innych algorytmów poprzez grę z graczem grającym minimax. Np. rozegranie na domowym komputerze autora 1000 gier pomiędzy dwoma graczami grającymi losowo zajmuje kilka sekund, a rozegranie 1000 gier pomiędzy graczem grającym losowo z graczem grającym minimax, to już są minuty. Gdyby dodać jeszcze jeden poziom do gry (takie kółko i krzyżyk na planszy 4 razy 4), to oczekiwanie na ruch komputera byłoby nie do zaakceptowania. W takim przypadku trzeba by koniecznie kończyć przeszukiwanie drzewa na jakimś wcześniejszym poziomie, tak jak to robią algorytmy grające w szachy.  Nieznaczną poprawę szybkości działania przyniosło w przycinanie $\alpha-\beta$. W pojedynczej grzez z komputerem nie daje się tego odczuć, ale przy ,,masowym" rozgrywaniu 1000 jest to nieznacznie szybciej. Podobno najlepsze algorytmy grające w szachy przeszukują drzew gry do 12-13 poziomów, więc pewnie poprawiając struktury danych na bardziej optymalne dało by się odciążyć i przyspieszyć tą implementację.\\
 
-Największym pozytywnym zaskoczeniem był algorytm  \textit{Q-learning} bazujący na algorytmie \textit{Off-policy Temporal Difference(0)} opisanym w rozdizale 6.5 w \cite{RL}. Zaczynając z pustą tabelą wartości $q_{s}$ już po 5000 gier mamy tabela wypełnia się około 600-700 stanami z odpowiadającymi im $q_{s}$ i algorytm wygrywa z graczem losowym w ponad 70\% przypadków. Trenowanie algorytmu na 20 000 grach skutkuje graczem na zbliżonym do człowieka. W zakresie implementacji kluczową rzeczą było, żeby nie otwierać i nie zamykać pliku z  tabelą  ze stanami i wartościami $q_{s}$ ponieważ jest to czasochłonne i opóźnia działanie programu. Czy to przy  jednorazowej grze (człowieka z graczem posługującym się algorytmem Q-leaning), czy przy trenowaniu algorytmu podczas wielu grach,  plik jest otwierany na początku, następnie przez całą sesję przetrzymywany w pamięci jest słwonik wartościami $q_{s}$, i na końcu jest zapisywany do pliku.\\ 
+Największym pozytywnym zaskoczeniem był algorytm  \textit{Q-learning} bazujący na algorytmie \textit{Off-policy Temporal Difference(0)} opisanym w rozdziale 6.5 w \cite{RL}. Zaczynając z pustą tabelą wartości $q_{s}$ już po 5000 gier mamy tabela wypełnia się około 600-700 stanami z odpowiadającymi im $q_{s}$ i algorytm wygrywa z graczem losowym w ponad 70\% przypadków. Trenowanie algorytmu na 20 000 grach skutkuje graczem na zbliżonym do człowieka. W zakresie implementacji kluczową rzeczą było, żeby nie otwierać i nie zamykać pliku z  tabelą  ze stanami i wartościami $q_{s}$ ponieważ jest to czasochłonne i opóźnia działanie programu. Czy to przy  jednorazowej grze (człowieka z graczem posługującym się algorytmem Q-leaning), czy przy trenowaniu algorytmu podczas wielu grach,  plik jest otwierany na początku, następnie przez całą sesję przetrzymywany w pamięci jest słownik wartościami $q_{s}$, i na końcu jest zapisywany do pliku.\\ 
 
-Po sukcesach z algorytmem Q-learning, wydawało się, że łatwo uda się wytrenować prostą sieć neuronową, która zamiast posługiwać się danymi tabelarycznymi (zapisywanymi do pliku), skompresuje tą informację w macierzach z wagami sieci. Niestety rzeczywistość nie potwierdziła tych optymistycznych założeń i trenując sieć na różne sposoby nie sposób było oprzeć się wrażeniu dosięgania,,szklanego sufitu", którego nie udało się przebić. Istotnym jest pytania, co jeszcze można by potencjalnie zrobić, żeby nauczyć sieć dobrze grać w kółko i krzyżyk.  Na myśl przychodzi więcej warstw ukrytych oraz bardziej zaawansowane metody  sieciowo-neuronowe  typu wykorzystanie funkcji kosztu znanej jako \textit{cross entropy} z regularyzacją $L_{1}$ lub $L_{2}$, losowe wyłączanie poszczególnych neuronów znane w literaturze jako \textit{dropout}, czy wyszukane metody inicjalizacji wag. Wydaje się jednak, że to idzie w kierunku przysłowiowego strzelania z armaty do muchy. Sieć z jedną warstwą ukrytą z funkcją aktywacji sigmoid wykorzystująca klasyczny algorytm propagacji wstecznej jest w stanie całkiem dobrze (ponad 95\%) rozpoznawać odręcznie pisane cyfry ze znanego zbioru MINST\cite{nn}. Trudno przypuszczać, żeby bądź co bądź banalna, gra w kółko i krzyżyk wymagałaby bardziej zaawansowanych metod. Może to kwestia dobrania odpowiednich hiper parametrów? Chociaż nie podjęto formalnych  prób przeszukiwania przestrzeni hiper parametrów, to raczej wątpliwym wydaje się być, żeby ich dobór mógł zaowocować prawdziwym przełomem.  W internecie można znaleść kilka ciekawych podejść, jednak większość  nie jest satysfakcjonująca. Jednym z takich podejść jest klasyfikowanie ruchów (dobry lub zły) za pomocą algorytmu minimax. Jeżeli gracz grający algorytmem minimax wybrałby ten ruch, to jest to dobry ruch, a w przeciwnym razie uznajemy ruch za zły. Następnie generując $n$ ruchów podczas gry z graczem losowym, możemy łatwo zbudować zbiór do trenowania sieci. Inne osoby z powodzeniem trenowały sieć korzystając z wcześniej ,,wytrenowanej" za pomocą algorytmu Q-learning tabeli z wartściami $q_{s}$.  Takie drogi nie są specjalnie interesujące, jako że ogólnie wiadomo, że sieć można dobrze wytrenować (dopasaować o danych). Znacznie bardziej ciekawym pytaniem jest jak wykorzystać sieć neuronową do nauczenia się  jak grać w kółko i krzyżyk bez wspierania się już istniejącymi algorytmami; bez żadnej a priori wiedzy, poza samymi regułami gry. Stąd mój nacisk na trenowanie tylko i wyłącznie z graczem losowym, co w rezultacie dało całkiem niezłe wyniki przeciwko takiem graczu (ponad 90\%).  Jednak nie przełożyło się na umiejętność grania w potocznym, ludzkim, sensie. \\
+Po sukcesach z algorytmem Q-learning, wydawało się, że łatwo uda się wytrenować prostą sieć neuronową, która zamiast posługiwać się danymi tabelarycznymi (zapisywanymi do pliku), skompresuje tą informację w macierzach z wagami sieci. Niestety rzeczywistość nie potwierdziła tych optymistycznych założeń i trenując sieć na różne sposoby nie sposób było oprzeć się wrażeniu dosięgania,,szklanego sufitu", którego nie udało się przebić. Istotnym jest pytania, co jeszcze można by potencjalnie zrobić, żeby nauczyć sieć dobrze grać w kółko i krzyżyk.  Na myśl przychodzi więcej warstw ukrytych oraz bardziej zaawansowane metody  sieciowo-neuronowe  typu wykorzystanie funkcji kosztu znanej jako \textit{cross entropy} z regularyzacją $L_{1}$ lub $L_{2}$, losowe wyłączanie poszczególnych neuronów znane w literaturze jako \textit{dropout}, czy wyszukane metody inicjalizacji wag. Wydaje się jednak, że to idzie w kierunku przysłowiowego strzelania z armaty do muchy. Sieć z jedną warstwą ukrytą z funkcją aktywacji sigmoid wykorzystująca klasyczny algorytm propagacji wstecznej jest w stanie całkiem dobrze (ponad 95\%) rozpoznawać odręcznie pisane cyfry ze znanego zbioru MINST\cite{nn}. Trudno przypuszczać, żeby bądź co bądź banalna, gra w kółko i krzyżyk wymagałaby bardziej zaawansowanych metod. Może to kwestia dobrania odpowiednich hiper parametrów? Chociaż nie podjęto formalnych  prób przeszukiwania przestrzeni hiper parametrów, to raczej wątpliwym wydaje się być, żeby ich dobór mógł zaowocować prawdziwym przełomem.  W internecie można znaleść kilka ciekawych podejść, jednak większość  nie jest satysfakcjonująca. Jednym z takich podejść jest klasyfikowanie ruchów (dobry lub zły) za pomocą algorytmu minimax. Jeżeli gracz grający algorytmem minimax wybrałby ten ruch, to jest to dobry ruch, a w przeciwnym razie uznajemy ruch za zły. Następnie generując $n$ ruchów podczas gry z graczem losowym, możemy łatwo zbudować zbiór do trenowania sieci. Inne osoby z powodzeniem trenowały sieć korzystając z wcześniej ,,wytrenowanej" za pomocą algorytmu Q-learning tabeli z wartościami $q_{s}$.  Takie drogi nie są specjalnie interesujące, jako że ogólnie wiadomo, że sieć można dobrze wytrenować (dopasować o danych). Znacznie bardziej ciekawym pytaniem jest jak wykorzystać sieć neuronową do nauczenia się  jak grać w kółko i krzyżyk bez wspierania się już istniejącymi algorytmami; bez żadnej a priori wiedzy, poza samymi regułami gry. Stąd mój nacisk na trenowanie tylko i wyłącznie z graczem losowym, co w rezultacie dało całkiem niezłe wyniki przeciwko takiem graczu (ponad 90\%).  Jednak nie przełożyło się na umiejętność grania w potocznym, ludzkim, sensie. \\
 
-Pierwotne plany obejomowały zającie się jeszcze jednym podejściem, a mianowicie algorytmem genetycznym. Zasadę działania takiego algorytmu można łatwo zobrazować. Na początku potrzebny jest relatywnie duży zbiór strategii $\pi_{i}$ indeksowany jakimś parametrem $i$. Następnie, losuje się pary strategii, które grają między sobą w kółko i krzyżyk. Pokonana strategia znika (ginie), a zwycięska może się reprodukować, ale potomstwo $\pi_{\tilde{i}}$ mutuje z pewnym prawdopodobieństwem. W efekcie otrzymujemy nowy zbiór strategii zawierający zwycięską strategię $\pi_{i}$ oraz jej potomstwo $\pi_{\tilde{i}}$.  Sekwencje rywalizacji a następnie reprodukcji z możliwością mutacji powtarzamy wielokrotnie, najlepiej aż do pozostania jednej, ewolucyjnie najlepszej strategii. Jak widać opis wydaje się prosty i zachęcający. Niestety trudności związane z wymyśleniem jak w ogóle charakteryzować strategie gry w kółko i krzyżyk, albo jak zapisać kod DNA danej strategii za pomocą parametrów będących obiektami matematycznymi, przerósł obecne możliwości autora. 
+Pierwotne plany obejmowały zajęcie się jeszcze jednym podejściem, a mianowicie algorytmem genetycznym. Zasadę działania takiego algorytmu można łatwo zobrazować. Na początku potrzebny jest relatywnie duży zbiór strategii $\pi_{i}$ indeksowany jakimś parametrem $i$. Następnie, losuje się pary strategii, które grają między sobą w kółko i krzyżyk. Pokonana strategia znika (ginie), a zwycięska może się reprodukować, ale potomstwo $\pi_{\tilde{i}}$ mutuje z pewnym prawdopodobieństwem. W efekcie otrzymujemy nowy zbiór strategii zawierający zwycięską strategię $\pi_{i}$ oraz jej potomstwo $\pi_{\tilde{i}}$.  Sekwencje rywalizacji a następnie reprodukcji z możliwością mutacji powtarzamy wielokrotnie, najlepiej aż do pozostania jednej, ewolucyjnie najlepszej strategii. Jak widać opis wydaje się prosty i zachęcający. Niestety trudności związane z wymyśleniem jak w ogóle charakteryzować strategie gry w kółko i krzyżyk, albo jak zapisać kod DNA danej strategii za pomocą parametrów będących obiektami matematycznymi, przerósł obecne możliwości autora. 
 
 \appendix
 
@@ -771,12 +752,12 @@ Gdyby była potrzeba dodania kolejnej wersji algorytmu grającego w kółko i kr
 Istnieje wiele modułów pozwalających tworzenie obiektów graficznych w Pythonie. Jako, że gra w kółko i krzyżyk nie jest graficznie wymagająca, to skorzystałem z bodajże najprostszego narzędzia napisanego przez Johna Zelle \cite{Graphics}. Podobno ten moduł został stworzony nie tyle z myślą o poważnych zastosowaniach graficznych, ale z myślą żeby uczyć programowania obiektowego na bazie prostych graficzyncyh obiektów typu punkt, linia, koło itp.  Ogólnodostępny kod źródłowy tego modułu graficznego można znaleźć na stronie \cite{Graphics}.
 
 \section{Tensorflow}
-Pierwotnym zamysłem była implementacja  sieci neuronowej od początku do końca za pomocą podstawowych modułów python'a. I mimo pewnych sukcesów na tym polu, ostatecznie zwyciężył pragmatyzm i sieci neuronowe opisana w rozdziale 3 powstały z wykorzystaniem bibliotek \textit{Tensorflow}. Jest to narzędzie stworzone przez potentata Google, i służy ogólnie do budowania grafów, w których węzłach mają miejsce obliczenia (w tym różnego typu optymalizacje), natomiast krawędzie ilustrują przepływ danych pomiędzy obliczeniami. Praca z tym narzędziem polega na zbudowaniu lub wczytaniu grafu, następnie zapewnienie niezbędnych danych wejściowych, przeprowadzeniu obliczeń po kolei zgodnie ze strukturą grafu i odczytaniu wyniku.  Więcej o o module \textit{Tensorflow} oraz o dostępnym w python'ie API do  \textit{Tensorflow} można się dowiedzieć na oficjalnej stronie \cite{TF}.
+Pierwotnym zamysłem była implementacja  sieci neuronowej od początku do końca za pomocą podstawowych modułów python'a. I mimo pewnych sukcesów na tym polu, ostatecznie zwyciężył pragmatyzm i sieci neuronowe opisana w rozdziale 3 powstały z wykorzystaniem bibliotek \textit{Tensorflow} i dla przejrzystości kodu zostały umieszczone w osobnym pliku neural.py. \textit{Tensorflow} to narzędzie stworzone przez potentata Google, i służy ogólnie do budowania grafów, w których węzłach mają miejsce obliczenia (w tym różnego typu optymalizacje), natomiast krawędzie ilustrują przepływ danych pomiędzy obliczeniami. Praca z tym narzędziem polega na zbudowaniu lub wczytaniu grafu, następnie zapewnienie niezbędnych danych wejściowych, przeprowadzeniu obliczeń po kolei zgodnie ze strukturą grafu i odczytaniu wyniku.  Więcej o o module \textit{Tensorflow} oraz o dostępnym w python'ie API do  \textit{Tensorflow} można się dowiedzieć na oficjalnej stronie \cite{TF}. 
 
 
 \chapter{Dodatek - opis aplikacji}
 
-Niezależnie od statystycznych wyników, jakie poszczególne algorytmy osiągają grając w kółko i krzyżyk, ciekawie jest samemu przekonać sie o 
+Niezależnie od statystycznych wyników, jakie poszczególne algorytmy osiągają grając w kółko i krzyżyk, ciekawie jest samemu przekonać się o 
 skuteczności algorytmu grając z nim ,,osobiście". Taka ciekawość była główną motywacją do przygotowania w ramach niniejszej pracy 
 bardzo prostej aplikacji gry w kółko o krzyżyk, która została opisana w tym dodatku. \\
 
@@ -791,7 +772,7 @@ z 3 rodziału. Dodatkowo w prawym dolnym rogu aplikacja informuje o tym, któreg
 	\label{Rys34}
 \end{figure} 
 
-W celu uruchomienia aplikacji trzeba mieć na komputerze zainstalowanego Pythona 2 oraz zaimportowane biblitoeki \textit{numpy} i \textit{Tensorflow}. Dodatkowo należy w jednym wybranym katalogu umieścić następujące 
+W celu uruchomienia aplikacji trzeba mieć na komputerze zainstalowanego Pythona 2 oraz zaimportowane biblioteki \textit{numpy} i \textit{Tensorflow}. Dodatkowo należy w jednym wybranym katalogu umieścić następujące 
 pliki:
 \begin{enumerate}
 	\item{ttt.py}
@@ -804,7 +785,7 @@ pliki:
 \end{enumerate}
 
 
-Pliki 4 - 7 przechowują parametry wytrenowanych algorytmów Qtable i sieci neuronowej. Jeżeli tych plików zabraknie, to aplikacja będzie działała, ale gracze stosujący Q-Table lub sieć neruronową będą grali tak jak gracz losowy. Samo uruchomienie aplikacji odbywa się przez uruchomienie (otworzenie) pliku ttt.py za pomocą programu Python. Jeżeli dysponujemy rozbudowanym środowiskiem programistycznym (jak np. PyCharm) to można otworzyć otwprzyć plik korzystając ze stosownego okna dialogowego. W przeciwnym razie można posłużyć się wierszem poleceń tak jaj na rysunku \ref{Rys35}. 
+Pliki 4 - 7 przechowują parametry wytrenowanych algorytmów Q-learning i sieci neuronowej. Jeżeli tych plików zabraknie, to aplikacja będzie działała, ale gracze stosujący Q-learning lub sieć neuronową będą grali tak jak gracz losowy. Samo uruchomienie aplikacji odbywa się przez uruchomienie (otworzenie) pliku ttt.py za pomocą programu Python. Jeżeli dysponujemy rozbudowanym środowiskiem programistycznym (jak np. PyCharm) to można otworzyć otworzyć plik korzystając ze stosownego okna dialogowego. W przeciwnym razie można posłużyć się wierszem poleceń tak jaj na rysunku \ref{Rys35}. 
 
 
 \begin{figure}[h!]
@@ -814,7 +795,7 @@ Pliki 4 - 7 przechowują parametry wytrenowanych algorytmów Qtable i sieci neur
 \end{figure} 
 
 
-Moduł ttt.py może również służyć do trenowania algorytmów QTable i sieci neuronowej, ale do tego nie ma GUI i konieczna jest zmiana wybranych parametrów w kodzie. 
+Moduł ttt.py może również służyć do trenowania algorytmów Q-learning i sieci neuronowej, ale do tego nie ma GUI i konieczna jest zmiana wybranych parametrów w kodzie. 
 
 \begin{thebibliography}{99}
 
